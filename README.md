@@ -1,9 +1,9 @@
 # Maximus
 
-Maximus is a JavaScript library for manipulate arrays, string and object as a functional way.
+Maximus is a JavaScript library for manipulate data.
 
 <center>
-    ![Maximus Utilities](banner.jpg)
+   <img src="banner.jpg" alt="Maximus Helmet Banner" />
 </center>
 
 ## Installation
