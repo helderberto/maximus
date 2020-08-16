@@ -1,6 +1,6 @@
 # Maximus
 
-This library makes it easier to manipulate data in JavaScript focusing to obtain results in a quickly way.
+A library that makes it easier to manipulate data in JavaScript results-driven focused.
 
 <center>
    <img src="banner.jpg" alt="Maximus Helmet Banner" />
