@@ -1,10 +1,16 @@
 # Maximus
 
-Maximus is a JavaScript library for manipulate data.
+This library makes it easier to manipulate data in JavaScript focusing to obtain results in a quickly way.
 
 <center>
    <img src="banner.jpg" alt="Maximus Helmet Banner" />
 </center>
+
+## Why Maximus?
+
+I noticed various projects I worked from has a lot of utilities copied and pasted from other old projects and this is the motive I created this package.
+
+The way the package works is to make more easier to deal with data and focus on the results of manipulating it.
 
 ## Installation
 
