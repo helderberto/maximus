@@ -2,6 +2,8 @@
 
 A library that makes it easier to manipulate data in JavaScript results-driven focused.
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+
 <center>
    <img src="banner.jpg" alt="Maximus Helmet Banner" />
 </center>
