@@ -5,5 +5,10 @@
   "main": "index.js",
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "husky": "^4.2.5"
+  }
 }
