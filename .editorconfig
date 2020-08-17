@@ -1,22 +1,12 @@
+# This file is for unifying the coding style for different editors and IDEs
 # editorconfig.org
 
 root = true
 
 [*]
-end_of_line = lf
-insert_final_newline = true
 charset = utf-8
-indent_style = space
-indent_size = 4
-
-[*.js]
-indent_style = space
+end_of_line = lf
 indent_size = 2
-
-[*.json]
 indent_style = space
-indent_size = 2
-
-[*.md]
-# Two trailing spaces => newline in GitHub-flavored markdown
-trim_trailing_whitespace = false
+insert_final_newline = true
+trim_trailing_whitespace = true
