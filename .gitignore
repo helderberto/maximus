@@ -11,5 +11,4 @@ yarn-error.log*
 .npm
 .eslintcache
 /coverage/
-package-lock.json
 dist
