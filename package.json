@@ -2,16 +2,18 @@
   "name": "maximus",
   "version": "0.1.0",
   "description": "A library that makes it easier to manipulate data in JavaScript results-driven focused.",
-  "main": "src/index.js",
+  "main": "dist/maximus.js",
+  "module": "src/index.js",
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
   "license": "MIT",
   "scripts": {
-    "build:watch": "webpack --watch --progress --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack --watch --progress --config webpack.dev.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
