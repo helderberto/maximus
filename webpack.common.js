@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: 'maximus.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'maximus',
+    library: 'mx',
     libraryTarget: 'umd',
   },
   module: {
@@ -19,10 +19,10 @@ module.exports = {
           options: {
             presets: ['@babel/preset-env'],
             plugins: ['@babel/plugin-transform-runtime'],
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   },
   plugins: [new CleanWebpackPlugin()],
 }
