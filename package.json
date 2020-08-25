@@ -12,7 +12,8 @@
     "dev": "webpack --watch --progress --config webpack.dev.js",
     "test": "jest --silent --noStackTrace --runInBand --passWithNoTests",
     "test:verbose": "jest --runInBand",
-    "test:ci": "yarn test --coverage"
+    "test:ci": "yarn test --coverage",
+    "check": "yarn-check -s -u"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -32,11 +33,12 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
-    "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5",
+    "lint-staged": "10.2.13",
+    "prettier": "2.1.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-merge": "^5.1.2"
+    "webpack-merge": "^5.1.2",
+    "yarn-check": "^0.0.3"
   },
   "husky": {
     "hooks": {
