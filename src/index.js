@@ -1,1 +1,5 @@
-console.log('Hello World')
+import * as string from './string'
+
+export default {
+  ...string,
+}
