@@ -2,12 +2,15 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: './src/index',
+  entry: {
+    maximus: './src/index',
+  },
   output: {
-    filename: 'maximus.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
     library: 'mx',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   module: {
     rules: [
