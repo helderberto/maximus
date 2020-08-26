@@ -1,15 +1,16 @@
+import { isString } from './is'
+
 /**
- * This methods capitalize the first letter of a text
- * @method capitalize
- * @param {string} str
- * @return {string}
+ * @description Capitalize first letter of a text.
+ * @param {string} text - The text to be capitalized.
+ * @return {string} The capitalized text.
  * @example
- * const text = capitalize('hElLo')
- * console.log(text); // => 'Hello'
+ * capitalize('hElLo')
+ * returns 'Hello'
  */
-export default function capitalize(str = '') {
-  if (!str) {
-    throw new Error("Can't capitalize an empty string")
+export default function capitalize(text = '') {
+  if (!isString(text)) {
+    throw new TypeError('Invalid parameter type.')
   }
-  return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+  return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
 }
