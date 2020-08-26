@@ -6,7 +6,11 @@ describe('maximus.capitalize', () => {
     expect(capitalize('aNy_TeSt')).toBe('Any_test')
   })
 
-  test('should throws an exception if execute without parameter', () => {
-    expect(() => capitalize()).toThrow()
+  test('should throws an TypeError with null value', () => {
+    expect(() => capitalize(null)).toThrowError(TypeError)
+  })
+
+  test('should throws an TypeError with undefined value', () => {
+    expect(() => capitalize(undefined)).toThrowError(TypeError)
   })
 })
