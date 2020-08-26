@@ -23,7 +23,7 @@
     "test:watch": "yarn test --watch",
     "test:verbose": "jest --runInBand",
     "test:ci": "yarn test --coverage",
-    "prepare": "yarn build",
+    "prepublish": "yarn test:ci && yarn build",
     "check": "yarn-check -s -u"
   },
   "license": "MIT",
@@ -33,6 +33,7 @@
     "@babel/preset-env": "^7.11.0",
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
