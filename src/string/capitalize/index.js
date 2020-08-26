@@ -1,4 +1,4 @@
-import { isString } from './is'
+import { isString } from '../../common/is'
 
 /**
  * Capitalize the first letter of a word
