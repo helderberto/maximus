@@ -17,8 +17,8 @@
   ],
   "files": ["dist/", "LICENSE", "README.md"],
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "dev": "webpack --watch --progress --config webpack.dev.js",
+    "build": "webpack --config config/webpack.prod.js",
+    "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
     "test": "jest --noStackTrace --runInBand",
     "test:watch": "yarn test --watch",
     "test:verbose": "jest --runInBand",
