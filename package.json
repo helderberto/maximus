@@ -24,6 +24,8 @@
     "test:verbose": "jest --runInBand",
     "test:ci": "yarn test --coverage",
     "prepublishOnly": "yarn build",
+    "lint": "eslint \"src/**/*.js\"",
+    "format": "prettier \"src/**/*.+(js|json|yml|yaml|md|mdx)\" --write",
     "check": "yarn-check -s -u"
   },
   "license": "MIT",
