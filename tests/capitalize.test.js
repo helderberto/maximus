@@ -5,4 +5,8 @@ describe('maximus.capitalize', () => {
     expect(capitalize('any_test')).toBe('Any_test')
     expect(capitalize('aNy_TeSt')).toBe('Any_test')
   })
+
+  test('should throws an exception if execute without parameter', () => {
+    expect(() => capitalize()).toThrow()
+  })
 })
