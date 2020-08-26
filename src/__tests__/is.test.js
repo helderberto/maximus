@@ -1,4 +1,4 @@
-import { isString } from '../src/is'
+import { isString } from '../is'
 
 describe('maximus.is', () => {
   test('should ensure the value is a string', () => {
