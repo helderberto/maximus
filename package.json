@@ -23,7 +23,7 @@
     "test:watch": "yarn test --watch",
     "test:verbose": "jest --runInBand",
     "test:ci": "yarn test --coverage",
-    "prepublish": "yarn test:ci && yarn build",
+    "prepublishOnly": "yarn build",
     "check": "yarn-check -s -u"
   },
   "license": "MIT",
