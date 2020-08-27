@@ -10,7 +10,7 @@ import is from '../../common/is'
  * capitalize('hElLo')
  */
 export default function capitalize(text = '') {
-  if (!is.String(text)) {
+  if (!is.string(text)) {
     throw new TypeError('Invalid parameter type.')
   }
   return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
