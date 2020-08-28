@@ -34,9 +34,29 @@ function number(value) {
   return typeof value === 'number' && !isNaN(value)
 }
 
+/**
+ * @description Check if the given parameter is a function.
+ * @param {Function} value - The parameter to be validated as a function.
+ * @returns {Boolean} - Returns true if it's a function.
+ */
+function fn(value) {
+  return typeof value === 'function'
+}
+
+/**
+ * @description Check if the given parameter is a promise.
+ * @param {Promise} value - The parameter to be validated as a promise.
+ * @returns {Boolean} - Returns true if it's a promise.
+ */
+function promise(value) {
+  return !!value && fn(value.then)
+}
+
 export default {
   string,
   array,
   object,
   number,
+  fn,
+  promise,
 }

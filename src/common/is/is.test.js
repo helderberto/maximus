@@ -77,4 +77,45 @@ describe('maximus.is', () => {
       expect(is.number()).toBeFalsy()
     })
   })
+
+  describe('maximus.is.fn', () => {
+    test('should ensure the value is a function', () => {
+      expect(is.fn(jest.fn())).toBeTruthy()
+    })
+
+    test('given an invalid promise', () => {
+      expect(is.fn(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid number', () => {
+      expect(is.promise(null)).toBeFalsy()
+    })
+
+    test('given an invalid number', () => {
+      expect(is.promise('any_test')).toBeFalsy()
+    })
+  })
+
+  describe('maximus.is.promise', () => {
+    test('should ensure the value is a promise', () => {
+      const mockPromise = new Promise((resolve) => resolve()).then()
+      expect(is.promise(mockPromise)).toBeTruthy()
+    })
+
+    test('given an invalid promise', () => {
+      expect(is.promise(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid number', () => {
+      expect(is.promise(null)).toBeFalsy()
+    })
+
+    test('given an invalid promise', () => {
+      expect(is.promise(() => {})).toBeFalsy()
+    })
+
+    test('given an invalid promise', () => {
+      expect(is.promise()).toBeFalsy()
+    })
+  })
 })
