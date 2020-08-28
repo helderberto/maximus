@@ -6,15 +6,19 @@ name: Maximus - Tests/Linter
 on: push
 
 jobs:
-  build:
+  eslint:
+    name: run linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Check linter
-        uses: Adzz/yarn_command_action@v1.0.0
+      - uses: Adzz/yarn_command_action@v1.0.0
         with:
           command: lint
-      - name: Run tests
-        uses: Adzz/yarn_command_action@v1.0.0
+  tests:
+    name: run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Adzz/yarn_command_action@v1.0.0
         with:
           command: test:ci
