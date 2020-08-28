@@ -118,4 +118,26 @@ describe('maximus.is', () => {
       expect(is.promise()).toBeFalsy()
     })
   })
+
+  describe('maximus.is.date', () => {
+    test('should ensure the value is a date', () => {
+      expect(is.date(new Date())).toBeTruthy()
+    })
+
+    test('given an invalid date', () => {
+      expect(is.date(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid date', () => {
+      expect(is.date(null)).toBeFalsy()
+    })
+
+    test('given an invalid date', () => {
+      expect(is.date(() => {})).toBeFalsy()
+    })
+
+    test('given an invalid date', () => {
+      expect(is.date()).toBeFalsy()
+    })
+  })
 })

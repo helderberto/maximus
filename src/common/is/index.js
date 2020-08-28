@@ -52,6 +52,15 @@ function promise(value) {
   return !!value && fn(value.then)
 }
 
+/**
+ * @description Check if the given parameter is a date.
+ * @param {Date} obj - The parameter to be validated as a date.
+ * @returns {Boolean} - Return true if it's a date.
+ */
+function date(obj) {
+  return obj instanceof Date
+}
+
 export default {
   string,
   array,
@@ -59,4 +68,5 @@ export default {
   number,
   fn,
   promise,
+  date,
 }
