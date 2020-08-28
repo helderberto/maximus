@@ -7,8 +7,11 @@ module.exports = {
     jest: true,
   },
   extends: ['standard', 'prettier', 'prettier/standard'],
-  plugins: ['standard'],
+  plugins: ['prettier', 'standard'],
   parserOptions: {
     sourceType: 'module',
+  },
+  rules: {
+    'prettier/prettier': 'error',
   },
 }
