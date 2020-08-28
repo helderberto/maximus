@@ -61,6 +61,15 @@ function date(obj) {
   return obj instanceof Date
 }
 
+/**
+ * @description Check if the given parameter is a boolean.
+ * @param {Boolean} value - The parameter to be validated as a boolean.
+ * @returns {Boolean} - Returns true if it's a boolean.
+ */
+function boolean(value) {
+  return typeof value === 'boolean'
+}
+
 export default {
   string,
   array,
@@ -69,4 +78,5 @@ export default {
   fn,
   promise,
   date,
+  boolean,
 }

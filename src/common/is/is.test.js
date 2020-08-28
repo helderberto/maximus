@@ -140,4 +140,26 @@ describe('maximus.is', () => {
       expect(is.date()).toBeFalsy()
     })
   })
+
+  describe('maximus.is.boolean', () => {
+    test('should ensure the value "true" is a boolean', () => {
+      expect(is.boolean(true)).toBeTruthy()
+    })
+
+    test('should ensure the value "false" is a boolean', () => {
+      expect(is.boolean(false)).toBeTruthy()
+    })
+
+    test('given an invalid boolean', () => {
+      expect(is.boolean(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid boolean', () => {
+      expect(is.boolean(null)).toBeFalsy()
+    })
+
+    test('given an invalid boolean', () => {
+      expect(is.boolean()).toBeFalsy()
+    })
+  })
 })
