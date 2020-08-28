@@ -162,4 +162,22 @@ describe('maximus.is', () => {
       expect(is.boolean()).toBeFalsy()
     })
   })
+
+  describe('maximus.is.defined', () => {
+    test('should ensure the value has been defined', () => {
+      expect(is.defined({})).toBeTruthy()
+    })
+
+    test('given an invalid defined', () => {
+      expect(is.defined(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid defined', () => {
+      expect(is.defined(null)).toBeFalsy()
+    })
+
+    test('given an invalid defined', () => {
+      expect(is.defined()).toBeFalsy()
+    })
+  })
 })

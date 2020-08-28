@@ -70,6 +70,15 @@ function boolean(value) {
   return typeof value === 'boolean'
 }
 
+/**
+ * @description Check if the given parameter has been defined.
+ * @param {Object} obj - The parameter to be validated is has been defined.
+ * @returns {Boolean} - Returns true if isn't `null` or `undefined`.
+ */
+function defined(obj) {
+  return obj !== null && obj !== undefined
+}
+
 export default {
   string,
   array,
@@ -79,4 +88,5 @@ export default {
   promise,
   date,
   boolean,
+  defined,
 }
