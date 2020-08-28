@@ -40,4 +40,22 @@ describe('maximus.is', () => {
       expect(is.array('[]')).toBeFalsy()
     })
   })
+
+  describe('maximus.is.object', () => {
+    test('should ensure the value is an object', () => {
+      expect(is.object({})).toBeTruthy()
+    })
+
+    test('given an invalid object', () => {
+      expect(is.object(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid object', () => {
+      expect(is.object(null)).toBeFalsy()
+    })
+
+    test('given an invalid object', () => {
+      expect(is.object()).toBeFalsy()
+    })
+  })
 })

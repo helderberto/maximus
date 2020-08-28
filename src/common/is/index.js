@@ -16,7 +16,17 @@ function array(arr) {
   return Array.isArray(arr)
 }
 
+/**
+ * @description Check if the given parameter is an object.
+ * @param {Object} obj - The parameter to be validated.
+ * @returns {Boolean} - Returns true if it's an object.
+ */
+function object(obj) {
+  return obj === Object(obj)
+}
+
 export default {
   string,
   array,
+  object,
 }
