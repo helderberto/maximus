@@ -15,7 +15,11 @@
     "toolkit",
     "fp"
   ],
-  "files": ["dist/", "LICENSE", "README.md"],
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
@@ -44,13 +48,14 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "faker": "^5.0.0",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
     "lint-staged": "10.2.13",
-    "prettier": "2.1.0",
+    "prettier": "^2.1.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-merge": "^5.1.2",
