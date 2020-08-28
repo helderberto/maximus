@@ -18,15 +18,25 @@ function array(arr) {
 
 /**
  * @description Check if the given parameter is an object.
- * @param {Object} obj - The parameter to be validated.
+ * @param {Object} obj - The parameter to be validated as an object.
  * @returns {Boolean} - Returns true if it's an object.
  */
 function object(obj) {
   return obj === Object(obj)
 }
 
+/**
+ * @description Check if the given parameter is a number.
+ * @param {Number} value - The parameter to be validated as a number.
+ * @returns {Bollean} - Returns true if it's a number.
+ */
+function number(value) {
+  return typeof value === 'number' && !isNaN(value)
+}
+
 export default {
   string,
   array,
   object,
+  number,
 }

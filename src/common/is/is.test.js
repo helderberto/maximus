@@ -1,9 +1,10 @@
 import is from '../is'
+import faker from 'faker'
 
 describe('maximus.is', () => {
   describe('maximus.is.String', () => {
     test('should ensure the value is a string', () => {
-      expect(is.string('any_test')).toBeTruthy()
+      expect(is.string(faker.internet.userName())).toBeTruthy()
     })
 
     test('should ensure the value null returns false', () => {
@@ -17,7 +18,7 @@ describe('maximus.is', () => {
 
   describe('maximus.is.array', () => {
     test('should ensure the value is an Array', () => {
-      expect(is.array([])).toBeTruthy()
+      expect(is.array(faker.random.arrayElements())).toBeTruthy()
     })
 
     test('given an invalid array', () => {
@@ -56,6 +57,24 @@ describe('maximus.is', () => {
 
     test('given an invalid object', () => {
       expect(is.object()).toBeFalsy()
+    })
+  })
+
+  describe('maximus.is.number', () => {
+    test('should ensure the value is a number', () => {
+      expect(is.number(faker.random.number())).toBeTruthy()
+    })
+
+    test('given an invalid number', () => {
+      expect(is.number(undefined)).toBeFalsy()
+    })
+
+    test('given an invalid number', () => {
+      expect(is.number(null)).toBeFalsy()
+    })
+
+    test('given an invalid number', () => {
+      expect(is.number()).toBeFalsy()
     })
   })
 })
