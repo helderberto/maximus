@@ -1,1 +1,1 @@
-export { default as capitalize } from './capitalize'
+export { capitalize } from './capitalize'
