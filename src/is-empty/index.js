@@ -1,5 +1,10 @@
 import { is } from '../is'
 
+/**
+ * @description Check if the value isn't empty
+ * @param {any} input - The parameter to be cheched if isn't empty.
+ * @returns {Boolean} - Returns true if it isn't empty.
+ */
 export function isEmpty(input) {
   if (!input) {
     return true
