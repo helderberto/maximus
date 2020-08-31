@@ -16,7 +16,7 @@ import is from '../is'
  * //=> 'Hello'
  */
 export default function capitalize(text) {
-  if (!is(text)) {
+  if (!is(String, text)) {
     throw new TypeError('Invalid parameter type.')
   }
   return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
