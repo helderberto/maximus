@@ -1,12 +1,12 @@
-const mx = require('../index')
+import isEmpty from '.'
 
 describe('maximus.isEmpty', () => {
   test('should validate if value is empty', () => {
-    expect(mx.isEmpty(undefined)).toBeTruthy()
-    expect(mx.isEmpty(null)).toBeTruthy()
-    expect(mx.isEmpty('')).toBeTruthy()
-    expect(mx.isEmpty([])).toBeTruthy()
-    expect(mx.isEmpty({})).toBeTruthy()
-    expect(mx.isEmpty(new Date())).toBeFalsy()
+    expect(isEmpty(undefined)).toBeTruthy()
+    expect(isEmpty(null)).toBeTruthy()
+    expect(isEmpty('')).toBeTruthy()
+    expect(isEmpty([])).toBeTruthy()
+    expect(isEmpty({})).toBeTruthy()
+    expect(isEmpty(new Date())).toBeFalsy()
   })
 })
