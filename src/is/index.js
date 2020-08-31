@@ -1,4 +1,13 @@
 /**
+ * @description Check if value isn't nullable
+ * @param {any} value - Value to check if is defined.
+ * @returns {Boolean} - Returns `true` if isn't `null` and `undefined`.
+ */
+export function isDefined(value) {
+  return typeof value !== 'undefined' && value !== null
+}
+
+/**
  * @description Check the value data type
  * @param {Object} targetPrototype - The instanceof object to be checked.
  * @param {any} value - Value to be validated by targetPrototype.
@@ -9,8 +18,11 @@ export function is(targetPrototype, value) {
     return (_value) => is(targetPrototype, _value)
   }
 
+  if (!isDefined(value)) {
+    return false
+  }
+
   return (
-    (value != null && value.constructor === targetPrototype) ||
-    value instanceof targetPrototype
+    value.constructor === targetPrototype || value instanceof targetPrototype
   )
 }
