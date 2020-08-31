@@ -1,9 +1,23 @@
 import is from '../is'
 
 /**
- * @description Check if the value isn't empty
- * @param {any} input - The parameter to be cheched if isn't empty.
- * @returns {Boolean} - Returns true if it isn't empty.
+ * @name isEmpty
+ * @category Common Helpers
+ * @summary Is the given input empty?
+ *
+ * @description
+ * Checks if the given argument is empty.
+ *
+ * @param {*} input - the value to check
+ * @returns {Boolean} the input is empty
+ *
+ * @example
+ * isEmpty('')
+ * //=> true
+ *
+ * @example
+ * isEmpty([0, 1, 2])
+ * //=> false
  */
 export default function isEmpty(input) {
   if (is(Array, input)) {
