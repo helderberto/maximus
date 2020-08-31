@@ -6,5 +6,7 @@ describe('maximus.isEmpty', () => {
     expect(isEmpty(null)).toBeTruthy()
     expect(isEmpty('')).toBeTruthy()
     expect(isEmpty([])).toBeTruthy()
+    expect(isEmpty({})).toBeTruthy()
+    expect(isEmpty(new Date())).toBeFalsy()
   })
 })

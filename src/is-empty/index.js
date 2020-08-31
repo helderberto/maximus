@@ -18,11 +18,6 @@ export function isEmpty(input) {
     return input.length === 0
   }
 
-  if (is(String, input)) {
-    const EMPTY_STRING_REGEXP = /^\s*$/
-    return EMPTY_STRING_REGEXP.test(input)
-  }
-
   if (is(Date, input)) {
     return false
   }
