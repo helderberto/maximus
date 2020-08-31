@@ -1,11 +1,11 @@
-import { is } from '../is'
+import is from '../is'
 
 /**
  * @description Check if the value isn't empty
  * @param {any} input - The parameter to be cheched if isn't empty.
  * @returns {Boolean} - Returns true if it isn't empty.
  */
-export function isEmpty(input) {
+export default function isEmpty(input) {
   if (is(Array, input)) {
     return input.length === 0
   }

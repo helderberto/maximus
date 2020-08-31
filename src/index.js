@@ -1,5 +1,6 @@
 /* istanbul ignore file */
-export * from './is'
-export * from './isEmpty'
-export * from './string'
-export * from './curry'
+export { default as is } from './is'
+export { default as isDefined } from './isDefined'
+export { default as isEmpty } from './isEmpty'
+export { default as capitalize } from './capitalize'
+export { default as curry } from './curry'

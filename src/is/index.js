@@ -1,13 +1,5 @@
-import { curry } from '../index'
-
-/**
- * @description Check if value isn't nullable
- * @param {any} value - Value to check if is defined.
- * @returns {Boolean} - Returns `true` if isn't `null` and `undefined`.
- */
-export function isDefined(value) {
-  return typeof value !== 'undefined' && value !== null
-}
+import curry from '../curry'
+import isDefined from '../isDefined'
 
 /**
  * @description Check the value data type
@@ -15,7 +7,7 @@ export function isDefined(value) {
  * @param {any} value - Value to be validated by targetPrototype.
  * @returns {Boolean} - Returns true if value is the instance of targetPrototype.
  */
-export const is = curry((targetPrototype, value) => {
+export default curry((targetPrototype, value) => {
   if (!isDefined(value)) return false
 
   return (

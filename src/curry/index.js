@@ -4,7 +4,7 @@
  * @param {any} args - Rest of parameters to be passed to function.
  * @returns {Function} - Returns the curried method with arguments.
  */
-export function curry(fn, args = []) {
+export default function curry(fn, args = []) {
   return (..._args) =>
     ((rest) => (rest.length >= fn.length ? fn(...rest) : curry(fn, rest)))([
       ...args,
