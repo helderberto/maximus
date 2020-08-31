@@ -15,7 +15,11 @@
     "toolkit",
     "fp"
   ],
-  "files": ["dist/", "LICENSE", "README.md"],
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
@@ -31,7 +35,6 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.11.4",
-    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
