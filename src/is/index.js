@@ -1,3 +1,5 @@
+import { curry } from '../index'
+
 /**
  * @description Check if value isn't nullable
  * @param {any} value - Value to check if is defined.
@@ -15,12 +17,10 @@ export function isDefined(value) {
  */
 export function is(targetPrototype, value) {
   if (arguments.length === 1) {
-    return (_value) => is(targetPrototype, _value)
+    return curry(is, arguments)
   }
 
-  if (!isDefined(value)) {
-    return false
-  }
+  if (!isDefined(value)) return false
 
   return (
     value.constructor === targetPrototype || value instanceof targetPrototype
