@@ -1,4 +1,4 @@
-import is from '../../common/is'
+import { is } from '../../is'
 
 /**
  * Capitalize the first letter of a word
@@ -9,8 +9,8 @@ import is from '../../common/is'
  * returns 'Hello'
  * capitalize('hElLo')
  */
-export default function capitalize(text = '') {
-  if (!is.string(text)) {
+export function capitalize(text) {
+  if (!is(String, text)) {
     throw new TypeError('Invalid parameter type.')
   }
   return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
