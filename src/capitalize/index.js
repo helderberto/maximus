@@ -1,13 +1,19 @@
 import is from '../is'
 
 /**
- * Capitalize the first letter of a word
- * @param {string} text - The text to be capitalized.
- * @returns {string} Return the capitalized word.
- * @throws {TypeError} Any different type from String throws a TypeError.
+ * @name capitalize
+ * @category String Helpers
+ * @summary Capitalize the first letter of a word.
+ *
+ * @description Capitalize the first letter of a word.
+ *
+ * @param {String} text - the text to capitalize
+ * @returns {String} the capitalized text
+ * @throws {TypeError} 1 argument required
+ *
  * @example
- * returns 'Hello'
  * capitalize('hElLo')
+ * //=> 'Hello'
  */
 export default function capitalize(text) {
   if (!is(text)) {
