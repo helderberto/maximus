@@ -15,16 +15,12 @@
     "toolkit",
     "fp"
   ],
-  "files": [
-    "dist/",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist/", "LICENSE", "README.md"],
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
     "test": "jest --noStackTrace --runInBand",
-    "test:watch": "yarn test --watch",
+    "test:watch": "yarn test --watchAll",
     "test:verbose": "jest --runInBand",
     "test:ci": "yarn test --coverage",
     "prepublishOnly": "yarn build",
