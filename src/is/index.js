@@ -15,14 +15,10 @@ export function isDefined(value) {
  * @param {any} value - Value to be validated by targetPrototype.
  * @returns {Boolean} - Returns true if value is the instance of targetPrototype.
  */
-export function is(targetPrototype, value) {
-  if (arguments.length === 1) {
-    return curry(is, arguments)
-  }
-
+export const is = curry((targetPrototype, value) => {
   if (!isDefined(value)) return false
 
   return (
     value.constructor === targetPrototype || value instanceof targetPrototype
   )
-}
+})
