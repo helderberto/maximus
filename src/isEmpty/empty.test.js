@@ -8,5 +8,6 @@ describe('maximus.isEmpty', () => {
     expect(isEmpty([])).toBeTruthy()
     expect(isEmpty({})).toBeTruthy()
     expect(isEmpty(new Date())).toBeFalsy()
+    expect(' ').toBeTruthy()
   })
 })

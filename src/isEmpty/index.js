@@ -6,14 +6,6 @@ import { is } from '../is'
  * @returns {Boolean} - Returns true if it isn't empty.
  */
 export function isEmpty(input) {
-  if (!input) {
-    return true
-  }
-
-  if (is(Function, input)) {
-    return false
-  }
-
   if (is(Array, input)) {
     return input.length === 0
   }
@@ -26,5 +18,5 @@ export function isEmpty(input) {
     return Object.keys(input).length === 0
   }
 
-  return false
+  return true
 }
