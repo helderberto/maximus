@@ -1,4 +1,4 @@
-import is from '../is'
+import { is } from '../index'
 
 /**
  * @name isEmpty
@@ -19,7 +19,7 @@ import is from '../is'
  * isEmpty([0, 1, 2])
  * //=> false
  */
-export default function isEmpty(input) {
+export function isEmpty(input) {
   if (is(Array, input)) {
     return input.length === 0
   }

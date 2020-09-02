@@ -1,4 +1,4 @@
-import capitalize from '.'
+import { capitalize } from '.'
 
 describe('maximus.capitalize', () => {
   test('should capitalize the first letter of a text', () => {

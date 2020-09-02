@@ -1,4 +1,4 @@
-import curry from '.'
+import { curry } from '.'
 
 describe('maximus.curry', () => {
   test('should validate curried numbers', () => {

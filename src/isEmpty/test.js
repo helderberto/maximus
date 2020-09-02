@@ -1,4 +1,4 @@
-import isEmpty from '.'
+import { isEmpty } from '.'
 
 describe('maximus.isEmpty', () => {
   test('should validate if value is empty', () => {

@@ -1,4 +1,4 @@
-import isDefined from '.'
+import { isDefined } from '.'
 import faker from 'faker'
 
 describe('maximus.isDefined', () => {

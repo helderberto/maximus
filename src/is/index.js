@@ -1,5 +1,4 @@
-import curry from '../curry'
-import isDefined from '../isDefined'
+import { curry, isDefined } from '../index'
 
 /**
  * @name is
@@ -21,12 +20,10 @@ import isDefined from '../isDefined'
  * is(Array, {})
  * //=> false
  */
-const is = curry((targetPrototype, value) => {
+export const is = curry((targetPrototype, value) => {
   if (!isDefined(value)) return false
 
   return (
     value.constructor === targetPrototype || value instanceof targetPrototype
   )
 })
-
-export default is

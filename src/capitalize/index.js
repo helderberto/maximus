@@ -1,4 +1,4 @@
-import is from '../is'
+import { is } from '../index'
 
 /**
  * @name capitalize
@@ -15,7 +15,7 @@ import is from '../is'
  * capitalize('hElLo')
  * //=> 'Hello'
  */
-export default function capitalize(text) {
+export function capitalize(text) {
   if (!is(String, text)) {
     throw new TypeError('Invalid parameter type.')
   }

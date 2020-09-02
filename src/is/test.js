@@ -1,4 +1,4 @@
-import is from '.'
+import { is } from '.'
 import faker from 'faker'
 
 describe('maximus.is', () => {

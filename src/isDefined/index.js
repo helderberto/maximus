@@ -17,6 +17,6 @@
  * isDefined(null)
  * //=> false
  */
-export default function isDefined(value) {
+export function isDefined(value) {
   return typeof value !== 'undefined' && value !== null
 }
