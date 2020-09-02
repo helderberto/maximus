@@ -1,4 +1,4 @@
-import { isEmpty } from './index'
+import { isEmpty } from '.'
 
 describe('maximus.isEmpty', () => {
   test('should validate if value is empty', () => {
@@ -8,6 +8,5 @@ describe('maximus.isEmpty', () => {
     expect(isEmpty([])).toBeTruthy()
     expect(isEmpty({})).toBeTruthy()
     expect(isEmpty(new Date())).toBeFalsy()
-    expect(' ').toBeTruthy()
   })
 })

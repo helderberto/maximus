@@ -1,4 +1,4 @@
-import { is, isDefined } from './index'
+import { is } from '.'
 import faker from 'faker'
 
 describe('maximus.is', () => {
@@ -16,12 +16,5 @@ describe('maximus.is', () => {
     expect(is(Number, null)).toBeFalsy()
     expect(is(undefined)).toBeTruthy()
     expect(is(null)).toBeTruthy()
-  })
-
-  test('should validate if value is defined', () => {
-    expect(isDefined(faker.lorem.word())).toBeTruthy()
-    expect(isDefined(faker.random.number())).toBeTruthy()
-    expect(isDefined(undefined)).toBeFalsy()
-    expect(isDefined(null)).toBeFalsy()
   })
 })

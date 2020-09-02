@@ -2,10 +2,9 @@ import { curry } from '.'
 
 describe('maximus.curry', () => {
   test('should validate curried numbers', () => {
-    const addTwoNumbers = (x, y) => x + y
-    const curriedAddTwoNumbers = curry(addTwoNumbers)
-
-    expect(curriedAddTwoNumbers(10, 5)).toEqual(15)
+    const sum = (a, b, c) => a + b + c
+    const curriedSum = curry(sum)
+    expect(curriedSum(2)(2, 2)).toEqual(6)
   })
 
   test('should test with more arguments', () => {
