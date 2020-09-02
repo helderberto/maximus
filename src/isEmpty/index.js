@@ -32,5 +32,9 @@ export function isEmpty(input) {
     return Object.keys(input).length === 0
   }
 
-  return true
+  if (is(String, input)) {
+    return input === ''
+  }
+
+  return input === undefined || input === null
 }
