@@ -30,7 +30,8 @@
     "prepublishOnly": "yarn build",
     "lint": "eslint \"src/**/*.js\"",
     "format": "prettier \"src/**/*.+(js|json|yml|yaml|md|mdx)\" --write",
-    "check": "yarn-check -s -u"
+    "check": "yarn-check -s -u",
+    "release": "np"
   },
   "license": "MIT",
   "devDependencies": {
@@ -54,6 +55,7 @@
     "husky": "^4.2.5",
     "jest": "^26.4.2",
     "lint-staged": "10.2.13",
+    "np": "^6.5.0",
     "prettier": "^2.1.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
