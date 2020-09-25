@@ -16,13 +16,4 @@
  * curriedSum(1)(2, 3)
  * //=> 6
  */
-export function curry(fn) {
-  return function curried(...args) {
-    if (args.length >= fn.length) {
-      return fn.apply(this, args)
-    }
-    return function (..._args) {
-      return curried.apply(this, args.concat(_args))
-    }
-  }
-}
+export function curry(fn) {}
