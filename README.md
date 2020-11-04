@@ -10,17 +10,17 @@ A library that makes it easier to manipulate data in JavaScript results-driven f
 
 ## Why Maximus?
 
-I noticed various projects I worked from has a lot of utilities copied and pasted from other old projects and this is the motive I created this package.
+I noticed an opportunity in many projects I've already worked that had a lot of utilities by copied and pasted from other old projects.
 
-The way the package works is to make more easier to deal with data and focus on the results of manipulating it.
+So, that's motived me to create this package. The way this package works is to make easier to deal with data and focus on results of manipulating it.
 
 ## Installation
 
->> Under construction
+> > Under construction
 
 ## Usage
 
->> Under construction
+> > Under construction
 
 ## Contributing
 
@@ -30,4 +30,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT License](LICENSE) © Helder Burato Berto
+[MIT License](LICENSE) © Maximus
