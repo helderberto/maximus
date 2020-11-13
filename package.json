@@ -12,14 +12,10 @@
     "functional",
     "utils",
     "utilities",
-    "toolkit",
+    "lightweight",
     "fp"
   ],
-  "files": [
-    "dist/",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist/", "LICENSE", "README.md"],
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
