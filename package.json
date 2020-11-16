@@ -28,7 +28,8 @@
     "format": "prettier \"src/**/*.+(js|json|yml|yaml|md|mdx)\" --write",
     "check": "yarn-check -s -u",
     "release": "np",
-    "docs:serve": "docsify serve ./docs -P 3000"
+    "docs:serve": "docsify serve ./docs -P 3000",
+    "generate-fn-md": "jsdoc2md"
   },
   "license": "MIT",
   "devDependencies": {
@@ -52,6 +53,7 @@
     "faker": "^5.1.0",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
+    "jsdoc-to-markdown": "^6.0.1",
     "lint-staged": "10.5.1",
     "np": "^7.0.0",
     "prettier": "^2.1.2",
