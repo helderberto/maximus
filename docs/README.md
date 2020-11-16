@@ -1,12 +1,14 @@
-# ⚔️ Maximus
+<div align="center">
+  <h1>⚔️ Maximus</h1>
 
-Lightweight functional JavaScript utilities.
+  <p>Lightweight functional JavaScript utilities</p>
+
+  <p><a href="https://helderburato.github.io/maximus/#/?id=install">Install</a> • <a href="https://helderburato.github.io/maximus/#/">Documentation</a> • <a href="https://helderburato.github.io/maximus/#/?id=contribute">Contribute</a></p>
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
-<center>
-   <img src="https://raw.githubusercontent.com/helderburato/maximus/main/banner.jpg" alt="Maximus Helmet Banner" />
-</center>
+  <img src="https://raw.githubusercontent.com/helderburato/maximus/main/banner.jpg" alt="Maximus Banner" />
+</div>
 
 ## Why Maximus?
 
@@ -16,7 +18,7 @@ Some utilities are repeated in the projects we work on and are commonly necessar
 
 Based on this, we aim to focus on small utilities to facilitate the use of functional approach, manipulation of Arrays and Objects.
 
-## Installation
+## Install
 
 > > Under construction
 
@@ -24,7 +26,7 @@ Based on this, we aim to focus on small utilities to facilitate the use of funct
 
 > > Under construction
 
-## Contributing
+## Contribute
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
