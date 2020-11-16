@@ -1,6 +1,6 @@
-# Maximus
+# ⚔️ Maximus
 
-A library that makes it easier to manipulate data in JavaScript results-driven focused.
+Lightweight functional JavaScript utilities.
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
@@ -10,9 +10,11 @@ A library that makes it easier to manipulate data in JavaScript results-driven f
 
 ## Why Maximus?
 
-I noticed an opportunity in many projects I've already worked that had a lot of utilities by copied and pasted from other old projects.
+We noticed that there are several packages that provide functionalities using functional programming, the Maximus objective is not to overlay robust tools like [Ramda](https://ramdajs.com/) and [Lodash](https://lodash.com/), but for cases where you don't need everything that is offered in these great and appreciated packages.
 
-So, that's motived me to create this package. The way this package works is to make easier to deal with data and focus on results of manipulating it.
+Some utilities are repeated in the projects we work on and are commonly necessary to rewrite or copy-paste.
+
+Based on this, we aim to focus on small utilities to facilitate the use of functional approach, manipulation of Arrays and Objects.
 
 ## Installation
 
