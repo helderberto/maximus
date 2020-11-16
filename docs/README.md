@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>⚔️ Maximus</h1>
+  <h1 id="maximus">⚔️ Maximus</h1>
 
   <p>Lightweight functional JavaScript utilities</p>
 
