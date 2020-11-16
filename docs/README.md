@@ -3,7 +3,7 @@
 
   <p>Lightweight functional JavaScript utilities</p>
 
-  <p><a href="https://helderburato.github.io/maximus/#/?id=install">Install</a> • <a href="https://helderburato.github.io/maximus/#/">Documentation</a> • <a href="https://helderburato.github.io/maximus/#/?id=contribute">Contribute</a></p>
+  <p><a href="#?id=install">Install</a> • <a href="https://helderburato.github.io/maximus/#/">Documentation</a> • <a href="#?id=contribute">Contribute</a></p>
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
