@@ -1,20 +1,14 @@
 /**
- * @name curry
- * @category Common Helpers
- * @summary Create curried method.
+ * A function that takes multiple arguments and returns a curried method.
  *
- * @description
- * Create curried method.
- *
+ * @category Function
  * @param {Function} fn - the function to curry
- * @param {Array} args - the rest of arguments
  * @returns {Function} the curried method with arguments
  *
  * @example
  * const sum = (a, b, c) => a + b + c
  * const curriedSum = curry(sum)
- * curriedSum(1)(2, 3)
- * //=> 6
+ * curriedSum(1)(2, 3) //=> 6
  */
 export function curry(fn) {
   return function curried(...args) {
