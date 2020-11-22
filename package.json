@@ -4,18 +4,6 @@
   "description": "A library that makes it easier to manipulate data in JavaScript results-driven focused.",
   "main": "dist/maximus.js",
   "module": "src/index.js",
-  "repository": "git@github.com:helderburato/maximus.git",
-  "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
-  "keywords": [
-    "maximus",
-    "mx",
-    "functional",
-    "utils",
-    "utilities",
-    "lightweight",
-    "fp"
-  ],
-  "files": ["dist/", "LICENSE", "README.md"],
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
@@ -31,7 +19,27 @@
     "docs:serve": "docsify serve ./docs -P 3000",
     "generate-fn-md": "jsdoc2md"
   },
-  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "yarn lint --fix"
+  },
+  "repository": "git@github.com:helderburato/maximus.git",
+  "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
+  "keywords": [
+    "maximus",
+    "mx",
+    "functional",
+    "utils",
+    "utilities",
+    "lightweight",
+    "fp"
+  ],
+  "files": ["dist/", "LICENSE", "README.md"],
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -62,9 +70,5 @@
     "webpack-merge": "^5.4.0",
     "yarn-check": "^0.0.3"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  }
+  "license": "MIT"
 }
