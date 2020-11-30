@@ -1,4 +1,4 @@
-import { composeReducer } from '../../utils'
+import { applyTo } from '../apply-to'
 
 /**
  *
@@ -9,14 +9,14 @@ import { composeReducer } from '../../utils'
  * @returns {Function} the composed function
  *
  * @example
- * const add1 = x => 1
- * const multiply2 = x => x * 2
- * const incrementAndDouble = compose(add1, multiply2)
+ * const increment = x => 1
+ * const double = x => x * 2
+ * const incrementAndDouble = pipe(increment, double)
  * incrementAndDouble(1) //=> 4
  */
 
 export function pipe(...functions) {
   return function reduceFunctions(value) {
-    return functions.reduce(composeReducer, value)
+    return functions.reduce(applyTo, value)
   }
 }
