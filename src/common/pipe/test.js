@@ -1,12 +1,21 @@
 import { pipe } from '.'
 
 describe('pipe', () => {
-  it('should validate pipe ', () => {
-    const add1 = jest.fn((x) => x + 1)
-    const multiply2 = jest.fn((x) => x * 2)
-    const result = pipe(add1, multiply2)(1)
+  const increment = jest.fn((x) => x + 1)
+  const double = jest.fn((x) => x * 2)
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('should validate pipe result', () => {
+    const result = pipe(increment, double)(1)
     expect(result).toEqual(4)
-    expect(add1).toBeCalled()
-    expect(multiply2).toBeCalled()
+  })
+
+  it('should validate each function is called once', () => {
+    pipe(increment, double)(1)
+    expect(increment).toHaveBeenCalledTimes(1)
+    expect(double).toHaveBeenCalledTimes(1)
   })
 })
