@@ -8,9 +8,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    library: 'mx',
+    library: 'MX',
     libraryTarget: 'umd',
-    globalObject: 'this',
   },
   module: {
     rules: [
