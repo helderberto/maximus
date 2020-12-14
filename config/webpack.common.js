@@ -10,6 +10,7 @@ module.exports = {
     filename: '[name].js',
     library: 'MXS',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   module: {
     rules: [
