@@ -20,11 +20,38 @@ Based on this, we aim to focus on small utilities to facilitate the use of funct
 
 ## Install
 
-> > Under construction
+Using NPM or Yarn:
+
+```sh
+$ npm i --save maximus OR yarn add maximus
+```
+
+In Node.js:
+
+```javascript
+const MX = require('maximus')
+```
+
+Directly in the browser:
+
+```html
+<script src="path/to/yarn/maximus.js"></script>
+```
 
 ## Usage
 
-> > Under construction
+```javascript
+import * as MX from 'maximus'
+
+const { compose } = MX
+
+const result = MX.compose(
+  (withMiddleName) => `${withMiddleName} Meridius`,
+  (name) => `${name} Décimus`
+)('Maximus')
+
+console.log(result) // => 'Maximus Décimus Meridius'
+```
 
 ## Contribute
 
