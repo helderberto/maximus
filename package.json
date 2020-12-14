@@ -1,7 +1,7 @@
 {
   "name": "mxs",
   "version": "0.1.0",
-  "description": "A library that makes it easier to manipulate data in JavaScript results-driven focused.",
+  "description": "⚔️ Lightweight functional JavaScript utilities",
   "main": "dist/mxs.js",
   "module": "src/index.js",
   "scripts": {
