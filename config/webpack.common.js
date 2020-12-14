@@ -3,12 +3,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
-    maximus: './src/index',
+    mxs: './src/index',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '..', 'dist'),
     filename: '[name].js',
-    library: 'MX',
+    library: 'MXS',
     libraryTarget: 'umd',
   },
   module: {

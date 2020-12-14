@@ -3,6 +3,8 @@
 
   <p>Lightweight functional JavaScript utilities</p>
 
+  <p>The acronym "MXS" is used in this project to refer to the package name "Maximus"</p>
+
   <p><a href="#install">Install</a> • <a href="https://helderburato.github.io/maximus/#/">Documentation</a> • <a href="#contribute">Contribute</a></p>
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
@@ -23,29 +25,27 @@ Based on this, we aim to focus on small utilities to facilitate the use of funct
 Using NPM or Yarn:
 
 ```sh
-$ npm i --save maximus OR yarn add maximus
+$ npm i --save mxs OR yarn add mxs
 ```
 
 In Node.js:
 
 ```javascript
-const MX = require('maximus')
+const MXS = require('mxs)
 ```
 
 Directly in the browser:
 
 ```html
-<script src="path/to/yarn/maximus.js"></script>
+<script src="path/to/your/mxs.js"></script>
 ```
 
 ## Usage
 
 ```javascript
-import * as MX from 'maximus'
+import * as MXS from 'mxs'
 
-const { compose } = MX
-
-const result = MX.compose(
+const result = MXS.compose(
   (withMiddleName) => `${withMiddleName} Meridius`,
   (name) => `${name} Décimus`
 )('Maximus')
