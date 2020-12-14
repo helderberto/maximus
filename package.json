@@ -1,8 +1,8 @@
 {
-  "name": "maximus",
+  "name": "mxs",
   "version": "0.1.0",
   "description": "A library that makes it easier to manipulate data in JavaScript results-driven focused.",
-  "main": "dist/maximus.js",
+  "main": "dist/mxs.js",
   "module": "src/index.js",
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
@@ -22,10 +22,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*": [
-      "yarn lint --fix",
-      "yarn test --findRelatedTests --bail"
-    ]
+    "src/**/*": ["yarn lint --fix", "yarn test --findRelatedTests --bail"]
   },
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
@@ -38,11 +35,7 @@
     "lightweight",
     "fp"
   ],
-  "files": [
-    "dist/",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist/", "LICENSE", "README.md"],
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.10",
@@ -66,7 +59,6 @@
     "jest": "^26.6.3",
     "jsdoc-to-markdown": "^6.0.1",
     "lint-staged": "10.5.3",
-    "np": "^7.0.0",
     "prettier": "^2.2.1",
     "webpack": "^5.10.1",
     "webpack-cli": "^4.2.0",
