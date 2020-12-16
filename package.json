@@ -22,7 +22,10 @@
     }
   },
   "lint-staged": {
-    "src/**/*": ["yarn lint --fix", "yarn test --findRelatedTests --bail"]
+    "src/**/*": [
+      "yarn lint --fix",
+      "yarn test --findRelatedTests --bail"
+    ]
   },
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
@@ -35,10 +38,14 @@
     "lightweight",
     "fp"
   ],
-  "files": ["dist/", "LICENSE", "README.md"],
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "babel-eslint": "^10.1.0",
@@ -60,9 +67,9 @@
     "jsdoc-to-markdown": "^6.0.1",
     "lint-staged": "10.5.3",
     "prettier": "^2.2.1",
-    "webpack": "^5.10.1",
+    "webpack": "^5.10.3",
     "webpack-cli": "^4.2.0",
-    "webpack-merge": "^5.7.0"
+    "webpack-merge": "^5.7.2"
   },
   "license": "MIT"
 }
