@@ -1,4 +1,4 @@
-import { applyTo } from '../apply-to'
+import applyTo from './applyTo'
 
 /**
  *
@@ -14,8 +14,7 @@ import { applyTo } from '../apply-to'
  * const incrementAndDouble = pipe(increment, double)
  * incrementAndDouble(1) //=> 4
  */
-
-export function pipe(...functions) {
+export default function pipe(...functions) {
   return function reduceFunctions(value) {
     return functions.reduce(applyTo, value)
   }
