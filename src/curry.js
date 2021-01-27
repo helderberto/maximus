@@ -10,7 +10,7 @@
  * const curriedSum = curry(sum)
  * curriedSum(1)(2, 3) //=> 6
  */
-export function curry(fn) {
+export default function curry(fn) {
   return function curried(...args) {
     if (args.length >= fn.length) {
       return fn.apply(this, args)

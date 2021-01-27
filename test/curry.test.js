@@ -1,4 +1,4 @@
-import { curry } from '.'
+import { curry } from '../src'
 
 describe('curry', () => {
   it('should validate curried numbers', () => {

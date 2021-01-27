@@ -1,6 +1,6 @@
-import { compose } from '.'
+import { pipe } from '../src'
 
-describe('compose', () => {
+describe('pipe', () => {
   const increment = jest.fn((x) => x + 1)
   const double = jest.fn((x) => x * 2)
 
@@ -9,12 +9,12 @@ describe('compose', () => {
   })
 
   it('should validate pipe result', () => {
-    const result = compose(increment, double)(1)
-    expect(result).toEqual(3)
+    const result = pipe(increment, double)(1)
+    expect(result).toEqual(4)
   })
 
   it('should validate each function is called once', () => {
-    compose(increment, double)(1)
+    pipe(increment, double)(1)
     expect(increment).toHaveBeenCalledTimes(1)
     expect(double).toHaveBeenCalledTimes(1)
   })

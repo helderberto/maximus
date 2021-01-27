@@ -11,7 +11,7 @@
  * isEmpty([]) //=> true
  * isEmpty() //=> true
  */
-export const isEmpty = (value) => {
+export default function isEmpty(value) {
   return (
     value === null ||
     value === '' ||

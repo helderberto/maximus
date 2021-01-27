@@ -1,4 +1,4 @@
-import { curry } from '../curry'
+import curry from './curry'
 
 /**
  *
@@ -14,6 +14,8 @@ import { curry } from '../curry'
  * applyTo(1, increment) // => 2
  */
 
-export const applyTo = curry(function applyTo(value, fn) {
+const applyTo = curry(function applyTo(value, fn) {
   return fn(value)
 })
+
+export default applyTo

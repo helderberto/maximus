@@ -1,4 +1,4 @@
-import { isEmpty } from '.'
+import { isEmpty } from '../src'
 
 describe('isEmpty', () => {
   it('should check if value is an empty string', () => {

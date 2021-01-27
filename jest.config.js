@@ -1,7 +1,7 @@
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>'],
   testEnvironment: 'node',
-  collectCoverageFrom: ['<rootDir>/src/**/*.js'],
+  collectCoverageFrom: ['<rootDir>/**/*.js'],
   coverageDirectory: 'coverage',
   testPathIgnorePatterns: ['/node_modules/', 'dist'],
 }

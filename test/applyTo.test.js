@@ -1,4 +1,4 @@
-import { applyTo } from '.'
+import { applyTo } from '../src'
 
 describe('applyTo', () => {
   it('should validate applying simple function', () => {

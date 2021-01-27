@@ -1,4 +1,4 @@
-import { applyTo } from '../apply-to'
+import applyTo from './applyTo'
 
 /**
  *
@@ -15,7 +15,7 @@ import { applyTo } from '../apply-to'
  * doubleAndIncrement(1) //=> 3
  */
 
-export function compose(...functions) {
+export default function compose(...functions) {
   return function reduceFunctions(value) {
     return functions.reduceRight(applyTo, value)
   }
