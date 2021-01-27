@@ -5,9 +5,11 @@
   - [Usage](/#usage)
   - [Contribute](/#contribute)
 
-- Methods
+- Function
+
   - [applyTo](applyTo.md)
-  - [compose](compose.md)
   - [curry](curry.md)
-  - [pipe](pipe.md)
+  - [compose](compose.md)
   - [isEmpty](isEmpty.md)
+  - [uniq](uniq.md)
+  - [pipe](pipe.md)
