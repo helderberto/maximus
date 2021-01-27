@@ -5,9 +5,9 @@
   - [Usage](/#usage)
   - [Contribute](/#contribute)
 
-- Common
-  - [applyTo](common/apply-to.md)
-  - [compose](common/compose.md)
-  - [curry](common/curry.md)
-  - [pipe](common/pipe.md)
-  - [isEmpty](common/is-empty.md)
+- Methods
+  - [applyTo](applyTo.md)
+  - [compose](compose.md)
+  - [curry](curry.md)
+  - [pipe](pipe.md)
+  - [isEmpty](isEmpty.md)
