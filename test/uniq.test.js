@@ -105,6 +105,7 @@ describe('uniq', () => {
     ]
     expect(uniqById(array)).toEqual(expected)
   })
+
   it('should remove duplicated array items and return a new array', () => {
     const array = [
       'name1',

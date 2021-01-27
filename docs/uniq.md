@@ -22,7 +22,12 @@ const newArr = uniq(arr) // [1,2,3,4,5]
 ```
 Case with array of objects
 ```js
-const arr = [{id:1,name:'maximus'},{id:2,name:'paul'},{id:1,name:'john'},{id:3,name:'anne'}]
+const arr = [
+  {id:1,name:'paul'},
+  {id:2,name:'paul'},
+  {id:1,name:'maximus'},
+  {id:3,name:'anne'}
+]
 const uniqById = uniq('id')
 const newArray = uniqById(arr)//[{id:1,name:'maximus'},{id:2,name:'paul'}{id:3,name:'anne'}]
 ```
