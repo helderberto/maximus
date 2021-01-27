@@ -1,6 +1,6 @@
 {
   "name": "mxs",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "⚔️ Lightweight functional JavaScript utilities",
   "main": "dist/mxs.js",
   "module": "src/index.js",
@@ -22,10 +22,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*": [
-      "yarn lint --fix",
-      "yarn test --findRelatedTests --bail"
-    ]
+    "src/**/*": ["yarn lint --fix", "yarn test --findRelatedTests --bail"]
   },
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
@@ -38,11 +35,7 @@
     "lightweight",
     "fp"
   ],
-  "files": [
-    "dist/",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist/", "LICENSE", "README.md"],
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
