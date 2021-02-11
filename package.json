@@ -18,7 +18,10 @@
     "generate-fn-md": "jsdoc2md"
   },
   "lint-staged": {
-    "src/**/*": ["yarn format", "yarn lint:fix"]
+    "src/**/*": [
+      "yarn format",
+      "yarn lint:fix"
+    ]
   },
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
@@ -31,7 +34,11 @@
     "lightweight",
     "fp"
   ],
-  "files": ["dist/", "LICENSE", "README.md"],
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
@@ -48,9 +55,9 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-standard": "^5.0.0",
-    "faker": "^5.3.1",
+    "faker": "^5.4.0",
     "husky": "^5.0.9",
     "jest": "^26.6.3",
     "jsdoc-to-markdown": "^6.0.1",
