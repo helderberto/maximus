@@ -18,8 +18,13 @@
     "generate-fn-md": "jsdoc2md"
   },
   "lint-staged": {
-    "*.js,json,md}": ["prettier --write ."],
-    "src/**/*.js": ["eslint --fix", "jest --bail --findRelatedTests"]
+    "*.{js,json,md}": [
+      "prettier --write ."
+    ],
+    "src/**/*.js": [
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
+    ]
   },
   "repository": "git@github.com:helderburato/maximus.git",
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
@@ -32,7 +37,11 @@
     "lightweight",
     "fp"
   ],
-  "files": ["dist/", "LICENSE", "README.md"],
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.12.16",
