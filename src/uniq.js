@@ -13,12 +13,5 @@ export default function uniq(key) {
     return [...new Set(key)];
   }
   return (arr) =>
-    Array.from(
-      arr
-        .reduce(
-          (acc, item) => item && item[key] && acc.set(item[key], item),
-          new Map(),
-        )
-        .values(),
-    );
+    Array.from(arr.reduce((acc, item) => item && item[key] && acc.set(item[key], item), new Map()).values());
 }

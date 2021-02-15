@@ -121,16 +121,7 @@ describe('uniq', () => {
       'name7',
       'name8',
     ];
-    const expected = [
-      'name1',
-      'name2',
-      'name3',
-      'name4',
-      'name5',
-      'name6',
-      'name8',
-      'name7',
-    ];
+    const expected = ['name1', 'name2', 'name3', 'name4', 'name5', 'name6', 'name8', 'name7'];
     expect(uniq(array)).toEqual(expected);
   });
 });
