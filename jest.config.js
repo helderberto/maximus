@@ -4,4 +4,4 @@ module.exports = {
   collectCoverageFrom: ['<rootDir>/**/*.js'],
   coverageDirectory: 'coverage',
   testPathIgnorePatterns: ['/node_modules/', 'dist'],
-}
+};

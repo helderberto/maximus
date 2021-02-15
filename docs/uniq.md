@@ -8,26 +8,29 @@ Uniq can take an array as first argument and will remove the duplicated items an
 **Returns**: <code>Array</code> - new arry without duplications\
 **Category**: Function
 
-| Param        | Type                  | Description                     |
-| ------------ | --------------------- | ------------------------------- |
-| key          | <code>string</code>   | key to match duplicated objects |
-| arr          | <code>array</code>    | the array with duplicated items |
+| Param | Type                | Description                     |
+| ----- | ------------------- | ------------------------------- |
+| key   | <code>string</code> | key to match duplicated objects |
+| arr   | <code>array</code>  | the array with duplicated items |
 
 **Example**
 
 Simple array case
+
 ```js
-const arr = [1,2,1,3,4,1,5]
-const newArr = uniq(arr) // [1,2,3,4,5]
+const arr = [1, 2, 1, 3, 4, 1, 5];
+const newArr = uniq(arr); // [1,2,3,4,5]
 ```
+
 Case with array of objects
+
 ```js
 const arr = [
-  {id:1,name:'paul'},
-  {id:2,name:'paul'},
-  {id:1,name:'maximus'},
-  {id:3,name:'anne'}
-]
-const uniqById = uniq('id')
-const newArray = uniqById(arr)//[{id:1,name:'maximus'},{id:2,name:'paul'}{id:3,name:'anne'}]
+  { id: 1, name: 'paul' },
+  { id: 2, name: 'paul' },
+  { id: 1, name: 'maximus' },
+  { id: 3, name: 'anne' },
+];
+const uniqById = uniq('id');
+const newArray = uniqById(arr); //[{id:1,name:'maximus'},{id:2,name:'paul'}{id:3,name:'anne'}]
 ```

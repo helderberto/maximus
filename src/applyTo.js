@@ -1,4 +1,4 @@
-import curry from './curry'
+import curry from './curry';
 
 /**
  *
@@ -15,7 +15,7 @@ import curry from './curry'
  */
 
 const applyTo = curry(function applyTo(value, fn) {
-  return fn(value)
-})
+  return fn(value);
+});
 
-export default applyTo
+export default applyTo;

@@ -13,10 +13,10 @@
 export default function curry(fn) {
   return function curried(...args) {
     if (args.length >= fn.length) {
-      return fn.apply(this, args)
+      return fn.apply(this, args);
     }
     return function (..._args) {
-      return curried.apply(this, args.concat(_args))
-    }
-  }
+      return curried.apply(this, args.concat(_args));
+    };
+  };
 }

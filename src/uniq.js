@@ -10,15 +10,15 @@
 
 export default function uniq(key) {
   if (Array.isArray(key)) {
-    return [...new Set(key)]
+    return [...new Set(key)];
   }
   return (arr) =>
     Array.from(
       arr
         .reduce(
           (acc, item) => item && item[key] && acc.set(item[key], item),
-          new Map()
+          new Map(),
         )
-        .values()
-    )
+        .values(),
+    );
 }
