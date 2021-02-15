@@ -18,9 +18,14 @@
     "generate-fn-md": "jsdoc2md"
   },
   "lint-staged": {
-    "src/**/*": [
-      "yarn format",
-      "yarn lint:fix"
+    "*.{js,json}": [
+      "prettier --write .",
+      "git add"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "git add",
+      "jest --bail --findRelatedTests"
     ]
   },
   "repository": "git@github.com:helderburato/maximus.git",
