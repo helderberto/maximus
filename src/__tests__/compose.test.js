@@ -1,4 +1,4 @@
-import { compose } from '../src';
+import { compose } from '..';
 
 describe('compose', () => {
   const increment = jest.fn((x) => x + 1);

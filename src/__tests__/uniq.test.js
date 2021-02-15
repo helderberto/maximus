@@ -1,4 +1,4 @@
-import { uniq } from '../src';
+import { uniq } from '..';
 
 describe('uniq', () => {
   it('should remove duplicated obejct items from the array and return a new array', () => {

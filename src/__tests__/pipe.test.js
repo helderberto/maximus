@@ -1,4 +1,4 @@
-import { pipe } from '../src';
+import { pipe } from '..';
 
 describe('pipe', () => {
   const increment = jest.fn((x) => x + 1);
