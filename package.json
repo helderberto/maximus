@@ -18,7 +18,7 @@
     "generate-fn-md": "jsdoc2md"
   },
   "lint-staged": {
-    "src/**/*.{js,json}": ["prettier --write"],
+    "*.js,json,md}": ["prettier --write ."],
     "src/**/*.js": ["eslint --fix", "jest --bail --findRelatedTests"]
   },
   "repository": "git@github.com:helderburato/maximus.git",
