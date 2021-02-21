@@ -21,9 +21,9 @@
     "src/**/*.{js,json,md}": [
       "prettier --write ."
     ],
-    "src/**/*.js": [
-      "eslint --fix",
-      "jest --bail --findRelatedTests"
+    "src/**/*": [
+      "yarn lint --fix",
+      "yarn test --findRelatedTests --bail"
     ]
   },
   "repository": "git@github.com:helderburato/maximus.git",
