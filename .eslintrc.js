@@ -6,7 +6,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ['standard', 'prettier', 'prettier/standard'],
+  extends: ['standard', 'prettier'],
   plugins: ['prettier', 'standard'],
   parserOptions: {
     sourceType: 'module',
