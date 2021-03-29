@@ -7,7 +7,23 @@
 
   <p><a href="#install">Install</a> • <a href="https://helderburato.github.io/maximus/#/">Documentation</a> • <a href="#contribute">Contribute</a></p>
 
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+  <div style="display: flex; margin-bottom: 20px; justify-content: center;">
+    <a style="margin: 0 2px;" href="https://github.com/helderburato/maximus/actions/workflows/ci.yml">
+      <img src="https://github.com/helderburato/maximus/actions/workflows/ci.yml/badge.svg" alt="ci badge">
+    </a>
+    <a style="margin: 0 2px;" href="https://npmjs.com/package/mxs">
+      <img src="https://img.shields.io/npm/v/mxs.svg" alt="version badge">
+    </a>
+    <a style="margin: 0 2px;" href="http://www.npmtrends.com/mxs">
+      <img src="https://img.shields.io/npm/dm/mxs.svg" alt="downloads package badge">
+    </a>
+    <a style="margin: 0 2px;" href="https://github.com/helderburato/maximus/blob/main/LICENSE">
+      <img src="https://img.shields.io/npm/l/maximus.svg" alt="maximus license">
+    </a>
+    <a style="margin: 0 2px;" href="http://standardjs.com">
+      <img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style">
+    </a>
+  </div>
 
   <img src="https://raw.githubusercontent.com/helderburato/maximus/main/banner.jpg" alt="Maximus Banner" />
 </div>
