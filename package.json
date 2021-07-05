@@ -52,7 +52,7 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "docsify-cli": "^4.4.2",
-    "eslint": "^7.21.0",
+    "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
