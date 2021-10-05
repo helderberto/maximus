@@ -11,11 +11,12 @@
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
     "test": "jest",
-    "test:watch": "yarn test --watch",
+    "test:watch": "yarn test --watch --maxWorkers=50%",
     "test:ci": "yarn test --coverage",
     "postpublish": "yarn build",
     "docs:serve": "docsify serve ./docs -P 3000",
-    "generate-fn-md": "jsdoc2md"
+    "generate-fn-md": "jsdoc2md",
+    "validate": "yarn lint && yarn test"
   },
   "lint-staged": {
     "src/**/*.{js,json,md}": [
