@@ -15,8 +15,8 @@ Pipe takes HOCs and returns a function that combines them, from the left to the 
 **Example**
 
 ```js
-const increment = (x) => 1;
-const double = (x) => x * 2;
-const incrementAndDouble = pipe(increment, double);
-incrementAndDouble(1); //=> 4
+const increment = (x) => 1
+const double = (x) => x * 2
+const incrementAndDouble = pipe(increment, double)
+incrementAndDouble(1) //=> 4
 ```

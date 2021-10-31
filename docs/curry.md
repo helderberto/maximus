@@ -13,7 +13,7 @@ A function that takes multiple arguments and returns a curried method.
 **Example**
 
 ```js
-const sum = (a, b, c) => a + b + c;
-const curriedSum = curry(sum);
-curriedSum(1)(2, 3); //=> 6
+const sum = (a, b, c) => a + b + c
+const curriedSum = curry(sum)
+curriedSum(1)(2, 3) //=> 6
 ```

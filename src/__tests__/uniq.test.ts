@@ -1,8 +1,8 @@
-import { uniq } from '..';
+import { uniq } from '..'
 
 describe('uniq', () => {
   it('should remove duplicated obejct items from the array and return a new array', () => {
-    const uniqById = uniq('id');
+    const uniqById = uniq('id')
     const array = [
       {
         id: 1,
@@ -64,7 +64,7 @@ describe('uniq', () => {
         last_name: 'Macon',
         email: 'mmacon9@theatlantic.com',
       },
-    ];
+    ]
     const expected = [
       {
         email: 'mmacon9@theatlantic.com',
@@ -102,9 +102,9 @@ describe('uniq', () => {
         id: 9,
         last_name: 'Flook',
       },
-    ];
-    expect(uniqById(array)).toEqual(expected);
-  });
+    ]
+    expect(uniqById(array)).toEqual(expected)
+  })
 
   it('should remove duplicated array items and return a new array', () => {
     const array = [
@@ -120,8 +120,17 @@ describe('uniq', () => {
       'name8',
       'name7',
       'name8',
-    ];
-    const expected = ['name1', 'name2', 'name3', 'name4', 'name5', 'name6', 'name8', 'name7'];
-    expect(uniq(array)).toEqual(expected);
-  });
-});
+    ]
+    const expected = [
+      'name1',
+      'name2',
+      'name3',
+      'name4',
+      'name5',
+      'name6',
+      'name8',
+      'name7',
+    ]
+    expect(uniq(array)).toEqual(expected)
+  })
+})

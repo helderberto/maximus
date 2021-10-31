@@ -16,6 +16,6 @@ Takes a value and applies it to a function
 **Example**
 
 ```js
-const increment = (x) => 1;
-applyTo(1, increment); // => 2
+const increment = (x) => 1
+applyTo(1, increment) // => 2
 ```

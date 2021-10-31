@@ -15,8 +15,8 @@ It checks if value is empty
 **Example**
 
 ```js
-isEmpty(''); //=> true
-isEmpty({}); //=> true
-isEmpty([]); //=> true
-isEmpty(); //=> true
+isEmpty('') //=> true
+isEmpty({}) //=> true
+isEmpty([]) //=> true
+isEmpty() //=> true
 ```

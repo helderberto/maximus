@@ -4,9 +4,9 @@
   "description": "⚔️ Lightweight functional JavaScript utilities",
   "main": "dist/mxs.js",
   "scripts": {
-    "lint": "eslint src/*.ts",
+    "lint": "eslint src/*.ts --max-warnings=0",
     "lint:fix": "yarn lint --fix",
-    "format": "prettier --write 'src/**/*.{js,ts,md,json}'",
+    "format": "prettier --write 'src/**/*.{js,ts,tsx}'",
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
     "test": "jest",
@@ -17,12 +17,12 @@
     "validate": "yarn lint && yarn test"
   },
   "lint-staged": {
-    "src/**/*.{js,ts,json,md}": [
+    "src/*.{js,ts,json,js}": [
       "prettier --write ."
     ],
-    "src/**/*": [
-      "yarn lint --fix",
-      "yarn test --findRelatedTests --bail"
+    "src/*.{js,ts}": [
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
     ]
   },
   "repository": "git@github.com:helderburato/maximus.git",

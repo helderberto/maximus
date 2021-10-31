@@ -15,4 +15,4 @@ module.exports = {
     'prettier/prettier': 'error',
     '@typescript-eslint/strict-boolean-expressions': 0,
   },
-};
+}

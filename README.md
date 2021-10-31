@@ -59,14 +59,14 @@ Directly in the browser:
 ## Usage
 
 ```javascript
-import * as MXS from 'mxs';
+import * as MXS from 'mxs'
 
 const result = MXS.compose(
   (withMiddleName) => `${withMiddleName} Meridius`,
   (name) => `${name} Décimus`,
-)('Maximus');
+)('Maximus')
 
-console.log(result); // => 'Maximus Décimus Meridius'
+console.log(result) // => 'Maximus Décimus Meridius'
 ```
 
 ## Contribute

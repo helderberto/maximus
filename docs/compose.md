@@ -15,8 +15,8 @@ Compose takes HOCs and returns a function that combines them from the right to t
 **Example**
 
 ```js
-const increment = (x) => 1;
-const double = (x) => x * 2;
-const doubleAndIncrement = compose(increment, double);
-doubleAndIncrement(1); //=> 3
+const increment = (x) => 1
+const double = (x) => x * 2
+const doubleAndIncrement = compose(increment, double)
+doubleAndIncrement(1) //=> 3
 ```
