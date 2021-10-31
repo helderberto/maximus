@@ -1,12 +1,12 @@
 {
   "name": "mxs",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "⚔️ Lightweight functional JavaScript utilities",
   "main": "dist/mxs.js",
   "scripts": {
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "yarn lint --fix",
-    "format": "prettier --write 'src/**/*.{js,md,json}'",
+    "format": "prettier --write 'src/**/*.{js,ts,md,json}'",
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
     "test": "jest",
@@ -14,11 +14,10 @@
     "test:ci": "yarn test --coverage",
     "postpublish": "yarn build",
     "docs:serve": "docsify serve ./docs -P 3000",
-    "generate-fn-md": "jsdoc2md",
     "validate": "yarn lint && yarn test"
   },
   "lint-staged": {
-    "src/**/*.{js,json,md}": [
+    "src/**/*.{js,ts,json,md}": [
       "prettier --write ."
     ],
     "src/**/*": [
@@ -62,7 +61,6 @@
     "faker": "^5.4.0",
     "husky": "^7.0.0",
     "jest": "^27.3.1",
-    "jsdoc-to-markdown": "^7.0.0",
     "lint-staged": "11.2.0",
     "prettier": "^2.4.1",
     "swc-loader": "^0.1.15",
@@ -70,8 +68,5 @@
     "webpack-cli": "^4.5.0",
     "webpack-merge": "^5.7.3"
   },
-  "license": "MIT",
-  "dependencies": {
-    "caniuse-lite": "^1.0.30001274"
-  }
+  "license": "MIT"
 }
