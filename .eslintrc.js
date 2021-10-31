@@ -1,17 +1,18 @@
 module.exports = {
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
     es2020: true,
     node: true,
     jest: true,
   },
-  extends: ['standard', 'prettier'],
-  plugins: ['prettier', 'standard'],
+  extends: ['standard-with-typescript', 'prettier'],
+  plugins: ['prettier'],
   parserOptions: {
-    sourceType: 'module',
+    project: './tsconfig.json',
   },
   rules: {
     'prettier/prettier': 'error',
+    '@typescript-eslint/strict-boolean-expressions': 0,
   },
 };

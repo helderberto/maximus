@@ -1,4 +1,4 @@
-import applyTo from './applyTo';
+import applyTo from './applyTo'
 
 /**
  *
@@ -17,6 +17,6 @@ import applyTo from './applyTo';
 
 export default function compose(...functions) {
   return function reduceFunctions(value) {
-    return functions.reduceRight(applyTo, value);
-  };
+    return functions.reduceRight(applyTo, value)
+  }
 }

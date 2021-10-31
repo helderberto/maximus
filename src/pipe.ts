@@ -1,4 +1,4 @@
-import applyTo from './applyTo';
+import applyTo from './applyTo'
 
 /**
  *
@@ -16,6 +16,6 @@ import applyTo from './applyTo';
  */
 export default function pipe(...functions) {
   return function reduceFunctions(value) {
-    return functions.reduce(applyTo, value);
-  };
+    return functions.reduce(applyTo, value)
+  }
 }

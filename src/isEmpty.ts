@@ -12,5 +12,10 @@
  * isEmpty() //=> true
  */
 export default function isEmpty(value: any): boolean {
-  return value === null || value === '' || typeof value === 'undefined' || Object.keys(value).length === 0;
+  return (
+    value === null ||
+    value === '' ||
+    typeof value === 'undefined' ||
+    Object.keys(value).length === 0
+  )
 }
