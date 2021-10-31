@@ -1,6 +1,6 @@
 {
   "name": "mxs",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "⚔️ Lightweight functional JavaScript utilities",
   "main": "dist/mxs.js",
   "module": "src/index.js",
@@ -48,6 +48,7 @@
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
     "@swc/core": "^1.2.106",
+    "@swc/jest": "^0.2.5",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.2.4",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
@@ -62,7 +63,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "faker": "^5.4.0",
     "husky": "^7.0.0",
-    "jest": "^27.2.4",
+    "jest": "^27.3.1",
     "jsdoc-to-markdown": "^7.0.0",
     "lint-staged": "11.2.0",
     "prettier": "^2.4.1",
@@ -71,5 +72,8 @@
     "webpack-cli": "^4.5.0",
     "webpack-merge": "^5.7.3"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "caniuse-lite": "^1.0.30001274"
+  }
 }

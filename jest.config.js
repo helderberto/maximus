@@ -1,5 +1,5 @@
 module.exports = {
-  verbose: true,
+  verbose: false,
   collectCoverage: true,
   testRegex: '/src/__tests__/.*(\\.|/)(test|spec)\\.js?$',
   roots: ['<rootDir>/src'],
@@ -7,4 +7,7 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverageFrom: ['<rootDir>/**/*.js'],
   testPathIgnorePatterns: ['/node_modules/', 'dist'],
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc/jest'],
+  },
 };
