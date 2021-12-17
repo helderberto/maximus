@@ -1,6 +1,6 @@
 {
   "name": "mxs",
-  "version": "0.6.0",
+  "version": "0.9.0",
   "description": "⚔️ Lightweight functional JavaScript utilities",
   "main": "dist/mxs.js",
   "module": "src/index.js",
