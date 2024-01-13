@@ -1,3 +1,5 @@
+type Func = (...args: any[]) => any;
+
 /**
  * A function that takes multiple arguments and returns a curried method.
  *
@@ -10,12 +12,12 @@
  * const curriedSum = curry(sum)
  * curriedSum(1)(2, 3) //=> 6
  */
-export default function curry(fn) {
-  return function curried(...args) {
+export default function curry(fn: Func): Func {
+  return function curried(this: any, ...args: any[]): Func {
     if (args.length >= fn.length) {
       return fn.apply(this, args);
     }
-    return function (..._args) {
+    return function (this: any, ..._args: any[]): any {
       return curried.apply(this, args.concat(_args));
     };
   };

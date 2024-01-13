@@ -1,5 +1,7 @@
 import applyTo from './applyTo';
 
+type Func<T, R> = (arg: T) => R;
+
 /**
  *
  * Pipe takes HOCs and returns a function that combines them, from the left to the right
@@ -14,8 +16,8 @@ import applyTo from './applyTo';
  * const incrementAndDouble = pipe(increment, double)
  * incrementAndDouble(1) //=> 4
  */
-export default function pipe(...functions) {
-  return function reduceFunctions(value) {
+export default function pipe<T, R>(...functions: Func<T, R>[]): Func<T, R> {
+  return function reduceFunctions(value: T): R {
     return functions.reduce(applyTo, value);
   };
 }

@@ -11,6 +11,6 @@
  * isEmpty([]) //=> true
  * isEmpty() //=> true
  */
-export default function isEmpty(value) {
-  return value === null || value === '' || typeof value === 'undefined' || Object.keys(value).length === 0;
+export default function isEmpty(value: any): boolean {
+  return value === null || value === '' || typeof value === 'undefined' || (typeof value === 'object' && Object.keys(value).length === 0);
 }

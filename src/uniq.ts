@@ -8,10 +8,10 @@
  * @returns {Array} - New array without the duplicated items
  */
 
-export default function uniq(key) {
+export default function uniq<T>(key: string | T[]): T[] | ((arr: { [key: string]: any }[]) => { [key: string]: any }[]) {
   if (Array.isArray(key)) {
-    return [...new Set(key)];
+    return Array.from(new Set(key));
   }
-  return (arr) =>
-    Array.from(arr.reduce((acc, item) => item && item[key] && acc.set(item[key], item), new Map()).values());
+  return (arr: { [key: string]: any }[]) =>
+    Array.from(arr.reduce((acc, item) => item && item[key as string] && acc.set(item[key as string], item), new Map()).values());
 }

@@ -1,5 +1,7 @@
 import curry from './curry';
 
+type Func<T, R> = (arg: T) => R;
+
 /**
  *
  * Takes a value and applies it to a function
@@ -14,7 +16,7 @@ import curry from './curry';
  * applyTo(1, increment) // => 2
  */
 
-const applyTo = curry(function applyTo(value, fn) {
+const applyTo = curry(<T, R>(value: T, fn: Func<T, R>): R => {
   return fn(value);
 });
 

@@ -1,5 +1,7 @@
 import applyTo from './applyTo';
 
+type Func<T, R> = (arg: T) => R;
+
 /**
  *
  * Compose takes HOCs and returns a function that combines them from the right to the left
@@ -14,9 +16,8 @@ import applyTo from './applyTo';
  * const doubleAndIncrement = compose(increment, double)
  * doubleAndIncrement(1) //=> 3
  */
-
-export default function compose(...functions) {
-  return function reduceFunctions(value) {
+export default function compose<T, R>(...functions: Func<T, R>[]): Func<T, R> {
+  return function reduceFunctions(value: T): R {
     return functions.reduceRight(applyTo, value);
   };
 }

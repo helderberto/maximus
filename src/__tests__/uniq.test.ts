@@ -103,7 +103,7 @@ describe('uniq', () => {
         last_name: 'Flook',
       },
     ];
-    expect(uniqById(array)).toEqual(expected);
+    expect((uniqById as (arr: { [key: string]: any; }[]) => { [key: string]: any; }[])(array)).toEqual(expected);
   });
 
   it('should remove duplicated array items and return a new array', () => {
