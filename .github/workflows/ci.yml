@@ -14,10 +14,10 @@ jobs:
           node-version: 14.x
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Validate
-        run: yarn validate
+        run: npm run validate
 
       - name: Build
-        run: yarn build
+        run: npm run build

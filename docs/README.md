@@ -22,16 +22,16 @@ Based on this, we aim to focus on small utilities to facilitate the use of funct
 
 ## Install
 
-Using NPM or Yarn:
+Using NPM:
 
 ```sh
-$ npm i --save mxs OR yarn add mxs
+$ npm i --save mxs
 ```
 
 In Node.js:
 
 ```javascript
-const MXS = require('mxs)
+const MXS = require('mxs');
 ```
 
 Directly in the browser:

@@ -6,25 +6,25 @@
   "module": "src/index.js",
   "scripts": {
     "lint": "eslint src --max-warnings=0",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "npm run lint --fix",
     "format": "prettier --write 'src/**/*.{js,md,json}'",
     "build": "webpack --config config/webpack.prod.js",
     "build:dev": "webpack --watch --progress --config config/webpack.dev.js",
     "test": "jest",
-    "test:watch": "yarn test --watch --maxWorkers=50%",
-    "test:ci": "yarn test --coverage",
-    "postpublish": "yarn build",
+    "test:watch": "npm test --watch --maxWorkers=50%",
+    "test:ci": "npm test --coverage",
+    "postpublish": "npm run build",
     "docs:serve": "docsify serve ./docs -P 3000",
     "generate-fn-md": "jsdoc2md",
-    "validate": "yarn lint && yarn test"
+    "validate": "npm run lint && npm test"
   },
   "lint-staged": {
     "src/**/*.{js,json,md}": [
       "prettier --write ."
     ],
     "src/**/*": [
-      "yarn lint --fix",
-      "yarn test --findRelatedTests --bail"
+      "npm lint --fix",
+      "npm test --findRelatedTests --bail"
     ]
   },
   "repository": "git@github.com:helderburato/maximus.git",
@@ -47,7 +47,7 @@
     "@babel/core": "^7.16.12",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.16.11",
-    "@commitlint/cli": "^16.1.0",
+    "@commitlint/cli": "^18.4.4",
     "@commitlint/config-conventional": "^16.0.0",
     "@swc/core": "^1.2.133",
     "babel-jest": "^27.4.6",
