@@ -8,10 +8,12 @@
  * @returns {Array} - New array without the duplicated items
  */
 
-export default function uniq<T>(key: string | T[]): T[] | ((arr: { [key: string]: any }[]) => { [key: string]: any }[]) {
+export const uniq = <T>(key: string | T[]): T[] | ((arr: { [key: string]: any }[]) => { [key: string]: any }[]) => {
   if (Array.isArray(key)) {
     return Array.from(new Set(key));
   }
   return (arr: { [key: string]: any }[]) =>
-    Array.from(arr.reduce((acc, item) => item && item[key as string] && acc.set(item[key as string], item), new Map()).values());
-}
+    Array.from(
+      arr.reduce((acc, item) => item && item[key as string] && acc.set(item[key as string], item), new Map()).values(),
+    );
+};

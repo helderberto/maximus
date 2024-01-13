@@ -1,4 +1,4 @@
-import applyTo from './applyTo';
+import { applyTo } from './applyTo';
 
 type Func<T, R> = (arg: T) => R;
 
@@ -16,8 +16,7 @@ type Func<T, R> = (arg: T) => R;
  * const doubleAndIncrement = compose(increment, double)
  * doubleAndIncrement(1) //=> 3
  */
-export default function compose<T, R>(...functions: Func<T, R>[]): Func<T, R> {
-  return function reduceFunctions(value: T): R {
-    return functions.reduceRight(applyTo, value);
-  };
-}
+export const compose =
+  <T, R>(...functions: Func<T, R>[]): Func<T, R> =>
+  (value: T): R =>
+    functions.reduceRight(applyTo, value);

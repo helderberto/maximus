@@ -1,4 +1,4 @@
-import curry from './curry';
+import { curry } from './curry';
 
 type Func<T, R> = (arg: T) => R;
 
@@ -16,8 +16,4 @@ type Func<T, R> = (arg: T) => R;
  * applyTo(1, increment) // => 2
  */
 
-const applyTo = curry(<T, R>(value: T, fn: Func<T, R>): R => {
-  return fn(value);
-});
-
-export default applyTo;
+export const applyTo = curry(<T, R>(value: T, fn: Func<T, R>): R => fn(value));

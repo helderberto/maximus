@@ -12,8 +12,8 @@ type Func = (...args: any[]) => any;
  * const curriedSum = curry(sum)
  * curriedSum(1)(2, 3) //=> 6
  */
-export default function curry(fn: Func): Func {
-  return function curried(this: any, ...args: any[]): Func {
+export const curry = (fn: Func): Func =>
+  function curried(this: any, ...args: any[]): Func {
     if (args.length >= fn.length) {
       return fn.apply(this, args);
     }
@@ -21,4 +21,3 @@ export default function curry(fn: Func): Func {
       return curried.apply(this, args.concat(_args));
     };
   };
-}

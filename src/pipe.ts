@@ -1,4 +1,4 @@
-import applyTo from './applyTo';
+import { applyTo } from './applyTo';
 
 type Func<T, R> = (arg: T) => R;
 
@@ -16,8 +16,7 @@ type Func<T, R> = (arg: T) => R;
  * const incrementAndDouble = pipe(increment, double)
  * incrementAndDouble(1) //=> 4
  */
-export default function pipe<T, R>(...functions: Func<T, R>[]): Func<T, R> {
-  return function reduceFunctions(value: T): R {
-    return functions.reduce(applyTo, value);
-  };
-}
+export const pipe =
+  <T, R>(...functions: Func<T, R>[]): Func<T, R> =>
+  (value: T): R =>
+    functions.reduce(applyTo, value);
