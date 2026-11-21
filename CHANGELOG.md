@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-21
+
 ### Added
 
 - `matchPath(pattern, pathnameOrUrl)`: matches a pathname or URL to typed, decoded params, or `null`.
@@ -41,5 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Earlier versions: see the [git history](https://github.com/helderberto/maximus/commits/v0.10.1).
 
-[Unreleased]: https://github.com/helderberto/maximus/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/helderberto/maximus/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/helderberto/maximus/compare/v0.11.0...v1.0.0
 [0.11.0]: https://github.com/helderberto/maximus/compare/v0.10.1...v0.11.0
