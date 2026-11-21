@@ -1,4 +1,4 @@
-import type { PathParams } from '../path-pattern/types.js';
+import type { PathParams } from '../path-pattern/types';
 
 export interface PathMatch<Pattern extends string> {
   params: PathParams<Pattern>;

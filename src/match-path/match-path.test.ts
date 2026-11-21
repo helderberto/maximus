@@ -1,5 +1,5 @@
-import { buildPath } from '../build-path/build-path.js';
-import { matchPath } from './match-path.js';
+import { buildPath } from '../build-path/build-path';
+import { matchPath } from './match-path';
 
 describe('matchPath', () => {
   describe('matching', () => {

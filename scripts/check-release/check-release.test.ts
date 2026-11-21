@@ -1,4 +1,4 @@
-import { checkRelease } from './check-release.ts';
+import { checkRelease } from './check-release';
 
 const changelog = '# Changelog\n\n## [Unreleased]\n\n## [1.0.0] - 2026-11-21\n\n- Added things.\n';
 

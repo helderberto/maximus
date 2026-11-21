@@ -17,7 +17,7 @@
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write . \"!eslint-fixtures/**\"",
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepublishOnly": "npm run build",
@@ -25,7 +25,10 @@
     "bump:minor": "npm version minor --no-git-tag-version",
     "bump:major": "npm version major --no-git-tag-version",
     "validate": "npm run lint && npm test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:changelog": "tsx scripts/check-changelog/run.ts",
+    "check:release": "tsx scripts/check-release/run.ts",
+    "release-notes": "tsx scripts/release-notes/run.ts"
   },
   "lint-staged": {
     "*.{ts,js}": [
@@ -59,23 +62,32 @@
     "README.md"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^18.4.4",
-    "@commitlint/config-conventional": "^16.0.0",
-    "@eslint/js": "^9.39.5",
-    "@types/node": "^24.19.2",
-    "eslint": "^9.39.5",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-check-file": "^3.3.2",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.7",
-    "globals": "^17.14.0",
-    "husky": "^7.0.4",
+    "@commitlint/cli": "18.6.1",
+    "@commitlint/config-conventional": "16.2.4",
+    "@eslint/js": "9.39.5",
+    "@microsoft/api-extractor": "7.60.1",
+    "@types/node": "24.19.2",
+    "eslint": "9.39.5",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-check-file": "3.3.2",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-prettier": "5.5.7",
+    "globals": "17.14.0",
+    "husky": "7.0.4",
+    "jiti": "2.7.0",
     "lint-staged": "12.3.2",
-    "prettier": "^3.10.1",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.73.0",
-    "vite": "^7.3.8",
-    "vitest": "^4.1.12"
+    "prettier": "3.10.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.73.0",
+    "vite": "7.3.8",
+    "vite-plugin-dts": "5.1.2",
+    "vitest": "4.1.12"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {
+    "ajv-draft-04": {
+      "ajv": "8.20.0"
+    }
+  }
 }

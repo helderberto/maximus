@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       - name: Lint
         run: npm run lint
 
@@ -36,4 +39,4 @@ jobs:
 
       - name: Check changelog
         if: github.event_name == 'pull_request'
-        run: node scripts/check-changelog/run.ts origin/${{ github.base_ref }}
+        run: npm run check:changelog -- origin/${{ github.base_ref }}

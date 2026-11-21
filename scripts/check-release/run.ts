@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync } from 'node:fs';
-import { checkRelease } from './check-release.ts';
+import { checkRelease } from './check-release';
 
 const { name, version } = JSON.parse(readFileSync('package.json', 'utf8'));
 

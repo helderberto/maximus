@@ -1,1 +1,1 @@
-export { buildPath } from './build-path.js';
+export { buildPath } from './build-path';

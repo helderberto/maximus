@@ -1,1 +1,1 @@
-export { matchPath } from './match-path.js';
+export { matchPath } from './match-path';

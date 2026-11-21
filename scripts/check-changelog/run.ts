@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { checkChangelog } from './check-changelog.ts';
+import { checkChangelog } from './check-changelog';
 
 const baseRef = process.argv[2] ?? 'origin/main';
 
