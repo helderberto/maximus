@@ -6,7 +6,7 @@ import { join } from 'node:path';
 const ENTRIES = {
   mxs: [
     'buildPath',
-    'createMapper',
+    'createTransformer',
     'createTypedEmitter',
     'createTypedStorage',
     'debounce',

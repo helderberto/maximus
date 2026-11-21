@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `createMapper<Dto, Domain>(fields)`: creates a pure function that maps a DTO to a domain object, with renamed keys and computed fields checked at compile time.
+- `createTransformer<Dto, Domain>({ keys, fields })`: creates a pure function that transforms a DTO into a domain object. It converts key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response or in specific fields, and checks renamed and computed fields at compile time.
 
 ## [1.1.1] - 2026-11-21
 

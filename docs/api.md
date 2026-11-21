@@ -22,9 +22,9 @@ import { useStorageState } from 'mxs/react';
 
 ## Data
 
-| Function                           | Signature                           | Description                                                                   |
-| ---------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------- |
-| [`createMapper`](create-mapper.md) | `createMapper<Dto, Domain>(fields)` | Creates a pure function that maps a DTO to a domain object, typed end to end. |
+| Function                                     | Signature                                            | Description                                                                                        |
+| -------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| [`createTransformer`](create-transformer.md) | `createTransformer<Dto, Domain>({ keys?, fields? })` | Transforms a DTO into a domain object, converting key case and computing fields, typed end to end. |
 
 ## Arrays
 

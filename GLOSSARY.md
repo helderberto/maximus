@@ -18,8 +18,11 @@ _Avoid_: response, payload, raw.
 **Domain object**: the shape the app works with, named and typed for its use.
 _Avoid_: model, entity, view model.
 
-**Mapper**: a pure function from a DTO to a domain object, made by `createMapper`.
-_Avoid_: adapter, transformer, serializer.
+**Transformer**: a pure function from a DTO to a domain object, made by `createTransformer`.
+_Avoid_: mapper, adapter, serializer.
+
+**Key case**: how a key joins its words: `camelCase`, `PascalCase`, `snake_case`, `kebab-case` or `CONSTANT_CASE`.
+_Avoid_: naming convention, casing style.
 
 ## Path
 
