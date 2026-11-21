@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-21
+
 ### Deprecated
 
 - `applyTo`: call the function directly. Removed in 1.0.
@@ -22,4 +24,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Earlier versions: see the [git history](https://github.com/helderberto/maximus/commits/v0.10.1).
 
-[Unreleased]: https://github.com/helderberto/maximus/compare/v0.10.1...HEAD
+[Unreleased]: https://github.com/helderberto/maximus/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/helderberto/maximus/compare/v0.10.1...v0.11.0
