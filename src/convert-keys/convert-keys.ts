@@ -1,4 +1,4 @@
-import type { ConvertKeys, ConvertKeysOptions, Depth, KeyCase } from './types';
+import type { ConvertKeys, ConvertKeysOptions, KeyCase } from './types';
 
 const SEPARATORS = new Set(['_', '-', ' ']);
 
@@ -67,7 +67,6 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> => {
 
 interface Walk {
   to: KeyCase;
-  depth: number;
   /** Keys already converted in this call. API responses repeat the same keys across items. */
   cache: Map<string, string>;
 }
@@ -85,29 +84,27 @@ const convertLevels = (value: unknown, walk: Walk): unknown => {
   if (Array.isArray(value)) {
     return value.map((item: unknown) => convertLevels(item, walk));
   }
-  if (walk.depth < 1 || !isPlainObject(value)) {
+  if (!isPlainObject(value)) {
     return value;
   }
-  const next = { ...walk, depth: walk.depth - 1 };
   const result: Record<string, unknown> = {};
   for (const key of Object.keys(value)) {
     // Safe to assign: a converted key never ends in `_`, so it can never be `__proto__`.
-    result[convertCached(key, walk)] = convertLevels(value[key], next);
+    result[convertCached(key, walk)] = convertLevels(value[key], walk);
   }
   return result;
 };
 
 /**
  * Returns a copy of a value with its keys in another case: camelCase, PascalCase, snake_case,
- * kebab-case or CONSTANT_CASE. Walks plain objects and arrays, down to `depth` object levels
- * (every level when omitted). The result type carries the converted keys. Never mutates the input.
+ * kebab-case or CONSTANT_CASE. Walks nested plain objects and arrays. The result type carries
+ * the converted keys. Never mutates the input.
  *
  * @example
- * convertKeys({ user_id: 1, home_address: { street_name: 'Main' } }, { to: 'camelCase', depth: 1 })
- * // => { userId: 1, homeAddress: { street_name: 'Main' } }
+ * convertKeys({ user_id: 1, home_address: { street_name: 'Main' } }, { to: 'camelCase' })
+ * // => { userId: 1, homeAddress: { streetName: 'Main' } }
  */
-export const convertKeys = <Value, Case extends KeyCase, D extends Depth | undefined = undefined>(
+export const convertKeys = <Value, Case extends KeyCase>(
   value: Value,
-  { to, depth }: ConvertKeysOptions<Case, D>,
-): ConvertKeys<Value, Case, D> =>
-  convertLevels(value, { to, depth: depth ?? Infinity, cache: new Map() }) as ConvertKeys<Value, Case, D>;
+  { to }: ConvertKeysOptions<Case>,
+): ConvertKeys<Value, Case> => convertLevels(value, { to, cache: new Map() }) as ConvertKeys<Value, Case>;

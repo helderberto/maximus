@@ -157,25 +157,19 @@ describe('createTransformer', () => {
       });
     });
 
-    it('converts only the first `depth` levels', () => {
-      interface ShallowUser {
-        userId: number;
-        homeAddress: UserDto['home_address'];
+    it('copies a field unchanged when its keys are data, not field names', () => {
+      interface ProductDto {
+        product_id: number;
+        translations: Record<string, string>;
       }
-      const transformUser = createTransformer<UserDto, ShallowUser>({ keys: 'camelCase', depth: 1 });
-      const user = transformUser(dto);
-      expect(user.homeAddress).toEqual({ street_name: 'Main St', city: 'London' });
-      expect(user.homeAddress).toBe(dto.home_address);
-    });
-
-    it('checks the domain type against the chosen depth', () => {
-      // @ts-expect-error: with depth 1, `homeAddress` keeps `street_name`, so it does not fit `Address`.
-      createTransformer<UserDto, CamelUser>({ keys: 'camelCase', depth: 1 });
-      createTransformer<UserDto, CamelUser>({ keys: 'camelCase', depth: 2 });
-      // @ts-expect-error: depth needs keys.
-      createTransformer<UserDto, { id: number }>({ depth: 1, fields: { id: 'user_id' } });
-      // @ts-expect-error: depth goes from 1 to 5.
-      createTransformer<UserDto, CamelUser>({ keys: 'camelCase', depth: 6 });
+      const transformProduct = createTransformer<
+        ProductDto,
+        { productId: number; translations: Record<string, string> }
+      >({ keys: 'camelCase', fields: { translations: 'translations' } });
+      expect(transformProduct({ product_id: 1, translations: { en_US: 'Hat', pt_BR: 'Chapéu' } })).toEqual({
+        productId: 1,
+        translations: { en_US: 'Hat', pt_BR: 'Chapéu' },
+      });
     });
 
     it('requires fields only for what conversion does not provide', () => {

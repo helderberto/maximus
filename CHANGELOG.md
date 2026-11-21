@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `createTransformer<Dto, Domain>({ keys, depth, fields })`: creates a pure function that transforms a DTO into a domain object. It takes one DTO or an array of them, converts key case across the whole response, optionally down to a set depth, and checks renamed and computed fields at compile time.
-- `convertKeys(value, { to, depth })`: copies a value with its keys in camelCase, PascalCase, snake_case, kebab-case or CONSTANT_CASE. The result type carries the converted keys.
+- `createTransformer<Dto, Domain>({ keys, fields })`: creates a pure function that transforms a DTO into a domain object. It takes one DTO or an array of them, converts key case across the whole response, and checks renamed and computed fields at compile time.
+- `convertKeys(value, { to })`: copies a value with its keys in camelCase, PascalCase, snake_case, kebab-case or CONSTANT_CASE. The result type carries the converted keys.
 
 ## [1.1.1] - 2026-11-21
 

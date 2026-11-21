@@ -51,27 +51,6 @@ describe('convertKeys', () => {
     });
   });
 
-  it('stops after `depth` object levels and shares the levels below', () => {
-    const shallow = convertKeys(value, { to: 'camelCase', depth: 1 });
-    expect(shallow).toEqual({
-      userId: 1,
-      homeAddress: { street_name: 'Main', geo_point: { lat_value: 1 } },
-      orderItems: [{ unit_price: 2 }],
-    });
-    expect(shallow.homeAddress).toBe(value.home_address);
-    expect(convertKeys(value, { to: 'camelCase', depth: 2 })).toEqual({
-      userId: 1,
-      homeAddress: { streetName: 'Main', geoPoint: { lat_value: 1 } },
-      orderItems: [{ unitPrice: 2 }],
-    });
-  });
-
-  it('does not count arrays as a level', () => {
-    expect(convertKeys([{ user_id: 1, home_address: { street_name: 'Main' } }], { to: 'camelCase', depth: 1 })).toEqual(
-      [{ userId: 1, homeAddress: { street_name: 'Main' } }],
-    );
-  });
-
   it('returns a new value and never mutates the input', () => {
     const copy = structuredClone(value);
     expect(convertKeys(value, { to: 'snake_case' })).not.toBe(value);
@@ -118,19 +97,12 @@ describe('convertKeys', () => {
     }>();
   });
 
-  it('infers the case and depth from the options', () => {
-    expectTypeOf(convertKeys(value, { to: 'camelCase', depth: 1 })).toEqualTypeOf<{
-      userId: number;
-      homeAddress: { street_name: string; geo_point: { lat_value: number } };
-      orderItems: { unit_price: number }[];
-    }>();
-    expectTypeOf(convertKeys(value, { to: 'PascalCase', depth: 2 })).toEqualTypeOf<{
+  it('infers the case from the options', () => {
+    expectTypeOf(convertKeys(value, { to: 'PascalCase' })).toEqualTypeOf<{
       UserId: number;
-      HomeAddress: { StreetName: string; GeoPoint: { lat_value: number } };
+      HomeAddress: { StreetName: string; GeoPoint: { LatValue: number } };
       OrderItems: { UnitPrice: number }[];
     }>();
-    // @ts-expect-error: depth goes from 1 to 5. Omit it to convert every level.
-    convertKeys(value, { to: 'camelCase', depth: 6 });
     // @ts-expect-error: 'Title Case' is not a supported case.
     convertKeys(value, { to: 'Title Case' });
   });

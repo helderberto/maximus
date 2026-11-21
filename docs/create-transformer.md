@@ -1,6 +1,6 @@
 # createTransformer
 
-Creates a pure function that transforms a DTO into a domain object, or an array of DTOs into an array of domain objects. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response, down to a set depth, or in specific fields, and lets you compute any field yourself. It never mutates the DTO.
+Creates a pure function that transforms a DTO into a domain object, or an array of DTOs into an array of domain objects. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response or in specific fields, and lets you compute any field yourself. It never mutates the DTO.
 
 ```ts
 import { convertKeys, createTransformer } from 'mxs';
@@ -34,7 +34,6 @@ const transformUser = createTransformer<UserDto, User>({
 ```ts
 createTransformer<Dto, Domain>({
   keys?: 'camelCase' | 'PascalCase' | 'snake_case' | 'kebab-case' | 'CONSTANT_CASE',
-  depth?: 1 | 2 | 3 | 4 | 5,
   fields?: { [field in keyof Domain]: FieldSource },
 }): {
   (dto: Dto): Domain;
@@ -60,16 +59,17 @@ createTransformer<UserDto, User>({
 });
 ```
 
-## Depth
+## Keys that are data
 
-Converting every level walks every nested object and array. When only the top level needs new keys, set `depth` to stop early. Levels below it are shared with the DTO, not copied:
+Some objects use their keys as data: locale codes, IDs, slugs. Converting them would change the data, so `en_US` would become `enUs`. Fields read the original DTO, so copy those objects unchanged while the rest is converted:
 
 ```ts
-const transformUser = createTransformer<UserDto, ShallowUser>({ keys: 'camelCase', depth: 1 });
-// { userId, firstName, homeAddress: { street_name, city } }
+createTransformer<ProductDto, Product>({
+  keys: 'camelCase',
+  fields: { translations: 'translations' },
+});
+// { productId: 1, translations: { en_US: 'Hat', pt_BR: 'Chapéu' } }
 ```
-
-`depth` counts object levels, from 1 to 5. Arrays do not count: with `depth: 1`, a response that is an array has the keys of its items converted. Omit `depth` to convert every level. The domain type is checked against the depth you chose.
 
 ## Specific fields
 

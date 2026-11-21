@@ -18,7 +18,7 @@ export type { DedupeInFlightOptions } from './dedupe-in-flight';
 export type { TypedStorage, TypedStorageOptions } from './create-typed-storage';
 export type { TypedEmitter } from './create-typed-emitter';
 export type { Transformer, TransformerOptions } from './create-transformer';
-export type { ConvertKeysOptions, Depth, KeyCase } from './convert-keys';
+export type { ConvertKeysOptions, KeyCase } from './convert-keys';
 export type { FormatRelativeTimeOptions } from './format-relative-time';
 export type { DebounceOptions, Debounced } from './debounce';
 export type { ThrottleOptions, Throttled } from './throttle';

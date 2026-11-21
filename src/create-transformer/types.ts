@@ -1,4 +1,4 @@
-import type { ConvertKeys, Depth, KeyCase } from '@/convert-keys/types';
+import type { ConvertKeys, KeyCase } from '@/convert-keys/types';
 
 /** Keys of `Dto` whose value is assignable to `Value`. Optional keys carry `undefined`. */
 type KeysWithValue<Dto, Value> = Exclude<{ [K in keyof Dto]: Dto[K] extends Value ? K : never }[keyof Dto], undefined>;
@@ -31,36 +31,25 @@ type PatchFields<Dto, Domain, Missing extends keyof Domain> = {
   [K in Exclude<keyof Domain, Missing>]?: FieldSource<Dto, Domain[K]>;
 };
 
-interface ConvertOptions<Case extends KeyCase, D extends Depth | undefined> {
-  /** Converts every key of the DTO to this case. */
-  keys: Case;
-  /** How many object levels to convert. Omit it to convert every level. */
-  depth?: D;
-}
-
-type CaseOptions<Dto, Domain, Case extends KeyCase, D extends Depth | undefined> =
-  MissingFields<ConvertKeys<Dto, Case, D>, Domain> extends infer Missing extends keyof Domain
+type CaseOptions<Dto, Domain, Case extends KeyCase> =
+  MissingFields<ConvertKeys<Dto, Case>, Domain> extends infer Missing extends keyof Domain
     ? [Missing] extends [never]
-      ? ConvertOptions<Case, D> & { fields?: PatchFields<Dto, Domain, Missing> }
-      : ConvertOptions<Case, D> & { fields: PatchFields<Dto, Domain, Missing> }
+      ? { keys: Case; fields?: PatchFields<Dto, Domain, Missing> }
+      : { keys: Case; fields: PatchFields<Dto, Domain, Missing> }
     : never;
 
 export interface PickOptions<Dto, Domain> {
   keys?: undefined;
-  depth?: undefined;
   fields: FieldMapping<Dto, Domain>;
 }
 
-// A caller who passes `<Dto, Domain>` gets no inference for the rest, so every case and depth
-// is spelled out as one member of a union, discriminated by the `keys` and `depth` literals.
-type ConvertedOptions<Dto, Domain> = {
-  [Case in KeyCase]: { [D in Depth | 'all']: CaseOptions<Dto, Domain, Case, D extends Depth ? D : undefined> }[
-    Depth | 'all'];
-}[KeyCase];
+// A caller who passes `<Dto, Domain>` gets no inference for the rest, so each case is spelled out
+// as one member of a union, discriminated by the `keys` literal.
+type ConvertedOptions<Dto, Domain> = { [Case in KeyCase]: CaseOptions<Dto, Domain, Case> }[KeyCase];
 
 /**
- * Without `keys`, `fields` lists every domain field. With `keys`, the DTO is converted
- * (down to `depth` levels) and `fields` lists only the domain fields conversion does not provide.
+ * Without `keys`, `fields` lists every domain field. With `keys`, the whole DTO is converted
+ * and `fields` lists only the domain fields conversion does not provide.
  */
 export type TransformerOptions<Dto, Domain> = PickOptions<Dto, Domain> | ConvertedOptions<Dto, Domain>;
 

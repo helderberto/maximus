@@ -1,4 +1,4 @@
-import type { DEPTHS, KEY_CASES } from './constants';
+import type { KEY_CASES } from './constants';
 
 export type KeyCase = (typeof KEY_CASES)[number];
 
@@ -64,37 +64,21 @@ export type ConvertKey<Key extends string, Case extends KeyCase> = string extend
 
 type Unconverted = Date | RegExp | Error | Promise<unknown> | ReadonlyMap<unknown, unknown> | ReadonlySet<unknown>;
 
-/** How many object levels get their keys converted. Arrays do not count as a level. */
-export type Depth = (typeof DEPTHS)[number];
+/** Every key in the target case, nested objects and arrays included. */
+export type ConvertKeys<Value, Case extends KeyCase> = Value extends readonly unknown[]
+  ? { [I in keyof Value]: ConvertKeys<Value[I], Case> }
+  : Value extends Unconverted | ((...args: never[]) => unknown)
+    ? Value
+    : Value extends object
+      ? {
+          [K in keyof Value as K extends string ? ConvertKey<K, Case> : K extends number ? K : never]: ConvertKeys<
+            Value[K],
+            Case
+          >;
+        }
+      : Value;
 
-interface NextDepth {
-  1: 0;
-  2: 1;
-  3: 2;
-  4: 3;
-  5: 4;
-}
-
-/** Keys in the target case down to `D` object levels, or every level when `D` is `undefined`. */
-export type ConvertKeys<Value, Case extends KeyCase, D extends Depth | 0 | undefined = undefined> = D extends 0
-  ? Value
-  : Value extends readonly unknown[]
-    ? { [I in keyof Value]: ConvertKeys<Value[I], Case, D> }
-    : Value extends Unconverted | ((...args: never[]) => unknown)
-      ? Value
-      : Value extends object
-        ? {
-            [K in keyof Value as K extends string ? ConvertKey<K, Case> : K extends number ? K : never]: ConvertKeys<
-              Value[K],
-              Case,
-              D extends Depth ? NextDepth[D] : undefined
-            >;
-          }
-        : Value;
-
-export interface ConvertKeysOptions<Case extends KeyCase, D extends Depth | undefined> {
+export interface ConvertKeysOptions<Case extends KeyCase> {
   /** The target case. */
   to: Case;
-  /** How many object levels to convert. Omit it to convert every level. */
-  depth?: D;
 }
