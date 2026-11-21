@@ -1,6 +1,6 @@
 {
   "name": "mxs",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "⚔️ The typed helpers every Node and React project rewrites: typed URLs, retry, debounce, storage and React hooks. Zero dependencies, ESM.",
   "type": "module",
   "sideEffects": false,
