@@ -34,7 +34,10 @@
     "test:watch": "vitest",
     "prepublishOnly": "npm run build",
     "validate": "npm run lint && npm test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "commitlint": "commitlint",
+    "lint-staged": "lint-staged",
+    "release": "semantic-release"
   },
   "release": {
     "branches": [

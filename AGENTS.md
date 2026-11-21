@@ -13,6 +13,10 @@ A function ships only if it passes all:
 
 See `docs/adr/0001-deep-modules-platform-first.md`.
 
+## Tooling
+
+- Run tools through npm scripts (`npm run release`, `npm run commitlint`), never `npx`. Missing a script? Add it to `package.json`.
+
 ## Releases
 
 - Exact dependency versions, no `^` or `~` (`.npmrc` sets `save-prefix=""`).
