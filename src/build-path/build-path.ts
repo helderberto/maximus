@@ -1,4 +1,4 @@
-import type { HasRequiredParams, PathParams } from '../path-pattern/types';
+import type { HasRequiredParams, PathParams } from '@/path-pattern/types';
 
 type SearchValue = string | number | boolean;
 

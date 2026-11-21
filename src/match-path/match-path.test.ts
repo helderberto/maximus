@@ -1,4 +1,4 @@
-import { buildPath } from '../build-path/build-path';
+import { buildPath } from '@/build-path/build-path';
 import { matchPath } from './match-path';
 
 describe('matchPath', () => {
