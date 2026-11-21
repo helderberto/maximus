@@ -1,0 +1,25 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Deprecated
+
+- `applyTo`: call the function directly. Removed in 1.0.
+- `compose`: use plain function calls. Removed in 1.0.
+- `curry`: use plain function calls or arrow functions. Removed in 1.0.
+- `pipe`: use plain function calls. Removed in 1.0.
+- `isEmpty`: use a type-specific check (`length`, `size` or `Object.keys`). Removed in 1.0.
+- `uniq`: use `removeDuplicates`. Removed in 1.0.
+
+### Fixed
+
+- Publishing now builds `dist` before packing, not after.
+
+Earlier versions: see the [git history](https://github.com/helderberto/maximus/commits/v0.10.1).
+
+[Unreleased]: https://github.com/helderberto/maximus/compare/v0.10.1...HEAD

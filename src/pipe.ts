@@ -15,6 +15,8 @@ type Func<T, R> = (arg: T) => R;
  * const double = x => x * 2
  * const incrementAndDouble = pipe(increment, double)
  * incrementAndDouble(1) //=> 4
+ *
+ * @deprecated Removed in 1.0. Use plain function calls: `g(f(x))`.
  */
 export const pipe =
   <T, R>(...functions: Func<T, R>[]): Func<T, R> =>

@@ -14,7 +14,7 @@
     "test": "jest",
     "test:watch": "npm test --watch --maxWorkers=50%",
     "test:ci": "npm test --coverage",
-    "postpublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "docs:serve": "docsify serve ./docs -P 3000",
     "generate-fn-md": "jsdoc2md",
     "validate": "npm run lint && npm test"

@@ -10,6 +10,8 @@
  * isEmpty({}) //=> true
  * isEmpty([]) //=> true
  * isEmpty() //=> true
+ *
+ * @deprecated Removed in 1.0. Use a type-specific check: `length`, `size` or `Object.keys`.
  */
 export const isEmpty = (value: any): boolean => {
   return (

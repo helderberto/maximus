@@ -11,6 +11,8 @@ type Func = (...args: any[]) => any;
  * const sum = (a, b, c) => a + b + c
  * const curriedSum = curry(sum)
  * curriedSum(1)(2, 3) //=> 6
+ *
+ * @deprecated Removed in 1.0. Use plain function calls or arrow functions.
  */
 export const curry = (fn: Func): Func =>
   function curried(this: any, ...args: any[]): Func {

@@ -15,6 +15,8 @@ type Func<T, R> = (arg: T) => R;
  * const double = x => x * 2
  * const doubleAndIncrement = compose(increment, double)
  * doubleAndIncrement(1) //=> 3
+ *
+ * @deprecated Removed in 1.0. Use plain function calls: `f(g(x))`.
  */
 export const compose =
   <T, R>(...functions: Func<T, R>[]): Func<T, R> =>

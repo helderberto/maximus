@@ -6,6 +6,8 @@
  * @param {string | Array} key - Object key to compare and remove it from the original array or an Array that will be removed duplicated items
  * @param {Array} arr - An array
  * @returns {Array} - New array without the duplicated items
+ *
+ * @deprecated Removed in 1.0. Use `removeDuplicates`.
  */
 
 export const uniq = <T>(key: string | T[]): T[] | ((arr: { [key: string]: any }[]) => { [key: string]: any }[]) => {

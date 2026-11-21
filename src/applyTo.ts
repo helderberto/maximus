@@ -14,6 +14,8 @@ type Func<T, R> = (arg: T) => R;
  * @example
  * const increment = x => 1
  * applyTo(1, increment) // => 2
+ *
+ * @deprecated Removed in 1.0. Call the function directly: `fn(value)`.
  */
 
 export const applyTo = curry(<T, R>(value: T, fn: Func<T, R>): R => fn(value));
