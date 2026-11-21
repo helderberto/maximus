@@ -2,6 +2,13 @@
 
 Transforms a DTO into a domain object, or an array of DTOs into an array of domain objects. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE), leave out keys and compute any field. It never mutates the input.
 
+## DTO and domain types
+
+- **DTO** (data transfer object): the shape the API sends, usually snake_case, with dates as strings and fields your app does not need. You do not control it.
+- **Domain type**: the shape your app works with, named and typed for its use. Components, hooks and state use only this.
+
+`transformData` is the one place that turns the first into the second, so API details never leak into the rest of the app:
+
 ```ts
 import { transformData } from 'mxs';
 
@@ -56,7 +63,82 @@ const user: User = transformData(userDto, options);
 const users: User[] = transformData(userDtos, options);
 ```
 
-Without an annotation there is no domain type to check against, so the call fails to compile. An array input needs an array annotation, and one DTO needs one domain object.
+Without an annotation there is no domain type to check against, so the call fails to compile. The same goes for an `any` input, such as the result of `response.json()`. An array input needs an array annotation, and one DTO needs one domain object.
+
+## Usage
+
+Each example uses this reusable transform:
+
+```ts
+const transformUser = (dto: UserDto): User =>
+  transformData(dto, {
+    keys: 'camelCase',
+    exclude: ['first_name', 'last_name'],
+    fields: {
+      fullName: (dto) => `${dto.first_name} ${dto.last_name}`,
+      createdAt: (dto) => new Date(dto.created_at),
+    },
+  });
+```
+
+### fetch
+
+`response.json()` returns `any`, so type the DTO first. With an `any` input there is nothing to check against, and `transformData` fails to compile until you add the type:
+
+```ts
+const response = await fetch(`/api/users/${id}`);
+const dto: UserDto = await response.json();
+const user = transformUser(dto);
+```
+
+### axios
+
+Pass the DTO type to the request, then transform `data`:
+
+```ts
+const { data } = await axios.get<UserDto[]>('/api/users');
+const users = data.map(transformUser);
+```
+
+### TanStack Query
+
+Pass the transform to `select`. The cache keeps the DTO, and components get the domain type. A function defined at module scope keeps a stable reference, so `select` reruns only when the data changes:
+
+```ts
+const { data: user } = useQuery({
+  queryKey: ['user', id],
+  queryFn: async (): Promise<UserDto> => (await fetch(`/api/users/${id}`)).json(),
+  select: transformUser,
+});
+// user: User | undefined
+
+const { data: users } = useQuery({
+  queryKey: ['users'],
+  queryFn: async (): Promise<UserDto[]> => (await fetch('/api/users')).json(),
+  select: (dtos) => dtos.map(transformUser),
+});
+// users: User[] | undefined
+```
+
+### RTK Query
+
+Pass the transform to `transformResponse`. For a list, type the response:
+
+```ts
+const api = createApi({
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  endpoints: (build) => ({
+    getUser: build.query<User, number>({
+      query: (id) => `users/${id}`,
+      transformResponse: transformUser,
+    }),
+    getUsers: build.query<User[], void>({
+      query: () => 'users',
+      transformResponse: (dtos: UserDto[]) => dtos.map(transformUser),
+    }),
+  }),
+});
+```
 
 ## Whole response
 
@@ -166,49 +248,9 @@ const body: UserInputDto = transformData(userInput, { keys: 'snake_case' });
 
 ## Behavior
 
-- Missing fields, unknown DTO keys, unknown cases, mismatched types and a missing annotation fail at compile time. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
+- Missing fields, unknown DTO keys, unknown cases, mismatched types, an `any` input and a missing annotation fail at compile time. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
 - Keys and functions in `fields` always read the original DTO, before any conversion.
 - Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept unless it is listed in `exclude`.
 - Key conversion follows [`convertKeys`](convert-keys.md): how words split, what is walked, and which key wins a clash.
 - Returns a new object and never mutates the input. Values it does not convert are shared by reference.
 - The input must be an object or an array of objects. Every array is treated as a list of DTOs.
-
-## TanStack Query
-
-Pass a reusable transform to `select`, or annotate an inline arrow. A function defined at module scope keeps a stable reference, so `select` reruns only when the data changes:
-
-```ts
-const { data } = useQuery({
-  queryKey: ['user', id],
-  queryFn: (): Promise<UserDto> => fetch(`/api/users/${id}`).then((response) => response.json()),
-  select: transformUser,
-});
-// data: User | undefined
-
-const { data: users } = useQuery({
-  queryKey: ['users'],
-  queryFn: (): Promise<UserDto[]> => fetch('/api/users').then((response) => response.json()),
-  select: (data): User[] => transformData(data, { keys: 'camelCase' }),
-});
-// users: User[] | undefined
-```
-
-## RTK Query
-
-Pass a reusable transform to `transformResponse`. For an inline arrow, type the response and annotate the result, because RTK Query lets `transformResponse` return a promise:
-
-```ts
-const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  endpoints: (build) => ({
-    getUser: build.query<User, number>({
-      query: (id) => `users/${id}`,
-      transformResponse: transformUser,
-    }),
-    getUsers: build.query<User[], void>({
-      query: () => 'users',
-      transformResponse: (users: UserDto[]): User[] => users.map(transformUser),
-    }),
-  }),
-});
-```

@@ -70,6 +70,11 @@ export interface AnnotateTheResultType {
   'Annotate the result: const user: User = transformData(dto, options)': never;
 }
 
+/** Shown when the input is `any`, as from `response.json()`, so there is no DTO type to check against. */
+export interface TypeTheInput {
+  'Type the input: const dto: UserDto = await response.json()': never;
+}
+
 /** Shown when one input is annotated as an array result, or an array input as one result. */
 export interface ResultMustMatchInput {
   'Annotate an array input with an array result, and one DTO with one domain object': never;
@@ -80,8 +85,10 @@ type ItemOf<Value> = Value extends readonly (infer Item)[] ? Item : Value;
 type IsArray<Value> = [Value] extends [readonly unknown[]] ? true : false;
 
 /** The options for `transformData`, checked against the item types of the input and the annotated result. */
-export type TransformDataOptions<Input, Result> = unknown extends Result
-  ? AnnotateTheResultType
-  : IsArray<Input> extends IsArray<Result>
-    ? DtoOptions<ItemOf<Input>, ItemOf<Result>>
-    : ResultMustMatchInput;
+export type TransformDataOptions<Input, Result> = 0 extends 1 & Input
+  ? TypeTheInput
+  : unknown extends Result
+    ? AnnotateTheResultType
+    : IsArray<Input> extends IsArray<Result>
+      ? DtoOptions<ItemOf<Input>, ItemOf<Result>>
+      : ResultMustMatchInput;

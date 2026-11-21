@@ -169,6 +169,9 @@ describe('transformData', () => {
     const unannotated = transformData(dto, { keys: 'camelCase' });
     // @ts-expect-error: one DTO cannot be annotated as an array result.
     const mismatched: CamelUser[] = transformData(dto, { keys: 'camelCase' });
-    expect([unannotated, mismatched]).toHaveLength(2);
+    const untyped: any = dto; // eslint-disable-line @typescript-eslint/no-explicit-any
+    // @ts-expect-error: an `any` input, as from `response.json()`, has no DTO type to check against.
+    const fromAny: CamelUser = transformData(untyped, { keys: 'camelCase' });
+    expect([unannotated, mismatched, fromAny]).toHaveLength(3);
   });
 });
