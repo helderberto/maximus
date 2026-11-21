@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.11.0] - 2026-11-21
 
+Tagged but not published to npm. Its deprecations ship as removals in 1.0.0.
+
 ### Deprecated
 
 - `applyTo`: call the function directly. Removed in 1.0.
