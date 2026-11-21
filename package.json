@@ -1,6 +1,6 @@
 {
   "name": "mxs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "⚔️ Deep, strongly typed modules for Node and React projects",
   "type": "module",
   "sideEffects": false,
