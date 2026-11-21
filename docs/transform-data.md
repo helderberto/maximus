@@ -40,7 +40,7 @@ const user: User = transformData(userDto, {
 ## Signature
 
 ```ts
-transformData(input: Dto | Dto[], {
+transformData<Dto, Domain>(dto: Dto | Dto[], {
   keys?: 'camelCase' | 'PascalCase' | 'snake_case' | 'kebab-case' | 'CONSTANT_CASE',
   exclude?: (keyof Dto)[],
   fields?: { [field in keyof Domain]: FieldSource },
@@ -56,14 +56,20 @@ A field source is one of:
 
 ## Types come from the input and the annotation
 
-The DTO type comes from the input. The domain type comes from the annotation on the result, so you write no generics:
+The DTO type comes from the input. The domain type comes from the annotation on the result, so you usually write no generics:
 
 ```ts
 const user: User = transformData(userDto, options);
 const users: User[] = transformData(userDtos, options);
 ```
 
-Without an annotation there is no domain type to check against, so the call fails to compile. The same goes for an `any` input, such as the result of `response.json()`. An array input needs an array annotation, and one DTO needs one domain object.
+When a type cannot be inferred, pass both generics instead. This is the case for an `any` input, such as the result of `response.json()`:
+
+```ts
+const users = transformData<UserDto[], User[]>(await response.json(), { keys: 'camelCase' });
+```
+
+Without either, the call fails to compile and the error names both fixes. An array of DTOs pairs with an array result, and one DTO with one domain object.
 
 ## Usage
 
@@ -83,12 +89,15 @@ const transformUser = (dto: UserDto): User =>
 
 ### fetch
 
-`response.json()` returns `any`, so type the DTO first. With an `any` input there is nothing to check against, and `transformData` fails to compile until you add the type:
+`response.json()` returns `any`, so type the DTO first, or pass both generics. With an untyped `any` input there is nothing to check against, so `transformData` fails to compile:
 
 ```ts
 const response = await fetch(`/api/users/${id}`);
 const dto: UserDto = await response.json();
 const user = transformUser(dto);
+
+// Or, inline:
+const user = transformData<UserDto, User>(await response.json(), { keys: 'camelCase' });
 ```
 
 ### axios
@@ -248,7 +257,7 @@ const body: UserInputDto = transformData(userInput, { keys: 'snake_case' });
 
 ## Behavior
 
-- Missing fields, unknown DTO keys, unknown cases, mismatched types, an `any` input and a missing annotation fail at compile time. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
+- Missing fields, unknown DTO keys, unknown cases and mismatched types fail at compile time. So does a call where neither the input, the annotation nor generics give the types. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
 - Keys and functions in `fields` always read the original DTO, before any conversion.
 - Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept unless it is listed in `exclude`.
 - Key conversion follows [`convertKeys`](convert-keys.md): how words split, what is walked, and which key wins a clash.

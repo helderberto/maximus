@@ -82,7 +82,27 @@ describe('transformData with arrays and query libraries', () => {
     expect(types).toBeTypeOf('function');
   });
 
-  it('suggests every key case for `keys` and `to`, and only leaked keys for `exclude`', () => {
+  it('takes both generics when the input is `any`, as from `response.json()`', async () => {
+    const response = new Response(JSON.stringify(dtos));
+    const users = transformData<UserDto[], User[]>(await response.json(), { keys: 'camelCase' });
+    expectTypeOf(users).toEqualTypeOf<User[]>();
+    expect(users).toEqual(transformUsers(dtos));
+    const json: unknown = { user_id: 1, first_name: 'Ada' };
+    const user = transformData<UserDto, User>(json as UserDto, { keys: 'camelCase' });
+    expect(user).toEqual({ userId: 1, firstName: 'Ada' });
+  });
+
+  it('checks the options against both generics', async () => {
+    const response = new Response('{}');
+    const body: unknown = await response.json();
+    // @ts-expect-error: snake_case keeps `user_id`, so `userId` needs a source.
+    const snake = transformData<UserDto, User>(body as UserDto, { keys: 'snake_case' });
+    // @ts-expect-error: one DTO cannot be paired with an array domain type.
+    const mismatched = transformData<UserDto, User[]>(body as UserDto, { keys: 'camelCase' });
+    expect([snake, mismatched]).toHaveLength(2);
+  });
+
+  it('suggests key cases and leaked keys, and shows one description per option on hover', () => {
     const file = join(import.meta.dirname, 'completions-fixture.ts');
     const source = [
       "import { convertKeys } from '@/convert-keys';",
@@ -122,5 +142,10 @@ describe('transformData with arrays and query libraries', () => {
     expect(suggestionsAfter("keys: '")).toEqual(cases);
     expect(suggestionsAfter("to: '")).toEqual(cases);
     expect(suggestionsAfter("exclude: ['")).toEqual(['first_name']);
+    // Each option shows one description on hover, not the merged docs of every union member.
+    const hover = (marker: string) =>
+      ts.displayPartsToString(service.getQuickInfoAtPosition(file, source.indexOf(marker) + 1)?.documentation);
+    expect(hover("keys: 'camelCase'")).toMatch(/^Converts every key of the DTO to this case/);
+    expect(hover('transformData({')).toMatch(/^Transforms a DTO/);
   });
 });

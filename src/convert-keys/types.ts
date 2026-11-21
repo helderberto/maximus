@@ -79,6 +79,16 @@ export type ConvertKeys<Value, Case extends KeyCase> = Value extends readonly un
       : Value;
 
 export interface ConvertKeysOptions<Case extends KeyCase> {
-  /** The target case. */
+  /**
+   * The target case. Words split on `_`, `-`, spaces, and before a capital that follows a lowercase
+   * letter or digit. Leading underscores stay: `_id` stays `_id`.
+   *
+   * @example
+   * { to: 'camelCase' } // user_id => userId
+   * { to: 'PascalCase' } // user_id => UserId
+   * { to: 'snake_case' } // userId => user_id
+   * { to: 'kebab-case' } // userId => user-id
+   * { to: 'CONSTANT_CASE' } // userId => USER_ID
+   */
   to: Case;
 }

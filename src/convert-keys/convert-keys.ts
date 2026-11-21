@@ -97,8 +97,12 @@ const convertLevels = (value: unknown, walk: Walk): unknown => {
 
 /**
  * Returns a copy of a value with its keys in another case: camelCase, PascalCase, snake_case,
- * kebab-case or CONSTANT_CASE. Walks nested plain objects and arrays. The result type carries
- * the converted keys. Never mutates the input.
+ * kebab-case or CONSTANT_CASE. Walks nested plain objects and arrays. Dates, maps, class instances
+ * and primitives pass through. The result type carries the converted keys. Never mutates the input.
+ *
+ * @param value - Any value. Only plain objects and arrays are walked.
+ * @param options - `to`: the target case.
+ * @returns A new value with every key converted.
  *
  * @example
  * convertKeys({ user_id: 1, home_address: { street_name: 'Main' } }, { to: 'camelCase' })

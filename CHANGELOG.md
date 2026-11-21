@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `transformData(input, { keys, exclude, fields })`: transforms a DTO, or an array of DTOs, into domain objects. It converts key case across the whole response, leaves out the DTO keys the domain does not use, and checks renamed and computed fields at compile time. The DTO type comes from the input and the domain type from the result's annotation, so callers write no generics.
+- `transformData(input, { keys, exclude, fields })`: transforms a DTO, or an array of DTOs, into domain objects. It converts key case across the whole response, leaves out the DTO keys the domain does not use, and checks renamed and computed fields at compile time. The DTO type comes from the input and the domain type from the result's annotation. When neither can be inferred, pass both generics: `transformData<UserDto, User>(dto, options)`.
 - `convertKeys(value, { to })`: copies a value with its keys in camelCase, PascalCase, snake_case, kebab-case or CONSTANT_CASE. The result type carries the converted keys.
 
 ## [1.1.1] - 2026-11-21

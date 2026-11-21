@@ -22,32 +22,41 @@ const transformOne = (dto: Record<string, unknown>, { keys, exclude, fields }: R
 };
 
 /**
- * Transforms a DTO into a domain object, or an array of DTOs into an array of domain objects.
- * The DTO type comes from the input and the domain type from the result's annotation, so callers
- * write no generics. Never mutates the input.
+ * Transforms a DTO (the shape the API sends) into a domain object (the shape your app uses),
+ * or an array of DTOs into an array of domain objects. Returns a new value and never mutates the input.
  *
- * - Without `keys`, `fields` gives every domain field a source: a DTO key or a function of the whole DTO.
- * - With `keys`, every DTO key is converted to that case, nested ones included, and `fields` only
- *   lists the domain fields that conversion does not already provide. `exclude` drops DTO keys
- *   the domain does not use.
+ * The DTO type comes from `dto` and the domain type from the annotation on the result, so you
+ * usually write no generics. When neither can be inferred, such as an `any` from `response.json()`,
+ * pass both: `transformData<UserDto, User>(dto, options)`.
  *
- * Missing fields, unknown keys, mismatched types and a missing annotation fail at compile time.
+ * Missing fields, unknown keys, mismatched types and an unknown DTO or domain type fail at compile time.
+ *
+ * @param dto - One DTO, or an array of DTOs.
+ * @param options - `keys` converts every key to a case, `exclude` leaves DTO keys out, and `fields`
+ * computes or copies domain fields. Without `keys`, `fields` lists every domain field.
+ * @returns The domain object, or an array of them for an array input.
  *
  * @example
+ * // Types from the input and the annotation
  * const user: User = transformData(userDto, {
  *   keys: 'camelCase',
+ *   exclude: ['first_name', 'last_name'],
  *   fields: { fullName: (dto) => `${dto.first_name} ${dto.last_name}` },
  * })
+ *
+ * @example
+ * // Both generics, when the input is `any`
+ * const users = transformData<UserDto[], User[]>(await response.json(), { keys: 'camelCase' })
  */
-export const transformData = <Input extends object, Result = unknown>(
-  input: Input,
-  // `NoInfer` keeps the options from guessing the types: they come from `input` and the annotation.
-  options: NoInfer<TransformDataOptions<Input, Result>>,
-): Result => {
+export const transformData = <Dto extends object, Domain = unknown>(
+  dto: Dto,
+  // `NoInfer` keeps the options from guessing the types: they come from `dto` and the annotation, or the generics.
+  options: NoInfer<TransformDataOptions<Dto, Domain>>,
+): Domain => {
   const runtime = options as RuntimeOptions;
   return (
-    Array.isArray(input)
-      ? input.map((dto: Record<string, unknown>) => transformOne(dto, runtime))
-      : transformOne(input as Record<string, unknown>, runtime)
-  ) as Result;
+    Array.isArray(dto)
+      ? dto.map((item: Record<string, unknown>) => transformOne(item, runtime))
+      : transformOne(dto as Record<string, unknown>, runtime)
+  ) as Domain;
 };
