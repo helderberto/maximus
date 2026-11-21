@@ -22,7 +22,7 @@ See `docs/adr/0001-deep-modules-platform-first.md`.
 - Exact dependency versions, no `^` or `~` (`.npmrc` sets `save-prefix=""`).
 - Versioning: [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 - Atomic [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). commitlint enforces them. A squash merge takes the PR title, so the title follows them too.
-- [semantic-release](https://github.com/semantic-release/semantic-release) releases every push to `main` from the commit types: `feat` is minor, `fix` patch, and `!` or a `BREAKING CHANGE:` footer major.
+- [semantic-release](https://github.com/semantic-release/semantic-release), configured in `release.config.ts`, releases every push to `main` from the commit types: `feat` is minor, `fix` patch, and `!` or a `BREAKING CHANGE:` footer major.
 - `docs`, `refactor`, `perf`, `style`, `build` cut a patch release. `chore`, `ci`, `test` don't.
 - semantic-release owns `version` and `CHANGELOG.md`, commits them as `chore(release): x.y.z`, publishes to npm with provenance and creates the GitHub release. Never edit, tag or publish by hand.
 
