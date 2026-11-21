@@ -64,4 +64,11 @@ type ConvertedOptions<Dto, Domain> = {
  */
 export type TransformerOptions<Dto, Domain> = PickOptions<Dto, Domain> | ConvertedOptions<Dto, Domain>;
 
-export type Transformer<Dto, Domain> = (dto: Dto) => Domain;
+/**
+ * Transforms one DTO into one domain object, or an array of DTOs into an array of domain objects.
+ * One generic signature (not overloads) so `select` and `.map` infer the result. The conditional
+ * does not distribute, so a caller that widens the input to `unknown` (RTK Query) gets `Domain`.
+ */
+export type Transformer<Dto, Domain> = <Input extends Dto | readonly Dto[]>(
+  input: Input,
+) => [Input] extends [readonly Dto[]] ? Domain[] : Domain;

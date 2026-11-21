@@ -1,6 +1,6 @@
 # createTransformer
 
-Creates a pure function that transforms a DTO into a domain object. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response, down to a set depth, or in specific fields, and lets you compute any field yourself. It never mutates the DTO.
+Creates a pure function that transforms a DTO into a domain object, or an array of DTOs into an array of domain objects. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response, down to a set depth, or in specific fields, and lets you compute any field yourself. It never mutates the DTO.
 
 ```ts
 import { convertKeys, createTransformer } from 'mxs';
@@ -36,7 +36,10 @@ createTransformer<Dto, Domain>({
   keys?: 'camelCase' | 'PascalCase' | 'snake_case' | 'kebab-case' | 'CONSTANT_CASE',
   depth?: 1 | 2 | 3 | 4 | 5,
   fields?: { [field in keyof Domain]: FieldSource },
-}): (dto: Dto) => Domain
+}): {
+  (dto: Dto): Domain;
+  (dtos: readonly Dto[]): Domain[];
+}
 ```
 
 A field source is one of:
@@ -100,9 +103,21 @@ Convert the other way to send a domain object to a snake_case API:
 const transformUserToDto = createTransformer<UserInput, UserInputDto>({ keys: 'snake_case' });
 ```
 
-## Arrays and nested objects
+## Arrays
 
-Transform arrays with `Array.prototype.map`. For nested objects, call another transformer from a function source:
+The same transformer takes one DTO or an array of them, and returns the matching type:
+
+```ts
+transformUser(userDto); // User
+transformUser(userDtos); // User[]
+userDtos.map(transformUser); // User[]
+```
+
+`Dto` must be an object type, not an array: the transformer maps any array it receives.
+
+## Nested objects
+
+Call another transformer from a function source:
 
 ```ts
 const transformAddress = createTransformer<AddressDto, Address>({ fields: { street: 'street_name', city: 'city' } });
@@ -111,13 +126,11 @@ const transformUser = createTransformer<UserDto, User>({
   keys: 'camelCase',
   fields: { address: (dto) => transformAddress(dto.home_address) },
 });
-
-users.map(transformUser);
 ```
 
 ## TanStack Query
 
-Pass the transformer to `select`. A transformer made at module scope keeps a stable reference, so `select` reruns only when the data changes:
+Pass the transformer to `select`, for one DTO or a list. A transformer made at module scope keeps a stable reference, so `select` reruns only when the data changes:
 
 ```ts
 const { data } = useQuery({
@@ -126,11 +139,18 @@ const { data } = useQuery({
   select: transformUser,
 });
 // data: User | undefined
+
+const { data: users } = useQuery({
+  queryKey: ['users'],
+  queryFn: (): Promise<UserDto[]> => fetch('/api/users').then((response) => response.json()),
+  select: transformUser,
+});
+// users: User[] | undefined
 ```
 
 ## RTK Query
 
-Pass the transformer to `transformResponse`:
+Pass the transformer to `transformResponse`. RTK Query types the response as `unknown`, so for a list, type the response in an arrow function:
 
 ```ts
 const api = createApi({
@@ -142,7 +162,7 @@ const api = createApi({
     }),
     getUsers: build.query<User[], void>({
       query: () => 'users',
-      transformResponse: (users: UserDto[]) => users.map(transformUser),
+      transformResponse: (users: UserDto[]) => transformUser(users),
     }),
   }),
 });
