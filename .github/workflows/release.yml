@@ -1,10 +1,14 @@
 name: release
 on:
   push:
-    tags: ['v*']
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 jobs:
@@ -24,19 +28,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check tag, version and changelog
-        env:
-          TAG: ${{ github.ref_name }}
-        run: node scripts/check-release/run.ts "$TAG"
+      - name: Check for a new version
+        id: release
+        run: node scripts/check-release/run.ts
 
       - name: Lint
+        if: steps.release.outputs.publish == 'true'
         run: npm run lint
 
       - name: Type check
+        if: steps.release.outputs.publish == 'true'
         run: npm run typecheck
 
       - name: Test
+        if: steps.release.outputs.publish == 'true'
         run: npm test
 
       - name: Publish with provenance
+        if: steps.release.outputs.publish == 'true'
         run: npm publish --provenance --access public
+
+      - name: Tag the release
+        if: steps.release.outputs.publish == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git tag "v$VERSION"
+          git push origin "v$VERSION"

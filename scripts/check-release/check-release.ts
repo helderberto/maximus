@@ -1,17 +1,22 @@
 import { hasReleaseSection } from '../check-changelog/check-changelog.ts';
 
 interface CheckReleaseOptions {
-  tag: string;
   version: string;
   changelog: string;
+  published: string[];
 }
 
-export const checkRelease = ({ tag, version, changelog }: CheckReleaseOptions): string[] => {
-  if (tag !== `v${version}`) {
-    return [`Tag ${tag} does not match package.json version ${version}.`];
+interface ReleaseDecision {
+  publish: boolean;
+  errors: string[];
+}
+
+export const checkRelease = ({ version, changelog, published }: CheckReleaseOptions): ReleaseDecision => {
+  if (published.includes(version)) {
+    return { publish: false, errors: [] };
   }
   if (!hasReleaseSection({ version, changelog })) {
-    return [`CHANGELOG.md has no ## [${version}] - YYYY-MM-DD section.`];
+    return { publish: false, errors: [`CHANGELOG.md has no ## [${version}] - YYYY-MM-DD section.`] };
   }
-  return [];
+  return { publish: true, errors: [] };
 };
