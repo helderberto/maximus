@@ -1,4 +1,4 @@
-import { removeDuplicates } from './remove-duplicates.js';
+import { removeDuplicates } from './remove-duplicates';
 
 interface User {
   id: number;

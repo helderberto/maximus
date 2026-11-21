@@ -1,4 +1,4 @@
-import { buildPath } from './build-path.js';
+import { buildPath } from './build-path';
 
 describe('buildPath', () => {
   describe('params', () => {

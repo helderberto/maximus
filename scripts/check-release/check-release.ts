@@ -1,4 +1,4 @@
-import { hasReleaseSection } from '../check-changelog/check-changelog.ts';
+import { hasReleaseSection } from '../check-changelog/check-changelog';
 
 interface CheckReleaseOptions {
   version: string;

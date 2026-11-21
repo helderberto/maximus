@@ -30,7 +30,7 @@ jobs:
 
       - name: Check for a new version
         id: release
-        run: node scripts/check-release/run.ts
+        run: npm run check:release
 
       - name: Lint
         if: steps.release.outputs.publish == 'true'

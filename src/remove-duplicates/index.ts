@@ -1,1 +1,1 @@
-export { removeDuplicates } from './remove-duplicates.js';
+export { removeDuplicates } from './remove-duplicates';

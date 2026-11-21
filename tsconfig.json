@@ -1,15 +1,24 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "lib": ["ES2023", "DOM"],
+    "lib": [
+      "ES2023",
+      "DOM"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "types": ["node", "vitest/globals"],
-    "allowImportingTsExtensions": true
+    "types": [
+      "node",
+      "vitest/globals"
+    ]
   },
-  "include": ["src", "scripts", "*.ts"]
+  "include": [
+    "src",
+    "scripts",
+    "*.ts"
+  ]
 }

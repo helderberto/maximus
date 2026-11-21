@@ -1,4 +1,4 @@
-import { checkChangelog } from './check-changelog.ts';
+import { checkChangelog } from './check-changelog';
 
 const changelog = (unreleased: string, releases = ''): string =>
   `# Changelog\n\n## [Unreleased]\n${unreleased}\n${releases}## [0.11.0] - 2026-11-21\n\n- Old entry.\n`;
