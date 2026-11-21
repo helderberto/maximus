@@ -47,3 +47,8 @@ src/is-empty/
 - Large types → `types.ts`. Constants → `constants.ts`. Same folder.
 - No `enum`. Use `as const` objects.
 - Tests cover types too (`expectTypeOf`).
+
+## Docs
+
+- New function: add `docs/<name>.md` and a row in `docs/api.md`. Keep the README to one usage example.
+- Polish changed docs with `/hb:revise`.
