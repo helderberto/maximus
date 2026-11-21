@@ -61,4 +61,4 @@ Read [AGENTS.md](AGENTS.md) for the project rules, and add a [CHANGELOG.md](CHAN
 
 ## License
 
-[MIT License](LICENSE) © Maximus
+[MIT License](LICENSE) © Helder Burato Berto
