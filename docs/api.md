@@ -22,10 +22,10 @@ import { useStorageState } from 'mxs/react';
 
 ## Data
 
-| Function                                     | Signature                                                      | Description                                                                                           |
-| -------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| [`createTransformer`](create-transformer.md) | `createTransformer<Dto, Domain>({ keys?, exclude?, fields? })` | Transforms a DTO, or an array of DTOs, into domain objects, converting key case and computing fields. |
-| [`convertKeys`](convert-keys.md)             | `convertKeys(value, { to })`                                   | Returns a typed copy of a value with its keys in camelCase, snake_case or another case.               |
+| Function                             | Signature                                            | Description                                                                                  |
+| ------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [`transformData`](transform-data.md) | `transformData(input, { keys?, exclude?, fields? })` | Transforms a DTO, or an array of DTOs, into domain objects typed by the result's annotation. |
+| [`convertKeys`](convert-keys.md)     | `convertKeys(value, { to })`                         | Returns a typed copy of a value with its keys in camelCase, snake_case or another case.      |
 
 ## Arrays
 

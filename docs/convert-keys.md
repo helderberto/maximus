@@ -35,4 +35,4 @@ await fetch('/api/users', {
 });
 ```
 
-To map a whole response to a domain type, with computed fields, use [`createTransformer`](create-transformer.md).
+To map a whole response to a domain type, with computed fields, use [`transformData`](transform-data.md).

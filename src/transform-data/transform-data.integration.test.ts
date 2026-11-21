@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import ts from 'typescript';
-import { createTransformer } from './create-transformer';
+import { transformData } from './transform-data';
 
 interface UserDto {
   user_id: number;
@@ -13,7 +13,9 @@ interface User {
   firstName: string;
 }
 
-const transformUser = createTransformer<UserDto, User>({ keys: 'camelCase' });
+// A reusable transform is a plain function with a return annotation. No generics.
+const transformUser = (dto: UserDto): User => transformData(dto, { keys: 'camelCase' });
+const transformUsers = (dtos: readonly UserDto[]): User[] => transformData(dtos, { keys: 'camelCase' });
 const dtos: UserDto[] = [
   { user_id: 1, first_name: 'Ada' },
   { user_id: 2, first_name: 'Grace' },
@@ -28,10 +30,10 @@ declare function defineQuery<Result>(options: {
   transformResponse?(response: unknown, meta: unknown, arg: number): Result | Promise<Result>;
 }): Result;
 
-describe('createTransformer with arrays and query libraries', () => {
+describe('transformData with arrays and query libraries', () => {
   it('transforms an array of DTOs into a new array of domain objects', () => {
     const copy = structuredClone(dtos);
-    const users = transformUser(dtos);
+    const users: User[] = transformData(dtos, { keys: 'camelCase' });
     expect(users).toEqual([
       { userId: 1, firstName: 'Ada' },
       { userId: 2, firstName: 'Grace' },
@@ -40,34 +42,40 @@ describe('createTransformer with arrays and query libraries', () => {
     expect(dtos).toEqual(copy);
   });
 
-  it('works with Array.prototype.map', () => {
-    expect(dtos.map(transformUser)).toEqual(transformUser(dtos));
+  it('matches Array.prototype.map with a reusable function', () => {
+    expect(dtos.map(transformUser)).toEqual(transformUsers(dtos));
   });
 
-  it('types one DTO, arrays and readonly arrays', () => {
+  it('types one DTO, arrays and readonly arrays from the annotation', () => {
     const readonlyDtos: readonly UserDto[] = dtos;
+    const users: readonly User[] = transformData(readonlyDtos, { keys: 'camelCase' });
     expectTypeOf(transformUser(dtos[0]!)).toEqualTypeOf<User>();
-    expectTypeOf(transformUser(dtos)).toEqualTypeOf<User[]>();
-    expectTypeOf(transformUser(readonlyDtos)).toEqualTypeOf<User[]>();
+    expectTypeOf(transformUsers(readonlyDtos)).toEqualTypeOf<User[]>();
     expectTypeOf(dtos.map(transformUser)).toEqualTypeOf<User[]>();
-    // @ts-expect-error: the input is not a `UserDto`.
-    transformUser({ id: 1 });
+    expect(users).toHaveLength(2);
+    // @ts-expect-error: an array input cannot be annotated as one result.
+    const mismatched: User = transformData(dtos, { keys: 'camelCase' });
+    expect(mismatched).toBeDefined();
   });
 
-  it('types TanStack Query `select` for one DTO and for arrays', () => {
+  it('types TanStack Query `select` with a reusable function or an annotated arrow', () => {
     const types = () => {
       const user: User = useQuery({ queryFn: async (): Promise<UserDto> => dtos[0]!, select: transformUser });
-      const users: User[] = useQuery({ queryFn: async () => dtos, select: transformUser });
+      const users: User[] = useQuery({
+        queryFn: async () => dtos,
+        select: (data): User[] => transformData(data, { keys: 'camelCase' }),
+      });
       return [user, users];
     };
     expect(types).toBeTypeOf('function');
   });
 
-  it('types RTK Query `transformResponse`', () => {
+  it('types RTK Query `transformResponse` with a reusable function or an annotated arrow', () => {
     const types = () => {
       const user: User = defineQuery<User>({ transformResponse: transformUser });
+      // RTK Query lets `transformResponse` return a promise, so an inline arrow annotates its result.
       const users: User[] = defineQuery<User[]>({
-        transformResponse: (response: UserDto[]) => transformUser(response),
+        transformResponse: (response: UserDto[]): User[] => transformData(response, { keys: 'camelCase' }),
       });
       return [user, users];
     };
@@ -78,10 +86,10 @@ describe('createTransformer with arrays and query libraries', () => {
     const file = join(import.meta.dirname, 'completions-fixture.ts');
     const source = [
       "import { convertKeys } from '@/convert-keys';",
-      "import { createTransformer } from '@/create-transformer';",
-      "createTransformer<{ user_id: number }, { userId: number }>({ keys: '' });",
+      "import { transformData } from '@/transform-data';",
+      "const a: { userId: number } = transformData({ user_id: 1 }, { keys: '' });",
       "convertKeys({ user_id: 1 }, { to: '' });",
-      "createTransformer<{ user_id: number; first_name: string }, { userId: number }>({ keys: 'camelCase', exclude: [''] });",
+      "const b: { userId: number } = transformData({ user_id: 1, first_name: 'Ada' }, { keys: 'camelCase', exclude: [''] });",
     ].join('\n');
     const config = ts.getParsedCommandLineOfConfigFile(
       join(process.cwd(), 'tsconfig.json'),

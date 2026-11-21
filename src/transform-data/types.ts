@@ -57,21 +57,31 @@ export interface PickOptions<Dto, Domain> {
   fields: FieldMapping<Dto, Domain>;
 }
 
-// A caller who passes `<Dto, Domain>` gets no inference for the rest.
-// So each case is one member of a union, discriminated by the `keys` literal.
 type ConvertedOptions<Dto, Domain> = { [Case in KeyCase]: CaseOptions<Dto, Domain, Case> }[KeyCase];
 
 /**
  * Without `keys`, `fields` lists every domain field. With `keys`, the whole DTO is converted,
  * minus `exclude`, and `fields` lists only the domain fields conversion does not provide.
  */
-export type TransformerOptions<Dto, Domain> = PickOptions<Dto, Domain> | ConvertedOptions<Dto, Domain>;
+export type DtoOptions<Dto, Domain> = PickOptions<Dto, Domain> | ConvertedOptions<Dto, Domain>;
 
-/**
- * Transforms one DTO into one domain object, or an array of DTOs into an array of domain objects.
- * One generic signature (not overloads) so `select` and `.map` infer the result. The conditional
- * does not distribute, so a caller that widens the input to `unknown` (RTK Query) gets `Domain`.
- */
-export type Transformer<Dto, Domain> = <Input extends Dto | readonly Dto[]>(
-  input: Input,
-) => [Input] extends [readonly Dto[]] ? Domain[] : Domain;
+/** Shown when the result has no type annotation, so there is no domain type to check against. */
+export interface AnnotateTheResultType {
+  'Annotate the result: const user: User = transformData(dto, options)': never;
+}
+
+/** Shown when one input is annotated as an array result, or an array input as one result. */
+export interface ResultMustMatchInput {
+  'Annotate an array input with an array result, and one DTO with one domain object': never;
+}
+
+type ItemOf<Value> = Value extends readonly (infer Item)[] ? Item : Value;
+
+type IsArray<Value> = [Value] extends [readonly unknown[]] ? true : false;
+
+/** The options for `transformData`, checked against the item types of the input and the annotated result. */
+export type TransformDataOptions<Input, Result> = unknown extends Result
+  ? AnnotateTheResultType
+  : IsArray<Input> extends IsArray<Result>
+    ? DtoOptions<ItemOf<Input>, ItemOf<Result>>
+    : ResultMustMatchInput;

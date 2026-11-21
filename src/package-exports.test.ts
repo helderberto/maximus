@@ -7,7 +7,6 @@ const ENTRIES = {
   mxs: [
     'buildPath',
     'convertKeys',
-    'createTransformer',
     'createTypedEmitter',
     'createTypedStorage',
     'debounce',
@@ -19,6 +18,7 @@ const ENTRIES = {
     'removeDuplicates',
     'retry',
     'throttle',
+    'transformData',
   ],
   'mxs/react': [
     'useClickOutside',
