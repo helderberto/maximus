@@ -31,6 +31,7 @@ See `docs/adr/0001-deep-modules-platform-first.md`.
 
 - Named only: `export { buildPath } from './build-path'`.
 - No `export *`, `import * as`, or `export default`.
+- Cross-folder imports use the `@/` alias for `src/` (`@/path-pattern/types`), never `../`. ESLint enforces it.
 - Relative imports have no extension. A folder import resolves its `index.ts`. Types ship bundled in `dist/index.d.ts`, so consumers on `nodenext` still resolve them.
 
 ## File structure
@@ -46,6 +47,8 @@ src/is-empty/
   is-empty.test.ts  # test
 ```
 
+- React hooks live in `src/react/<hook>/` and ship from `mxs/react` (`src/react.ts`). Hook tests start with `// @vitest-environment happy-dom`.
+- `interface` for object shapes. `type` only for unions, conditional, mapped or function types.
 - Large types → `types.ts`. Constants → `constants.ts`. Same folder.
 - No `enum`. Use `as const` objects.
 - Tests cover types too (`expectTypeOf`).

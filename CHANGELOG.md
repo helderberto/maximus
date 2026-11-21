@@ -7,9 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `parseSearchParams(search, { schema })`: parses a query string into a typed object with defaults and arrays.
+- `retry(fn, { attempts, backoff, shouldRetry, signal })`: retries an async function with exponential backoff and abort.
+- `mapWithConcurrency(items, { limit, fn })`: maps items through an async function with a concurrency cap.
+- `dedupeInFlight(fn, { key })`: shares one pending promise between concurrent identical calls.
+- `createTypedStorage({ key, parse, storage })`: validated JSON storage for one key that never throws.
+- `createTypedEmitter<Events>()`: event emitter typed by one event map.
+- `formatRelativeTime(date, { now, locale })`: formats a date relative to now and picks the unit.
+- `debounce(fn, { wait, leading, signal })` and `throttle(fn, { wait, signal })`, with `cancel` and `flush`.
+- `mxs/react` entry with an optional `react` peer dependency (18 or newer): `useStorageState`, `useDebouncedValue`, `usePrevious`, `useMediaQuery`, `useEventListener`, `useClickOutside` and `useInterval`.
+
 ### Changed
 
-- Type declarations ship as one bundled `dist/index.d.ts`.
+- Type declarations ship bundled, one file per entry: `dist/index.d.ts` and `dist/react.d.ts`.
 
 ## [1.0.0] - 2026-11-21
 
