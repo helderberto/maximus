@@ -1,7 +1,7 @@
 {
   "name": "mxs",
   "version": "0.11.0",
-  "description": "⚔️ Lightweight functional JavaScript utilities",
+  "description": "⚔️ Deep, strongly typed modules for Node and React projects",
   "type": "module",
   "sideEffects": false,
   "engines": {
@@ -21,8 +21,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "prepublishOnly": "npm run build",
-    "docs:serve": "docsify serve ./docs -P 3000",
-    "generate-fn-md": "jsdoc2md",
     "validate": "npm run lint && npm test",
     "typecheck": "tsc --noEmit"
   },
@@ -39,12 +37,15 @@
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
   "keywords": [
     "maximus",
-    "mx",
-    "functional",
-    "utils",
-    "utilities",
-    "lightweight",
-    "fp"
+    "mxs",
+    "typescript",
+    "path",
+    "url",
+    "build-path",
+    "match-path",
+    "esm",
+    "node",
+    "react"
   ],
   "files": [
     "dist/",
@@ -56,7 +57,6 @@
     "@commitlint/config-conventional": "^16.0.0",
     "@eslint/js": "^9.39.5",
     "@types/node": "^24.19.2",
-    "docsify-cli": "^4.4.2",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-check-file": "^3.3.2",
@@ -64,7 +64,6 @@
     "eslint-plugin-prettier": "^5.5.7",
     "globals": "^17.14.0",
     "husky": "^7.0.4",
-    "jsdoc-to-markdown": "^7.1.0",
     "lint-staged": "12.3.2",
     "prettier": "^3.10.1",
     "typescript": "^5.9.3",

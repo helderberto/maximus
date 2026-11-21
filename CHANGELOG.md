@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Breaking:** `applyTo`, `compose`, `curry`, `pipe`, `isEmpty` and `uniq`, deprecated in 0.11.0.
 - The UMD browser build.
+- The docsify documentation site. Docs now live in `docs/` on GitHub.
 
 ## [0.11.0] - 2026-11-21
 
