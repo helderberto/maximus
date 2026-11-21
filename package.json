@@ -33,14 +33,114 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "prepublishOnly": "npm run build",
-    "bump:patch": "npm version patch --no-git-tag-version",
-    "bump:minor": "npm version minor --no-git-tag-version",
-    "bump:major": "npm version major --no-git-tag-version",
     "validate": "npm run lint && npm test",
-    "typecheck": "tsc --noEmit",
-    "check:changelog": "tsx scripts/check-changelog/run.ts",
-    "check:release": "tsx scripts/check-release/run.ts",
-    "release-notes": "tsx scripts/release-notes/run.ts"
+    "typecheck": "tsc --noEmit"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "docs",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "patch"
+            },
+            {
+              "type": "perf",
+              "release": "patch"
+            },
+            {
+              "type": "style",
+              "release": "patch"
+            },
+            {
+              "type": "build",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits",
+          "presetConfig": {
+            "types": [
+              {
+                "type": "feat",
+                "section": "Features"
+              },
+              {
+                "type": "fix",
+                "section": "Bug Fixes"
+              },
+              {
+                "type": "perf",
+                "section": "Performance"
+              },
+              {
+                "type": "revert",
+                "section": "Reverts"
+              },
+              {
+                "type": "refactor",
+                "section": "Refactoring"
+              },
+              {
+                "type": "docs",
+                "section": "Documentation"
+              },
+              {
+                "type": "build",
+                "section": "Build"
+              },
+              {
+                "type": "style",
+                "section": "Styles"
+              },
+              {
+                "type": "chore",
+                "hidden": true
+              },
+              {
+                "type": "ci",
+                "hidden": true
+              },
+              {
+                "type": "test",
+                "hidden": true
+              }
+            ]
+          }
+        }
+      ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogTitle": "# Changelog"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "CHANGELOG.md"
+          ],
+          "message": "chore(release): ${nextRelease.version}"
+        }
+      ]
+    ]
   },
   "lint-staged": {
     "*.{ts,js}": [
@@ -78,12 +178,15 @@
     "@commitlint/config-conventional": "16.2.4",
     "@eslint/js": "9.39.5",
     "@microsoft/api-extractor": "7.60.1",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/git": "10.0.1",
     "@testing-library/dom": "10.4.2",
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.13",
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "conventional-changelog-conventionalcommits": "9.3.1",
     "eslint": "9.39.5",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-check-file": "3.3.2",
@@ -97,7 +200,7 @@
     "prettier": "3.10.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "tsx": "4.23.15",
+    "semantic-release": "25.0.9",
     "typescript": "5.9.3",
     "typescript-eslint": "8.73.0",
     "vite": "7.3.8",

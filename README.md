@@ -67,7 +67,7 @@ Signatures and behavior for each one are in the [API reference](docs/api.md).
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Read [AGENTS.md](AGENTS.md) for the project rules, and add a [CHANGELOG.md](CHANGELOG.md) entry under `[Unreleased]`.
+Read [AGENTS.md](AGENTS.md) for the project rules. Commits follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): [semantic-release](https://github.com/semantic-release/semantic-release) picks the version and writes [CHANGELOG.md](CHANGELOG.md) from them.
 
 ## License
 

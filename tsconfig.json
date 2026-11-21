@@ -21,7 +21,6 @@
   },
   "include": [
     "src",
-    "scripts",
     "*.ts"
   ]
 }
