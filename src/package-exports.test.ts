@@ -1,6 +1,7 @@
 import { execFileSync, execSync } from 'node:child_process';
 
-const runNode = (source: string): string => execFileSync('node', ['--input-type=module', '-e', source]).toString().trim();
+const runNode = (source: string): string =>
+  execFileSync('node', ['--input-type=module', '-e', source]).toString().trim();
 
 describe('package exports', () => {
   beforeAll(() => {
