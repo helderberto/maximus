@@ -1,4 +1,4 @@
-interface Snapshot {
+export interface Snapshot {
   changelog: string;
   version: string;
 }
@@ -16,7 +16,7 @@ const unreleasedEntries = (changelog: string): string[] => {
   return section.split('\n').filter((line) => line.trim().startsWith('- '));
 };
 
-const hasReleaseSection = (snapshot: Snapshot): boolean =>
+export const hasReleaseSection = (snapshot: Snapshot): boolean =>
   new RegExp(`^## \\[${snapshot.version.replaceAll('.', '\\.')}\\] - \\d{4}-\\d{2}-\\d{2}$`, 'm').test(
     snapshot.changelog,
   );

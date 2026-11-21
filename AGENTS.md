@@ -18,6 +18,7 @@ See `docs/adr/0001-deep-modules-platform-first.md`.
 - Versioning: [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 - `CHANGELOG.md`: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/). Every user-facing change goes under `## [Unreleased]`.
 - CI enforces it: a PR changing `src/` must add an `[Unreleased]` entry. A version bump must add a matching `## [x.y.z] - YYYY-MM-DD` section.
+- Release: `npm version <major|minor|patch>`, then `git push --follow-tags`. The `release` workflow publishes to npm with provenance.
 
 ## API design
 
