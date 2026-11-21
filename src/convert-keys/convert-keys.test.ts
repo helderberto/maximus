@@ -89,6 +89,13 @@ describe('convertKeys', () => {
     expect(convertKeys('first_name', { to: 'camelCase' })).toBe('first_name');
   });
 
+  it('never sets the prototype from a `__proto__` key', () => {
+    const parsed: unknown = JSON.parse('{ "__proto__": { "is_admin": true }, "user_id": 1 }');
+    const converted = convertKeys(parsed, { to: 'camelCase' }) as Record<string, unknown>;
+    expect(Object.getPrototypeOf(converted)).toBe(Object.prototype);
+    expect(converted).toEqual({ __proto: { isAdmin: true }, userId: 1 });
+  });
+
   it('converts objects with a null prototype', () => {
     const nullPrototype = Object.assign(Object.create(null) as object, { first_name: 'Ada' });
     expect(convertKeys(nullPrototype, { to: 'camelCase' })).toEqual({ firstName: 'Ada' });

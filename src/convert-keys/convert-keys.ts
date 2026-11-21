@@ -65,21 +65,36 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> => {
   return prototype === Object.prototype || prototype === null;
 };
 
-interface Levels {
+interface Walk {
   to: KeyCase;
   depth: number;
+  /** Keys already converted in this call. API responses repeat the same keys across items. */
+  cache: Map<string, string>;
 }
 
-const convertLevels = (value: unknown, { to, depth }: Levels): unknown => {
-  if (Array.isArray(value)) {
-    return value.map((item: unknown) => convertLevels(item, { to, depth }));
+const convertCached = (key: string, { to, cache }: Walk): string => {
+  let converted = cache.get(key);
+  if (converted === undefined) {
+    converted = convertKey(key, to);
+    cache.set(key, converted);
   }
-  if (depth < 1 || !isPlainObject(value)) {
+  return converted;
+};
+
+const convertLevels = (value: unknown, walk: Walk): unknown => {
+  if (Array.isArray(value)) {
+    return value.map((item: unknown) => convertLevels(item, walk));
+  }
+  if (walk.depth < 1 || !isPlainObject(value)) {
     return value;
   }
-  return Object.fromEntries(
-    Object.entries(value).map(([key, item]) => [convertKey(key, to), convertLevels(item, { to, depth: depth - 1 })]),
-  );
+  const next = { ...walk, depth: walk.depth - 1 };
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(value)) {
+    // Safe to assign: a converted key never ends in `_`, so it can never be `__proto__`.
+    result[convertCached(key, walk)] = convertLevels(value[key], next);
+  }
+  return result;
 };
 
 /**
@@ -94,4 +109,5 @@ const convertLevels = (value: unknown, { to, depth }: Levels): unknown => {
 export const convertKeys = <Value, Case extends KeyCase, D extends Depth | undefined = undefined>(
   value: Value,
   { to, depth }: ConvertKeysOptions<Case, D>,
-): ConvertKeys<Value, Case, D> => convertLevels(value, { to, depth: depth ?? Infinity }) as ConvertKeys<Value, Case, D>;
+): ConvertKeys<Value, Case, D> =>
+  convertLevels(value, { to, depth: depth ?? Infinity, cache: new Map() }) as ConvertKeys<Value, Case, D>;
