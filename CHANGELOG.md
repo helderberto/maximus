@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** the package is ESM only (`"type": "module"`). On Node 24+, `require('mxs')` still works.
+- **Breaking:** requires Node 24 or newer.
+
+### Removed
+
+- **Breaking:** `applyTo`, `compose`, `curry`, `pipe`, `isEmpty` and `uniq`, deprecated in 0.11.0.
+- The UMD browser build.
+
 ## [0.11.0] - 2026-11-21
 
 ### Deprecated

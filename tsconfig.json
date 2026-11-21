@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "declaration": true,
-    "rootDir": "./src",
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "strict": true,
-    "target": "es5",
-    "module": "commonjs"
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "types": ["node", "vitest/globals"]
   },
-  "include": ["src"]
+  "include": ["src", "*.ts"]
 }
