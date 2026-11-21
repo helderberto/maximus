@@ -9,7 +9,8 @@ type Source<Dto> = keyof Dto | ((dto: Dto) => unknown);
  *
  * - Without `keys`, `fields` gives every domain field a source: a DTO key or a function of the whole DTO.
  * - With `keys`, every DTO key is converted to that case, nested ones included, and `fields` only
- *   lists the domain fields that conversion does not already provide.
+ *   lists the domain fields that conversion does not already provide. `exclude` drops DTO keys
+ *   the domain does not use.
  *
  * Missing fields, unknown keys and mismatched types fail at compile time.
  *
@@ -21,10 +22,15 @@ type Source<Dto> = keyof Dto | ((dto: Dto) => unknown);
  */
 export const createTransformer = <Dto, Domain>(options: TransformerOptions<Dto, Domain>): Transformer<Dto, Domain> => {
   const { keys } = options;
+  const excluded = new Set<PropertyKey>(options.exclude ?? []);
   // The fields are read once. `TransformerOptions` already checked each source against its domain field.
   const fields = Object.entries(options.fields ?? {}) as [string, Source<Dto>][];
   const transformOne = (dto: Dto): Domain => {
-    const converted = keys ? (convertKeys(dto, { to: keys }) as object) : {};
+    // Excluded keys are dropped before conversion, so their values are never walked.
+    const kept = excluded.size
+      ? Object.fromEntries(Object.entries(dto as object).filter(([key]) => !excluded.has(key)))
+      : dto;
+    const converted = keys ? (convertKeys(kept, { to: keys }) as object) : {};
     const domain: Record<string, unknown> = { ...converted };
     for (const [field, source] of fields) {
       domain[field] = typeof source === 'function' ? source(dto) : dto[source];

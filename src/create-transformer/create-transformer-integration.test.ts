@@ -74,13 +74,14 @@ describe('createTransformer with arrays and query libraries', () => {
     expect(types).toBeTypeOf('function');
   });
 
-  it('suggests every key case while typing `keys` and `to`', () => {
+  it('suggests every key case for `keys` and `to`, and only leaked keys for `exclude`', () => {
     const file = join(import.meta.dirname, 'completions-fixture.ts');
     const source = [
       "import { convertKeys } from '@/convert-keys';",
       "import { createTransformer } from '@/create-transformer';",
       "createTransformer<{ user_id: number }, { userId: number }>({ keys: '' });",
       "convertKeys({ user_id: 1 }, { to: '' });",
+      "createTransformer<{ user_id: number; first_name: string }, { userId: number }>({ keys: 'camelCase', exclude: [''] });",
     ].join('\n');
     const config = ts.getParsedCommandLineOfConfigFile(
       join(process.cwd(), 'tsconfig.json'),
@@ -112,5 +113,6 @@ describe('createTransformer with arrays and query libraries', () => {
     const cases = ['camelCase', 'PascalCase', 'snake_case', 'kebab-case', 'CONSTANT_CASE'];
     expect(suggestionsAfter("keys: '")).toEqual(cases);
     expect(suggestionsAfter("to: '")).toEqual(cases);
+    expect(suggestionsAfter("exclude: ['")).toEqual(['first_name']);
   });
 });

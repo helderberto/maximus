@@ -34,6 +34,7 @@ const transformUser = createTransformer<UserDto, User>({
 ```ts
 createTransformer<Dto, Domain>({
   keys?: 'camelCase' | 'PascalCase' | 'snake_case' | 'kebab-case' | 'CONSTANT_CASE',
+  exclude?: (keyof Dto)[],
   fields?: { [field in keyof Domain]: FieldSource },
 }): {
   (dto: Dto): Domain;
@@ -61,6 +62,27 @@ createTransformer<UserDto, User>({
   },
 });
 ```
+
+## Excluding fields
+
+With `keys`, every converted key stays on the result, even ones the domain type does not declare. With the `User` above, `firstName` and `lastName` would still be there next to `fullName`. List the DTO keys to leave out in `exclude`, by their original names:
+
+```ts
+createTransformer<UserDto, User>({
+  keys: 'camelCase',
+  exclude: ['first_name', 'last_name'],
+  fields: {
+    fullName: (dto) => `${dto.first_name} ${dto.last_name}`,
+    createdAt: (dto) => new Date(dto.created_at),
+  },
+});
+// { userId, createdAt, homeAddress, fullName }
+```
+
+- `exclude` only accepts DTO keys whose converted name is not a domain field, so your editor suggests exactly the keys that would leak, and excluding a field the domain needs fails to compile.
+- `fields` still read the original DTO, so a computed field can use a key you exclude.
+- Excluded keys are dropped before conversion, so their values are never walked.
+- To keep only a few keys of a large DTO, leave out `keys` and list the fields instead: without `keys`, only the listed fields are kept.
 
 ## Keys that are data
 
@@ -93,7 +115,7 @@ createTransformer<UserDto, User>({
 
 - Missing fields, unknown DTO keys, unknown cases and mismatched types fail at compile time. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
 - Keys and functions in `fields` always read the original DTO, before any conversion.
-- Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept, even ones the domain type does not declare: with the `User` above, `firstName` and `lastName` stay on the object.
+- Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept unless it is listed in `exclude`.
 - Key conversion follows [`convertKeys`](convert-keys.md): how words split, what is walked, and which key wins a clash.
 - The transformer returns a new object and never mutates the DTO. Values it does not convert are shared by reference. The options are read once, when the transformer is created.
 - It takes two generics because types have no literal to infer them from: the DTO comes from the API, the domain type from your app.

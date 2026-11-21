@@ -1,4 +1,4 @@
-import type { ConvertKeys, KeyCase } from '@/convert-keys/types';
+import type { ConvertKey, ConvertKeys, KeyCase } from '@/convert-keys/types';
 
 /** Keys of `Dto` whose value is assignable to `Value`. Optional keys carry `undefined`. */
 type KeysWithValue<Dto, Value> = Exclude<{ [K in keyof Dto]: Dto[K] extends Value ? K : never }[keyof Dto], undefined>;
@@ -31,15 +31,29 @@ type PatchFields<Dto, Domain, Missing extends keyof Domain> = {
   [K in Exclude<keyof Domain, Missing>]?: FieldSource<Dto, Domain[K]>;
 };
 
+/** DTO keys whose converted name is not a domain field: the ones that would otherwise stay on the result. */
+type ExcludableKeys<Dto, Domain, Case extends KeyCase> = {
+  [K in keyof Dto]-?: K extends string ? (ConvertKey<K, Case> extends keyof Domain ? never : K) : never;
+}[keyof Dto];
+
+interface ConvertOptions<Dto, Domain, Case extends KeyCase> {
+  /** Converts every key of the DTO to this case, nested ones included. */
+  keys: Case;
+  /** DTO keys, by their original name, to leave out of the result. Only keys the domain does not use. */
+  exclude?: readonly ExcludableKeys<Dto, Domain, Case>[];
+}
+
 type CaseOptions<Dto, Domain, Case extends KeyCase> =
   MissingFields<ConvertKeys<Dto, Case>, Domain> extends infer Missing extends keyof Domain
     ? [Missing] extends [never]
-      ? { keys: Case; fields?: PatchFields<Dto, Domain, Missing> }
-      : { keys: Case; fields: PatchFields<Dto, Domain, Missing> }
+      ? ConvertOptions<Dto, Domain, Case> & { fields?: PatchFields<Dto, Domain, Missing> }
+      : ConvertOptions<Dto, Domain, Case> & { fields: PatchFields<Dto, Domain, Missing> }
     : never;
 
 export interface PickOptions<Dto, Domain> {
   keys?: undefined;
+  /** Without `keys`, only the fields listed in `fields` are kept, so there is nothing to exclude. */
+  exclude?: undefined;
   fields: FieldMapping<Dto, Domain>;
 }
 
@@ -48,8 +62,8 @@ export interface PickOptions<Dto, Domain> {
 type ConvertedOptions<Dto, Domain> = { [Case in KeyCase]: CaseOptions<Dto, Domain, Case> }[KeyCase];
 
 /**
- * Without `keys`, `fields` lists every domain field. With `keys`, the whole DTO is converted
- * and `fields` lists only the domain fields conversion does not provide.
+ * Without `keys`, `fields` lists every domain field. With `keys`, the whole DTO is converted,
+ * minus `exclude`, and `fields` lists only the domain fields conversion does not provide.
  */
 export type TransformerOptions<Dto, Domain> = PickOptions<Dto, Domain> | ConvertedOptions<Dto, Domain>;
 
