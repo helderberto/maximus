@@ -36,7 +36,10 @@
       "prettier --write"
     ]
   },
-  "repository": "git@github.com:helderburato/maximus.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helderberto/maximus.git"
+  },
   "author": "Helder Burato Berto <helder.burato@gmail.com> (https://helderburato.com)",
   "keywords": [
     "maximus",
