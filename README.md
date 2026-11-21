@@ -3,7 +3,7 @@
 
   <p>Deep, strongly typed modules for Node and React projects</p>
 
-  <p><a href="#install">Install</a> • <a href="#modules">Modules</a> • <a href="CHANGELOG.md">Changelog</a> • <a href="#contribute">Contribute</a></p>
+  <p><a href="#install">Install</a> • <a href="docs/api.md">API</a> • <a href="CHANGELOG.md">Changelog</a> • <a href="#contribute">Contribute</a></p>
 
   <div style="display: flex; margin-bottom: 20px; justify-content: center;">
     <a style="margin: 0 2px;" href="https://github.com/helderberto/maximus/actions/workflows/ci.yml">
@@ -39,42 +39,19 @@ npm i mxs
 
 Requires Node 24 or newer. On Node, `require('mxs')` also works.
 
-## Modules
-
-### [buildPath](docs/build-path.md)
-
-Builds a path from a path pattern. Params are inferred from the pattern.
+## Usage
 
 ```ts
-import { buildPath } from 'mxs';
+import { buildPath, matchPath } from 'mxs';
 
-buildPath('/users/:userId/posts/:postId?', {
-  params: { userId: '42' },
-  search: { tab: 'comments' },
-});
-// => '/users/42/posts?tab=comments'
-```
-
-### [matchPath](docs/match-path.md)
-
-Matches a pathname or URL to typed, decoded params, or `null`.
-
-```ts
-import { matchPath } from 'mxs';
+buildPath('/users/:userId', { params: { userId: '42' } });
+// => '/users/42'
 
 matchPath('/users/:userId', '/users/42?tab=posts');
 // => { params: { userId: '42' } }
 ```
 
-### [removeDuplicates](docs/remove-duplicates.md)
-
-Removes duplicates by a typed key or a selector, keeping the first occurrence.
-
-```ts
-import { removeDuplicates } from 'mxs';
-
-removeDuplicates(users, { by: 'id' });
-```
+Every function is listed in the [API reference](docs/api.md).
 
 ## Contribute
 
