@@ -20,6 +20,12 @@ import { useStorageState } from 'mxs/react';
 | [`matchPath`](match-path.md)                  | `matchPath(pattern, pathnameOrUrl)`        | Matches a pathname or URL to typed, decoded params, or `null`.           |
 | [`parseSearchParams`](parse-search-params.md) | `parseSearchParams(search, { schema })`    | Parses a query string into a typed object, with defaults and arrays.     |
 
+## Data
+
+| Function                           | Signature                           | Description                                                                   |
+| ---------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------- |
+| [`createMapper`](create-mapper.md) | `createMapper<Dto, Domain>(fields)` | Creates a pure function that maps a DTO to a domain object, typed end to end. |
+
 ## Arrays
 
 | Function                                   | Signature                          | Description                                                                    |

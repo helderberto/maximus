@@ -1,4 +1,5 @@
 export { buildPath } from './build-path';
+export { createMapper } from './create-mapper';
 export { createTypedEmitter } from './create-typed-emitter';
 export { createTypedStorage } from './create-typed-storage';
 export { debounce } from './debounce';
@@ -15,6 +16,7 @@ export type { MapWithConcurrencyOptions } from './map-with-concurrency';
 export type { DedupeInFlightOptions } from './dedupe-in-flight';
 export type { TypedStorage, TypedStorageOptions } from './create-typed-storage';
 export type { TypedEmitter } from './create-typed-emitter';
+export type { FieldMapping, FieldSource, Mapper } from './create-mapper';
 export type { FormatRelativeTimeOptions } from './format-relative-time';
 export type { DebounceOptions, Debounced } from './debounce';
 export type { ThrottleOptions, Throttled } from './throttle';

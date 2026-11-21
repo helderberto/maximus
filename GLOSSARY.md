@@ -10,6 +10,17 @@ _Avoid_: helper, util, utility.
 **Platform-first**: never ship what Node 24+ or modern browsers already provide.
 _Avoid_: polyfill, shim.
 
+## Data
+
+**DTO**: the shape of data as an API sends it, usually snake_case and serialized (dates as strings).
+_Avoid_: response, payload, raw.
+
+**Domain object**: the shape the app works with, named and typed for its use.
+_Avoid_: model, entity, view model.
+
+**Mapper**: a pure function from a DTO to a domain object, made by `createMapper`.
+_Avoid_: adapter, transformer, serializer.
+
 ## Path
 
 **Path pattern**: a route string with segments `:name` (required), `:name?` (optional) and `*` (wildcard). Example: `/users/:userId/posts/:postId?`.

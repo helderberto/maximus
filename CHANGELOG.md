@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `createMapper<Dto, Domain>(fields)`: creates a pure function that maps a DTO to a domain object, with renamed keys and computed fields checked at compile time.
+
 ## [1.1.1] - 2026-11-21
 
 ### Changed
