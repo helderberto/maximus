@@ -1,25 +1,14 @@
-import { convertKeys } from './convert-keys';
-import type { KeyCase, Transformer, TransformerOptions } from './types';
+import { convertKeys } from '@/convert-keys';
+import type { Transformer, TransformerOptions } from './types';
 
-type Source<Dto> = keyof Dto | { from: keyof Dto; keys: KeyCase } | ((dto: Dto) => unknown);
-
-const readSource = <Dto>(dto: Dto, source: Source<Dto>): unknown => {
-  if (typeof source === 'function') {
-    return source(dto);
-  }
-  if (typeof source === 'object') {
-    return convertKeys(dto[source.from], source.keys);
-  }
-  return dto[source];
-};
+type Source<Dto> = keyof Dto | ((dto: Dto) => unknown);
 
 /**
- * Creates a pure function that transforms a DTO into a domain object.
+ * Creates a pure function that transforms a DTO into a domain object. It never mutates the DTO.
  *
- * - Without `keys`, `fields` gives every domain field a source: a DTO key, a DTO key with its
- *   keys converted (`{ from, keys }`), or a function of the whole DTO.
- * - With `keys`, every DTO key is converted to that case, nested ones included, and `fields`
- *   only lists the domain fields that conversion does not already provide.
+ * - Without `keys`, `fields` gives every domain field a source: a DTO key or a function of the whole DTO.
+ * - With `keys`, every DTO key is converted to that case, down to `depth` object levels (every level
+ *   when omitted), and `fields` only lists the domain fields that conversion does not already provide.
  *
  * Missing fields, unknown keys and mismatched types fail at compile time.
  *
@@ -30,13 +19,14 @@ const readSource = <Dto>(dto: Dto, source: Source<Dto>): unknown => {
  * })
  */
 export const createTransformer = <Dto, Domain>(options: TransformerOptions<Dto, Domain>): Transformer<Dto, Domain> => {
-  const { keys } = options;
+  const { keys, depth } = options;
   // The fields are read once. `TransformerOptions` already checked each source against its domain field.
   const fields = Object.entries(options.fields ?? {}) as [string, Source<Dto>][];
   return (dto) => {
-    const domain = (keys ? { ...(convertKeys(dto, keys) as object) } : {}) as Record<string, unknown>;
+    const converted = keys ? (convertKeys(dto, { to: keys, depth }) as object) : {};
+    const domain: Record<string, unknown> = { ...converted };
     for (const [field, source] of fields) {
-      domain[field] = readSource(dto, source);
+      domain[field] = typeof source === 'function' ? source(dto) : dto[source];
     }
     return domain as Domain;
   };

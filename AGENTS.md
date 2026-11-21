@@ -25,7 +25,9 @@ See `docs/adr/0001-deep-modules-platform-first.md`.
 
 - Explicit, descriptive names. No Lodash/Ramda naming (`removeDuplicates`, not `uniq`).
 - Max 2 parameters. More → one options object.
-- Infer types from literals. Callers never write generics.
+- Infer types from literals. Callers write a generic only when no value can carry the type: an event map (`createTypedEmitter<Events>()`), a DTO and its domain type (`createTransformer<Dto, Domain>`).
+- Once a caller passes a generic, TypeScript infers none of the others. An option whose literal changes the result type is then a union of literals, one member per value (`depth?: 1 | 2 | 3 | 4 | 5`), not an inferred generic.
+- Never mutate input. Return a new value, so callers can share inputs, cache them and pass them to React or query caches safely. Parts the function leaves unchanged may be shared by reference.
 
 ## Imports and exports
 

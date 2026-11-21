@@ -1,4 +1,5 @@
 export { buildPath } from './build-path';
+export { convertKeys } from './convert-keys';
 export { createTransformer } from './create-transformer';
 export { createTypedEmitter } from './create-typed-emitter';
 export { createTypedStorage } from './create-typed-storage';
@@ -16,7 +17,8 @@ export type { MapWithConcurrencyOptions } from './map-with-concurrency';
 export type { DedupeInFlightOptions } from './dedupe-in-flight';
 export type { TypedStorage, TypedStorageOptions } from './create-typed-storage';
 export type { TypedEmitter } from './create-typed-emitter';
-export type { KeyCase, Transformer, TransformerOptions } from './create-transformer';
+export type { Transformer, TransformerOptions } from './create-transformer';
+export type { ConvertKeysOptions, Depth, KeyCase } from './convert-keys';
 export type { FormatRelativeTimeOptions } from './format-relative-time';
 export type { DebounceOptions, Debounced } from './debounce';
 export type { ThrottleOptions, Throttled } from './throttle';

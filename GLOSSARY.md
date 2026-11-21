@@ -24,6 +24,9 @@ _Avoid_: mapper, adapter, serializer.
 **Key case**: how a key joins its words: `camelCase`, `PascalCase`, `snake_case`, `kebab-case` or `CONSTANT_CASE`.
 _Avoid_: naming convention, casing style.
 
+**Depth**: how many object levels get their keys converted. Arrays do not count as a level.
+_Avoid_: level, nesting.
+
 ## Path
 
 **Path pattern**: a route string with segments `:name` (required), `:name?` (optional) and `*` (wildcard). Example: `/users/:userId/posts/:postId?`.

@@ -1,3 +1,4 @@
+import { convertKeys } from '@/convert-keys';
 import { createTransformer } from './create-transformer';
 
 interface UserDto {
@@ -42,7 +43,7 @@ describe('createTransformer', () => {
         email: 'email_address',
         createdAt: (source) => new Date(source.created_at),
         nickname: 'nickname',
-        address: { from: 'home_address', keys: 'camelCase' },
+        address: (source) => convertKeys(source.home_address, { to: 'camelCase' }),
       },
     });
 
@@ -102,7 +103,7 @@ describe('createTransformer', () => {
       createTransformer<UserDto, { createdAt: Date }>({ fields: { createdAt: (source) => source.created_at } });
       createTransformer<UserDto, { address: Address }>({
         // @ts-expect-error: snake_case keys do not fit `Address`.
-        fields: { address: { from: 'home_address', keys: 'snake_case' } },
+        fields: { address: (source) => convertKeys(source.home_address, { to: 'snake_case' }) },
       });
       // @ts-expect-error: `extra` is not a domain field.
       createTransformer<UserDto, { id: number }>({ fields: { id: 'user_id', extra: 'first_name' } });
@@ -128,15 +129,6 @@ describe('createTransformer', () => {
       });
     });
 
-    it('converts to every supported case', () => {
-      const value = { home_address: { street_name: 'Main St' } };
-      const transform = (keys: 'PascalCase' | 'kebab-case' | 'CONSTANT_CASE') =>
-        createTransformer<typeof value, object>({ keys })(value);
-      expect(transform('PascalCase')).toEqual({ HomeAddress: { StreetName: 'Main St' } });
-      expect(transform('kebab-case')).toEqual({ 'home-address': { 'street-name': 'Main St' } });
-      expect(transform('CONSTANT_CASE')).toEqual({ HOME_ADDRESS: { STREET_NAME: 'Main St' } });
-    });
-
     it('converts domain objects back to snake_case DTOs', () => {
       const transformToDto = createTransformer<Address, UserDto['home_address']>({ keys: 'snake_case' });
       expect(transformToDto({ streetName: 'Main St', city: 'London' })).toEqual({
@@ -153,7 +145,7 @@ describe('createTransformer', () => {
           fullName: (source) => `${source.first_name} ${source.last_name}`,
           email: 'email_address',
           createdAt: (source) => new Date(source.created_at),
-          address: { from: 'home_address', keys: 'camelCase' },
+          address: (source) => convertKeys(source.home_address, { to: 'camelCase' }),
         },
       });
       expect(transformUser(dto)).toMatchObject({
@@ -163,6 +155,27 @@ describe('createTransformer', () => {
         createdAt: new Date('2026-01-01T00:00:00.000Z'),
         address: { streetName: 'Main St', city: 'London' },
       });
+    });
+
+    it('converts only the first `depth` levels', () => {
+      interface ShallowUser {
+        userId: number;
+        homeAddress: UserDto['home_address'];
+      }
+      const transformUser = createTransformer<UserDto, ShallowUser>({ keys: 'camelCase', depth: 1 });
+      const user = transformUser(dto);
+      expect(user.homeAddress).toEqual({ street_name: 'Main St', city: 'London' });
+      expect(user.homeAddress).toBe(dto.home_address);
+    });
+
+    it('checks the domain type against the chosen depth', () => {
+      // @ts-expect-error: with depth 1, `homeAddress` keeps `street_name`, so it does not fit `Address`.
+      createTransformer<UserDto, CamelUser>({ keys: 'camelCase', depth: 1 });
+      createTransformer<UserDto, CamelUser>({ keys: 'camelCase', depth: 2 });
+      // @ts-expect-error: depth needs keys.
+      createTransformer<UserDto, { id: number }>({ depth: 1, fields: { id: 'user_id' } });
+      // @ts-expect-error: depth goes from 1 to 5.
+      createTransformer<UserDto, CamelUser>({ keys: 'camelCase', depth: 6 });
     });
 
     it('requires fields only for what conversion does not provide', () => {

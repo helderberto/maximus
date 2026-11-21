@@ -1,9 +1,9 @@
 # createTransformer
 
-Creates a pure function that transforms a DTO into a domain object. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response or in specific fields, and lets you compute any field yourself.
+Creates a pure function that transforms a DTO into a domain object. It can convert key case (camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE) across the whole response, down to a set depth, or in specific fields, and lets you compute any field yourself. It never mutates the DTO.
 
 ```ts
-import { createTransformer } from 'mxs';
+import { convertKeys, createTransformer } from 'mxs';
 
 interface UserDto {
   user_id: number;
@@ -34,19 +34,19 @@ const transformUser = createTransformer<UserDto, User>({
 ```ts
 createTransformer<Dto, Domain>({
   keys?: 'camelCase' | 'PascalCase' | 'snake_case' | 'kebab-case' | 'CONSTANT_CASE',
+  depth?: 1 | 2 | 3 | 4 | 5,
   fields?: { [field in keyof Domain]: FieldSource },
 }): (dto: Dto) => Domain
 ```
 
 A field source is one of:
 
-| Source                      | Example                                                   | Result                                                               |
-| --------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- |
-| DTO key                     | `id: 'user_id'`                                           | Copies `dto.user_id`.                                                |
-| DTO key with converted keys | `address: { from: 'home_address', keys: 'camelCase' }`    | Copies `dto.home_address` with camelCase keys, nested ones included. |
-| Function of the whole DTO   | `fullName: (dto) => dto.first_name + ' ' + dto.last_name` | Returns the computed value.                                          |
+| Source                    | Example                                        | Result                      |
+| ------------------------- | ---------------------------------------------- | --------------------------- |
+| DTO key                   | `id: 'user_id'`                                | Copies `dto.user_id`.       |
+| Function of the whole DTO | `createdAt: (dto) => new Date(dto.created_at)` | Returns the computed value. |
 
-## Whole response or specific fields
+## Whole response
 
 With `keys`, every key of the response is converted, nested ones included. `fields` lists only the domain fields the conversion does not already provide with the right type:
 
@@ -57,7 +57,20 @@ createTransformer<UserDto, User>({
 });
 ```
 
-Without `keys`, nothing is converted unless a field asks for it, and `fields` must list every domain field. Use `{ from, keys }` to convert the keys of one field only:
+## Depth
+
+Converting every level walks every nested object and array. When only the top level needs new keys, set `depth` to stop early. Levels below it are shared with the DTO, not copied:
+
+```ts
+const transformUser = createTransformer<UserDto, ShallowUser>({ keys: 'camelCase', depth: 1 });
+// { userId, firstName, homeAddress: { street_name, city } }
+```
+
+`depth` counts object levels, from 1 to 5. Arrays do not count: with `depth: 1`, a response that is an array has the keys of its items converted. Omit `depth` to convert every level. The domain type is checked against the depth you chose.
+
+## Specific fields
+
+Without `keys`, nothing is converted unless a field asks for it, and `fields` must list every domain field. Call [`convertKeys`](convert-keys.md) in a function source to convert the keys of one field only:
 
 ```ts
 createTransformer<UserDto, User>({
@@ -65,7 +78,7 @@ createTransformer<UserDto, User>({
     userId: 'user_id',
     fullName: (dto) => `${dto.first_name} ${dto.last_name}`,
     createdAt: (dto) => new Date(dto.created_at),
-    homeAddress: { from: 'home_address', keys: 'camelCase' },
+    homeAddress: (dto) => convertKeys(dto.home_address, { to: 'camelCase' }),
   },
 });
 ```
@@ -75,10 +88,8 @@ createTransformer<UserDto, User>({
 - Missing fields, unknown DTO keys, unknown cases and mismatched types fail at compile time. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
 - Keys and functions in `fields` always read the original DTO, before any conversion.
 - Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept, even ones the domain type does not declare (here `firstName` and `lastName`).
-- Words split on `_`, `-`, spaces, and before a capital that follows a lowercase letter or digit: `userID` becomes `user_id`, `address_line2` becomes `addressLine2`. Leading underscores stay: `_id` stays `_id`.
-- Conversion walks plain objects and arrays. Dates, maps, sets and class instances pass through unchanged.
-- If two keys convert to the same name, the last one wins.
-- The transformer returns a new object and never mutates the DTO. The options are read once, when the transformer is created.
+- Key conversion follows [`convertKeys`](convert-keys.md): how words split, what is walked, and which key wins a clash.
+- The transformer returns a new object and never mutates the DTO. Values it does not convert are shared by reference. The options are read once, when the transformer is created.
 - It takes two generics because types have no literal to infer them from: the DTO comes from the API, the domain type from your app.
 
 ## Requests

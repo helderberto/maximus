@@ -37,29 +37,61 @@ describe('convertKey', () => {
 });
 
 describe('convertKeys', () => {
-  it('converts nested objects and objects inside arrays', () => {
-    const value = { user_id: 1, home_address: { street_name: 'Main' }, order_items: [{ unit_price: 2 }] };
-    expect(convertKeys(value, 'camelCase')).toEqual({
+  const value = {
+    user_id: 1,
+    home_address: { street_name: 'Main', geo_point: { lat_value: 1 } },
+    order_items: [{ unit_price: 2 }],
+  };
+
+  it('converts every level by default, objects inside arrays included', () => {
+    expect(convertKeys(value, { to: 'camelCase' })).toEqual({
       userId: 1,
-      homeAddress: { streetName: 'Main' },
+      homeAddress: { streetName: 'Main', geoPoint: { latValue: 1 } },
       orderItems: [{ unitPrice: 2 }],
     });
+  });
+
+  it('stops after `depth` object levels and shares the levels below', () => {
+    const shallow = convertKeys(value, { to: 'camelCase', depth: 1 });
+    expect(shallow).toEqual({
+      userId: 1,
+      homeAddress: { street_name: 'Main', geo_point: { lat_value: 1 } },
+      orderItems: [{ unit_price: 2 }],
+    });
+    expect(shallow.homeAddress).toBe(value.home_address);
+    expect(convertKeys(value, { to: 'camelCase', depth: 2 })).toEqual({
+      userId: 1,
+      homeAddress: { streetName: 'Main', geoPoint: { lat_value: 1 } },
+      orderItems: [{ unitPrice: 2 }],
+    });
+  });
+
+  it('does not count arrays as a level', () => {
+    expect(convertKeys([{ user_id: 1, home_address: { street_name: 'Main' } }], { to: 'camelCase', depth: 1 })).toEqual(
+      [{ userId: 1, homeAddress: { street_name: 'Main' } }],
+    );
+  });
+
+  it('returns a new value and never mutates the input', () => {
+    const copy = structuredClone(value);
+    expect(convertKeys(value, { to: 'snake_case' })).not.toBe(value);
+    expect(value).toEqual(copy);
   });
 
   it('passes through primitives, null and non-plain objects', () => {
     const date = new Date();
     const map = new Map([['some_key', 1]]);
-    expect(convertKeys({ created_at: date, lookup: map, deleted_at: null }, 'camelCase')).toEqual({
+    expect(convertKeys({ created_at: date, lookup: map, deleted_at: null }, { to: 'camelCase' })).toEqual({
       createdAt: date,
       lookup: map,
       deletedAt: null,
     });
-    expect(convertKeys('first_name', 'camelCase')).toBe('first_name');
+    expect(convertKeys('first_name', { to: 'camelCase' })).toBe('first_name');
   });
 
   it('converts objects with a null prototype', () => {
-    const value = Object.assign(Object.create(null) as object, { first_name: 'Ada' });
-    expect(convertKeys(value, 'camelCase')).toEqual({ firstName: 'Ada' });
+    const nullPrototype = Object.assign(Object.create(null) as object, { first_name: 'Ada' });
+    expect(convertKeys(nullPrototype, { to: 'camelCase' })).toEqual({ firstName: 'Ada' });
   });
 
   it('types nested objects, arrays, optional keys and dates', () => {
@@ -77,5 +109,22 @@ describe('convertKeys', () => {
       homeAddress: { streetName: string } | null;
       orderItems: { unitPrice: number }[];
     }>();
+  });
+
+  it('infers the case and depth from the options', () => {
+    expectTypeOf(convertKeys(value, { to: 'camelCase', depth: 1 })).toEqualTypeOf<{
+      userId: number;
+      homeAddress: { street_name: string; geo_point: { lat_value: number } };
+      orderItems: { unit_price: number }[];
+    }>();
+    expectTypeOf(convertKeys(value, { to: 'PascalCase', depth: 2 })).toEqualTypeOf<{
+      UserId: number;
+      HomeAddress: { StreetName: string; GeoPoint: { lat_value: number } };
+      OrderItems: { UnitPrice: number }[];
+    }>();
+    // @ts-expect-error: depth goes from 1 to 5. Omit it to convert every level.
+    convertKeys(value, { to: 'camelCase', depth: 6 });
+    // @ts-expect-error: 'Title Case' is not a supported case.
+    convertKeys(value, { to: 'Title Case' });
   });
 });

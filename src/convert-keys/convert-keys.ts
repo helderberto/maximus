@@ -1,4 +1,4 @@
-import type { KeyCase } from './types';
+import type { ConvertKeys, ConvertKeysOptions, Depth, KeyCase } from './types';
 
 const SEPARATORS = new Set(['_', '-', ' ']);
 
@@ -65,15 +65,33 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> => {
   return prototype === Object.prototype || prototype === null;
 };
 
-/** Converts the keys of plain objects, nested ones and those inside arrays included. Other values pass through. */
-export const convertKeys = (value: unknown, keyCase: KeyCase): unknown => {
+interface Levels {
+  to: KeyCase;
+  depth: number;
+}
+
+const convertLevels = (value: unknown, { to, depth }: Levels): unknown => {
   if (Array.isArray(value)) {
-    return value.map((item: unknown) => convertKeys(item, keyCase));
+    return value.map((item: unknown) => convertLevels(item, { to, depth }));
   }
-  if (!isPlainObject(value)) {
+  if (depth < 1 || !isPlainObject(value)) {
     return value;
   }
   return Object.fromEntries(
-    Object.entries(value).map(([key, item]) => [convertKey(key, keyCase), convertKeys(item, keyCase)]),
+    Object.entries(value).map(([key, item]) => [convertKey(key, to), convertLevels(item, { to, depth: depth - 1 })]),
   );
 };
+
+/**
+ * Returns a copy of a value with its keys in another case: camelCase, PascalCase, snake_case,
+ * kebab-case or CONSTANT_CASE. Walks plain objects and arrays, down to `depth` object levels
+ * (every level when omitted). The result type carries the converted keys. Never mutates the input.
+ *
+ * @example
+ * convertKeys({ user_id: 1, home_address: { street_name: 'Main' } }, { to: 'camelCase', depth: 1 })
+ * // => { userId: 1, homeAddress: { street_name: 'Main' } }
+ */
+export const convertKeys = <Value, Case extends KeyCase, D extends Depth | undefined = undefined>(
+  value: Value,
+  { to, depth }: ConvertKeysOptions<Case, D>,
+): ConvertKeys<Value, Case, D> => convertLevels(value, { to, depth: depth ?? Infinity }) as ConvertKeys<Value, Case, D>;
