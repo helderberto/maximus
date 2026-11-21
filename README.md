@@ -1,7 +1,7 @@
 <div align="center">
   <h1>⚔️ Maximus</h1>
 
-  <p>Deep, strongly typed modules for Node and React projects</p>
+  <p>The typed helpers every Node and React project rewrites: typed URLs, retry, debounce, storage and React hooks. Zero dependencies, ESM.</p>
 
   <p><a href="#install">Install</a> • <a href="docs/api.md">API</a> • <a href="CHANGELOG.md">Changelog</a> • <a href="#contribute">Contribute</a></p>
 

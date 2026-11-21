@@ -1,7 +1,7 @@
 {
   "name": "mxs",
   "version": "1.1.0",
-  "description": "⚔️ Deep, strongly typed modules for Node and React projects",
+  "description": "⚔️ The typed helpers every Node and React project rewrites: typed URLs, retry, debounce, storage and React hooks. Zero dependencies, ESM.",
   "type": "module",
   "sideEffects": false,
   "engines": {
