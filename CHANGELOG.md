@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `matchPath(pattern, pathnameOrUrl)`: matches a pathname or URL to typed, decoded params, or `null`.
 - `buildPath(pattern, { params, search })`: builds a path with params inferred from the path pattern.
 - `removeDuplicates(items, { by })`: removes duplicates by a typed key or a selector and keeps the first occurrence.
 

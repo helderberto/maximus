@@ -6,7 +6,7 @@
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "rootDir": "src",
-    "types": []
+    "types": ["node"]
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"]
