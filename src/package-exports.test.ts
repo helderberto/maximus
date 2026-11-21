@@ -3,7 +3,7 @@ import { mkdtempSync, symlinkSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const EXPORTS = ['removeDuplicates'];
+const EXPORTS = ['buildPath', 'removeDuplicates'];
 
 const runNode = (source: string): string =>
   execFileSync('node', ['--input-type=module', '-e', source]).toString().trim();
