@@ -1,0 +1,59 @@
+name: release
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for a new version
+        id: release
+        run: node scripts/check-release/run.ts
+
+      - name: Lint
+        if: steps.release.outputs.publish == 'true'
+        run: npm run lint
+
+      - name: Type check
+        if: steps.release.outputs.publish == 'true'
+        run: npm run typecheck
+
+      - name: Test
+        if: steps.release.outputs.publish == 'true'
+        run: npm test
+
+      - name: Publish with provenance
+        if: steps.release.outputs.publish == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
+
+      - name: Tag the release
+        if: steps.release.outputs.publish == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
