@@ -25,7 +25,7 @@ import { useStorageState } from 'mxs/react';
 | Function                                     | Signature                                                      | Description                                                                                           |
 | -------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | [`createTransformer`](create-transformer.md) | `createTransformer<Dto, Domain>({ keys?, exclude?, fields? })` | Transforms a DTO, or an array of DTOs, into domain objects, converting key case and computing fields. |
-| [`convertKeys`](convert-keys.md)             | `convertKeys(value, { to })`                                   | Copies a value with its keys in camelCase, snake_case or another case, typed.                         |
+| [`convertKeys`](convert-keys.md)             | `convertKeys(value, { to })`                                   | Returns a typed copy of a value with its keys in camelCase, snake_case or another case.               |
 
 ## Arrays
 

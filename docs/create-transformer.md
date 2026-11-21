@@ -79,10 +79,10 @@ createTransformer<UserDto, User>({
 // { userId, createdAt, homeAddress, fullName }
 ```
 
-- `exclude` only accepts DTO keys whose converted name is not a domain field, so your editor suggests exactly the keys that would leak, and excluding a field the domain needs fails to compile.
+- `exclude` only accepts DTO keys whose converted name is not a domain field. Your editor suggests exactly the keys that would leak, and excluding a field the domain needs fails to compile.
 - `fields` still read the original DTO, so a computed field can use a key you exclude.
 - Excluded keys are dropped before conversion, so their values are never walked.
-- To keep only a few keys of a large DTO, leave out `keys` and list the fields instead: without `keys`, only the listed fields are kept.
+- To keep only a few keys of a large DTO, leave out `keys` and list the fields instead.
 
 ## Keys that are data
 

@@ -4,7 +4,7 @@ const SEPARATORS = new Set(['_', '-', ' ']);
 
 const isUpper = (char: string): boolean => char !== char.toLowerCase();
 
-// Mirrors `SplitWords` in types.ts, one UTF-16 unit at a time, so runtime keys match the inferred ones.
+// Mirrors `SplitWords` in types.ts, one UTF-16 unit at a time, so runtime keys match the inferred keys.
 const splitWords = (key: string): string[] => {
   const words: string[] = [];
   let word = '';

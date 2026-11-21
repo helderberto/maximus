@@ -57,8 +57,8 @@ export interface PickOptions<Dto, Domain> {
   fields: FieldMapping<Dto, Domain>;
 }
 
-// A caller who passes `<Dto, Domain>` gets no inference for the rest, so each case is spelled out
-// as one member of a union, discriminated by the `keys` literal.
+// A caller who passes `<Dto, Domain>` gets no inference for the rest.
+// So each case is one member of a union, discriminated by the `keys` literal.
 type ConvertedOptions<Dto, Domain> = { [Case in KeyCase]: CaseOptions<Dto, Domain, Case> }[KeyCase];
 
 /**
