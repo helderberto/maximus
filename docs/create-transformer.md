@@ -50,12 +50,15 @@ A field source is one of:
 
 ## Whole response
 
-With `keys`, every key of the response is converted, nested ones included. `fields` lists only the domain fields the conversion does not already provide with the right type:
+With `keys`, every key of the response is converted, nested ones included. `fields` lists only the domain fields the conversion does not already provide with the right type. `userId` and `homeAddress` come from conversion. `fullName` has no DTO key, and `created_at` converts to a string, not a `Date`, so both need a source:
 
 ```ts
 createTransformer<UserDto, User>({
   keys: 'camelCase',
-  fields: { fullName: (dto) => `${dto.first_name} ${dto.last_name}` },
+  fields: {
+    fullName: (dto) => `${dto.first_name} ${dto.last_name}`,
+    createdAt: (dto) => new Date(dto.created_at),
+  },
 });
 ```
 
@@ -90,7 +93,7 @@ createTransformer<UserDto, User>({
 
 - Missing fields, unknown DTO keys, unknown cases and mismatched types fail at compile time. A field is checked against the converted type, so `created_at: string` does not fill `createdAt: Date`.
 - Keys and functions in `fields` always read the original DTO, before any conversion.
-- Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept, even ones the domain type does not declare (here `firstName` and `lastName`).
+- Without `keys`, DTO keys that `fields` does not name are dropped. With `keys`, every converted key is kept, even ones the domain type does not declare: with the `User` above, `firstName` and `lastName` stay on the object.
 - Key conversion follows [`convertKeys`](convert-keys.md): how words split, what is walked, and which key wins a clash.
 - The transformer returns a new object and never mutates the DTO. Values it does not convert are shared by reference. The options are read once, when the transformer is created.
 - It takes two generics because types have no literal to infer them from: the DTO comes from the API, the domain type from your app.
@@ -120,11 +123,17 @@ userDtos.map(transformUser); // User[]
 Call another transformer from a function source:
 
 ```ts
-const transformAddress = createTransformer<AddressDto, Address>({ fields: { street: 'street_name', city: 'city' } });
+const transformAddress = createTransformer<AddressDto, Address>({
+  fields: { streetName: 'street_name', city: 'city' },
+});
 
 const transformUser = createTransformer<UserDto, User>({
-  keys: 'camelCase',
-  fields: { address: (dto) => transformAddress(dto.home_address) },
+  fields: {
+    userId: 'user_id',
+    fullName: (dto) => `${dto.first_name} ${dto.last_name}`,
+    createdAt: (dto) => new Date(dto.created_at),
+    homeAddress: (dto) => transformAddress(dto.home_address),
+  },
 });
 ```
 
