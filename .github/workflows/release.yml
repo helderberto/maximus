@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       - name: Check for a new version
         id: release
         run: npm run check:release
@@ -50,10 +53,11 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
 
-      - name: Tag the release
+      - name: Create the GitHub release
         if: steps.release.outputs.publish == 'true'
         env:
+          GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.release.outputs.version }}
         run: |
-          git tag "v$VERSION"
-          git push origin "v$VERSION"
+          npm run --silent release-notes > release-notes.md
+          gh release create "v$VERSION" --target "$GITHUB_SHA" --title "v$VERSION" --notes-file release-notes.md

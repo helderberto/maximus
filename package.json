@@ -27,7 +27,8 @@
     "validate": "npm run lint && npm test",
     "typecheck": "tsc --noEmit",
     "check:changelog": "tsx scripts/check-changelog/run.ts",
-    "check:release": "tsx scripts/check-release/run.ts"
+    "check:release": "tsx scripts/check-release/run.ts",
+    "release-notes": "tsx scripts/release-notes/run.ts"
   },
   "lint-staged": {
     "*.{ts,js}": [
