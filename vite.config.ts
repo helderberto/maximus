@@ -9,10 +9,11 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: 'src/index.ts',
+      entry: { index: 'src/index.ts', react: 'src/react.ts' },
       formats: ['es'],
     },
     rollupOptions: {
+      external: ['react'],
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
@@ -22,5 +23,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    // Node's own localStorage global would shadow the happy-dom one.
+    execArgv: ['--no-experimental-webstorage'],
   },
 });
