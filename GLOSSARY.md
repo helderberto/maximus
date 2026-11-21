@@ -10,6 +10,17 @@ _Avoid_: helper, util, utility.
 **Platform-first**: never ship what Node 24+ or modern browsers already provide.
 _Avoid_: polyfill, shim.
 
+## Data
+
+**DTO**: the shape of data as an API sends it, usually snake_case and serialized (dates as strings).
+_Avoid_: response, payload, raw.
+
+**Domain object**: the shape the app works with, named and typed for its use.
+_Avoid_: model, entity, view model.
+
+**Key case**: how a key joins its words: `camelCase`, `PascalCase`, `snake_case`, `kebab-case` or `CONSTANT_CASE`.
+_Avoid_: naming convention, casing style.
+
 ## Path
 
 **Path pattern**: a route string with segments `:name` (required), `:name?` (optional) and `*` (wildcard). Example: `/users/:userId/posts/:postId?`.

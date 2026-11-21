@@ -20,6 +20,13 @@ import { useStorageState } from 'mxs/react';
 | [`matchPath`](match-path.md)                  | `matchPath(pattern, pathnameOrUrl)`        | Matches a pathname or URL to typed, decoded params, or `null`.           |
 | [`parseSearchParams`](parse-search-params.md) | `parseSearchParams(search, { schema })`    | Parses a query string into a typed object, with defaults and arrays.     |
 
+## Data
+
+| Function                             | Signature                                            | Description                                                                                  |
+| ------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [`transformData`](transform-data.md) | `transformData(input, { keys?, exclude?, fields? })` | Transforms a DTO, or an array of DTOs, into domain objects typed by the result's annotation. |
+| [`convertKeys`](convert-keys.md)     | `convertKeys(value, { to })`                         | Returns a typed copy of a value with its keys in camelCase, snake_case or another case.      |
+
 ## Arrays
 
 | Function                                   | Signature                          | Description                                                                    |

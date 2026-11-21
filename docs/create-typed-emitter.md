@@ -28,4 +28,4 @@ createTypedEmitter<Events>(): {
 - Events whose payload is `undefined` are emitted without one.
 - `on` returns the unsubscribe function.
 - Listeners added or removed during an `emit` do not change that emit.
-- This is the one function that takes a generic: the event map has no literal to infer it from.
+- It takes a generic because the event map has no literal to infer it from.

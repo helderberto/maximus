@@ -6,6 +6,7 @@ import { join } from 'node:path';
 const ENTRIES = {
   mxs: [
     'buildPath',
+    'convertKeys',
     'createTypedEmitter',
     'createTypedStorage',
     'debounce',
@@ -17,6 +18,7 @@ const ENTRIES = {
     'removeDuplicates',
     'retry',
     'throttle',
+    'transformData',
   ],
   'mxs/react': [
     'useClickOutside',

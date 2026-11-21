@@ -25,7 +25,9 @@ See `docs/adr/0001-deep-modules-platform-first.md`.
 
 - Explicit, descriptive names. No Lodash/Ramda naming (`removeDuplicates`, not `uniq`).
 - Max 2 parameters. More → one options object.
-- Infer types from literals. Callers never write generics.
+- Infer types from values, so callers usually write no generics. When no value carries the result type, infer it from the caller's annotation: `const user: User = transformData(dto, options)`.
+- Generics are the fallback when nothing can be inferred: an event map (`createTypedEmitter<Events>()`), or an `any` input (`transformData<UserDto, User>(await response.json(), options)`). When inference fails, the compile error names the fix.
+- Never mutate input. Return a new value, so callers can share inputs, cache them and pass them to React or query caches safely. Parts the function leaves unchanged may be shared by reference.
 
 ## Imports and exports
 
