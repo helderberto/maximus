@@ -39,6 +39,8 @@ npm i mxs
 
 Requires Node 24 or newer. On Node, `require('mxs')` also works.
 
+React hooks live in `mxs/react` and need React 18 or newer.
+
 ## Usage
 
 ```ts

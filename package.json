@@ -1,6 +1,6 @@
 {
   "name": "mxs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "⚔️ Deep, strongly typed modules for Node and React projects",
   "type": "module",
   "sideEffects": false,
@@ -11,6 +11,18 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    }
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
     }
   },
   "scripts": {
@@ -66,17 +78,25 @@
     "@commitlint/config-conventional": "16.2.4",
     "@eslint/js": "9.39.5",
     "@microsoft/api-extractor": "7.60.1",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.13",
     "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-check-file": "3.3.2",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-prettier": "5.5.7",
     "globals": "17.14.0",
+    "happy-dom": "21.0.4",
     "husky": "7.0.4",
     "jiti": "2.7.0",
     "lint-staged": "12.3.2",
     "prettier": "3.10.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "typescript-eslint": "8.73.0",

@@ -3,7 +3,31 @@ import { mkdtempSync, symlinkSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const EXPORTS = ['buildPath', 'matchPath', 'removeDuplicates'];
+const ENTRIES = {
+  mxs: [
+    'buildPath',
+    'createTypedEmitter',
+    'createTypedStorage',
+    'debounce',
+    'dedupeInFlight',
+    'formatRelativeTime',
+    'mapWithConcurrency',
+    'matchPath',
+    'parseSearchParams',
+    'removeDuplicates',
+    'retry',
+    'throttle',
+  ],
+  'mxs/react': [
+    'useClickOutside',
+    'useDebouncedValue',
+    'useEventListener',
+    'useInterval',
+    'useMediaQuery',
+    'usePrevious',
+    'useStorageState',
+  ],
+};
 
 const runNode = (source: string): string =>
   execFileSync('node', ['--input-type=module', '-e', source]).toString().trim();
@@ -16,7 +40,10 @@ const createConsumer = (): string => {
   mkdirSync(join(dir, 'node_modules'));
   symlinkSync(process.cwd(), join(dir, 'node_modules', 'mxs'));
   writeFileSync(join(dir, 'package.json'), '{ "type": "module" }');
-  writeFileSync(join(dir, 'index.ts'), `import { ${EXPORTS.join(', ')} } from 'mxs';\nconsole.log(${EXPORTS[0]});\n`);
+  const source = Object.entries(ENTRIES)
+    .map(([entry, names]) => `import { ${names.join(', ')} } from '${entry}';\nconsole.log(${names[0]});\n`)
+    .join('');
+  writeFileSync(join(dir, 'index.ts'), source);
   return dir;
 };
 
@@ -25,13 +52,13 @@ describe('package exports', () => {
     execSync('npm run build', { stdio: 'ignore' });
   });
 
-  it('loads every named export through import()', () => {
-    expect(exportedKeys("const mod = await import('mxs');")).toEqual(EXPORTS.toSorted());
+  it.each(Object.entries(ENTRIES))('loads every named export of %s through import()', (entry, names) => {
+    expect(exportedKeys(`const mod = await import('${entry}');`)).toEqual(names.toSorted());
   });
 
-  it('loads every named export through require()', () => {
-    const loader = "import { createRequire } from 'node:module'; const mod = createRequire(import.meta.url)('mxs');";
-    expect(exportedKeys(loader)).toEqual(EXPORTS.toSorted());
+  it.each(Object.entries(ENTRIES))('loads every named export of %s through require()', (entry, names) => {
+    const loader = `import { createRequire } from 'node:module'; const mod = createRequire(import.meta.url)('${entry}');`;
+    expect(exportedKeys(loader)).toEqual(names.toSorted());
   });
 
   it('resolves types for a nodenext consumer', () => {

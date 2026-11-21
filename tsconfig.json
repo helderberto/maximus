@@ -11,6 +11,9 @@
     "noEmit": true,
     "isolatedModules": true,
     "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "types": [
       "node",
       "vitest/globals"

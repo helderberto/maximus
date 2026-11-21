@@ -33,6 +33,15 @@ export default tseslint.config(
     },
   },
   {
+    files: ['src/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        { patterns: [{ group: ['../*'], message: 'Import across folders through the `@/` alias.' }] },
+      ],
+    },
+  },
+  {
     files: ['*.config.{ts,js}'],
     rules: {
       // Vite and ESLint load their config through a default export.
