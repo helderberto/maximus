@@ -46,6 +46,8 @@ jobs:
 
       - name: Publish with provenance
         if: steps.release.outputs.publish == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
 
       - name: Tag the release
