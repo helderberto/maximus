@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `removeDuplicates(items, { by })`: removes duplicates by a typed key or a selector and keeps the first occurrence.
+
 ### Changed
 
 - **Breaking:** the package is ESM only (`"type": "module"`). On Node 24+, `require('mxs')` still works.

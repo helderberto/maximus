@@ -27,8 +27,9 @@ See `docs/adr/0001-deep-modules-platform-first.md`.
 
 ## Imports and exports
 
-- Named only: `export { buildPath } from './build-path'`.
+- Named only: `export { buildPath } from './build-path/index.js'`.
 - No `export *`, `import * as`, or `export default`.
+- Relative imports end in `.js` (`./build-path.js`), so emitted types resolve under `nodenext`.
 
 ## File structure
 
